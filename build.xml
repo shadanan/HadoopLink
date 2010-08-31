@@ -1,0 +1,66 @@
+<project name="HadoopLink" default="jar" basedir=".">
+
+  <!-- Global properties for this build -->
+  <property name="jar.name" value="HadoopLink" />
+  <property name="version" value="0.1.0"/>
+
+  <!-- Directories -->
+  <property name="build.dir" location="build" />
+  <property name="javadoc.dir" location="javadoc" />
+  <property name="dist.dir" location="dist" />
+
+  <property name="src.dir" location="src" />
+  <property name="src.java.dir" location="${src.dir}/java" />
+
+  <property name="classes.dir" location="${build.dir}/classes" />
+
+  <property name="lib.dir" value="${basedir}/lib"/>
+
+  <target name="debug" description="sets properties for debugging">
+    <echo message="Building in debug mode..."/>
+    <property name="compile.mode" value="debug"/>
+    <property name="java.debug" value="true"/>
+  </target>
+
+  <target name="release" description="sets properties for release builds.">
+    <echo message="Building in release mode..."/>
+    <property name="compile.mode" value="release"/>
+    <property name="java.debug" value="false"/>
+  </target>
+
+  <target name="init">
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${classes.dir}" />
+  </target>
+
+  <target name="compile" depends="init" description="compile the source">
+    <!-- Compile the java code from ${src.java} into ${build} -->
+    <javac srcdir="${src.java.dir}" destdir="${classes.dir}"
+      debug="${java.debug}" debuglevel="lines,vars,source">
+      <classpath>
+        <fileset dir="lib">
+          <include name="**/*.jar"/>
+        </fileset>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile" description="generate the distribution">
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist.dir}"/>
+    <!-- Delete the old jar file -->
+    <delete file="${dist.dir}/${jar.name}-${version}.jar"/>
+    <jar jarfile="${dist.dir}/${jar.name}-${version}.jar">
+      <fileset dir="${classes.dir}"/>
+    </jar>
+  </target>
+
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${classes.dir}" />
+    <delete dir="${dist.dir}"/>
+  </target>
+</project>
