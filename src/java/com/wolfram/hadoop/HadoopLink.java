@@ -11,8 +11,8 @@ import com.wolfram.jlink.MathLinkFactory;
  */
 public class HadoopLink {
 
-  private static final String JLINK_PATH_KEY = "wolfram.jlink.path";
-  private static final String MATH_ARGS_KEY = "wolfram.math.args";
+  public static final String JLINK_PATH_KEY = "wolfram.jlink.path";
+  public static final String MATH_ARGS_KEY = "wolfram.math.args";
 
   private KernelLink link;
 
