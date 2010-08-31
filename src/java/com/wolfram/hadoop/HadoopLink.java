@@ -15,8 +15,8 @@ import com.wolfram.jlink.MathLinkFactory;
  */
 public class HadoopLink {
 
-  private static final Expr MR_TAG = new Expr(Expr.SYMBOL, "$mapreduce");
-  private static final Expr MR_FUNCTION = new Expr(Expr.SYMBOL, "MapReduceFunction");
+  private static final Expr MR_TAG = ExprUtil.toSymbol("$mapreduce");
+  private static final Expr MR_FUNCTION = ExprUtil.toSymbol("MapReduceFunction");
 
   public static final String JLINK_PATH_KEY = "wolfram.jlink.path";
   public static final String MATH_ARGS_KEY = "wolfram.math.args";
@@ -46,6 +46,14 @@ public class HadoopLink {
     values = new ArrayList<Expr>();
   }
 
+  public void defineEvaluationFunction(Expr function)
+      throws MathLinkException {
+    Expr assign = new Expr(new Expr(Expr.SYMBOL, "Set"),
+                           new Expr[] {MR_FUNCTION, function});
+    link.evaluate(assign);
+    link.discardAnswer();
+  }
+
   /**
    * Evaluate the supplied string, discarding the results.
    * 
@@ -54,10 +62,6 @@ public class HadoopLink {
   public void evaluate(String s) throws MathLinkException {
     link.evaluate(s);
     link.discardAnswer();
-  }
-
-  public void evaluateToString(String s) throws MathLinkException {
-    System.out.println(link.evaluateToOutputForm(s, 78));
   }
 
   /**
@@ -73,11 +77,11 @@ public class HadoopLink {
     Expr func = new Expr(MR_FUNCTION,
                          new Expr[] {key, value});
     /* Collect the results from the evaluation with Reap */
-    Expr reap = new Expr(new Expr(Expr.SYMBOL, "Reap"),
+    Expr reap = new Expr(ExprUtil.toSymbol("Reap"),
                          new Expr[] {func, MR_TAG});
-    Expr last = new Expr(new Expr(Expr.SYMBOL, "Last"),
+    Expr last = new Expr(ExprUtil.toSymbol("Last"),
                          new Expr[] {reap});
-    Expr flat = new Expr(new Expr(Expr.SYMBOL, "Flatten"),
+    Expr flat = new Expr(ExprUtil.toSymbol("Flatten"),
                          new Expr[] {last, new Expr(1)});
     link.evaluate(flat);
     link.waitForAnswer();
