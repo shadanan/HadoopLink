@@ -3,6 +3,7 @@ package com.wolfram.hadoop;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import org.apache.hadoop.record.Buffer;
  * objects.
  */
 public class ExprUtil {
+
+  private static final Expr RULE = new Expr(Expr.SYMBOL, "Rule");
 
   @SuppressWarnings("unchecked")
   public static Expr toExpr(Object obj) {
@@ -110,6 +113,10 @@ public class ExprUtil {
         obj = new Double(val.doubleValue());
       } else if (expr.stringQ() || expr.symbolQ()) {
         obj = expr.asString();
+      } else if (ruleListQ(expr)) {
+        obj = exprToMap(expr);
+      } else if (expr.listQ()) {
+        obj = exprToList(expr);
       } else {
         String error = String.format("%s cannot be converted from an Expr",
                                      expr);
@@ -130,5 +137,44 @@ public class ExprUtil {
       return true;
     }
     return false;
+  }
+
+  private static boolean ruleListQ(Expr expr) {
+    if (!expr.listQ()) {
+      return false;
+    }
+    int[] dimensions = expr.dimensions();
+    int length = dimensions[0];
+    /* If every element is a Rule, it's
+     * a rule list */
+    for (int i = 1; i <= length; i++) {
+      Expr e = expr.part(i);
+      if (!e.head().equals(RULE)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private static Map<Object, Object> exprToMap(Expr expr) {
+    Map<Object, Object> map = new HashMap<Object, Object>();
+    int length = expr.dimensions()[0];
+    for (int i = 1; i <= length; i++) {
+      Expr rule = expr.part(i);
+      Expr lhs = rule.part(1);
+      Expr rhs = rule.part(2);
+      map.put(fromExpr(lhs), fromExpr(rhs));
+    }
+    return map;
+  }
+
+  private static ArrayList<Object> exprToList(Expr expr) {
+    ArrayList<Object> list = new ArrayList<Object>();
+    int length = expr.dimensions()[0];
+    for (int i = 1; i <= length; i++) {
+      Expr element = expr.part(i);
+      list.add(fromExpr(element));
+    }
+    return list;
   }
 }

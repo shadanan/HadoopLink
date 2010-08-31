@@ -19,6 +19,7 @@ public class TestExprUtil {
     Boolean b = new Boolean(true);
     Expr e = ExprUtil.toExpr(b);
     assertTrue(e.trueQ());
+    assertEquals(b, ExprUtil.fromExpr(e));
   }
 
   @Test
@@ -26,6 +27,7 @@ public class TestExprUtil {
     Boolean b = new Boolean(false);
     Expr e = ExprUtil.toExpr(b);
     assertFalse(e.trueQ());
+    assertEquals(b, ExprUtil.fromExpr(e));
   }
 
   @Test
@@ -40,6 +42,7 @@ public class TestExprUtil {
     int[] dimensions = e.dimensions();
     assertEquals(dimensions.length, 1);
     assertEquals(dimensions[0], 4);
+    assertEquals(l, ExprUtil.fromExpr(e));
   }
 
   @Test
@@ -54,6 +57,7 @@ public class TestExprUtil {
     int[] dimensions = e.dimensions();
     assertEquals(dimensions.length, 1);
     assertEquals(dimensions[0], 4);
+    assertEquals(l, ExprUtil.fromExpr(e));
   }
 
   @Test
@@ -66,6 +70,7 @@ public class TestExprUtil {
     int[] dimensions = e.dimensions();
     assertEquals(dimensions.length, 1);
     assertEquals(dimensions[0], 2);
+    assertEquals(m, ExprUtil.fromExpr(e));
   }
 
   @Test
