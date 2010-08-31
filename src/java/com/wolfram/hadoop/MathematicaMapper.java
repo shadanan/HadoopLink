@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.typedbytes.TypedBytesWritable;
 import org.apache.hadoop.util.StringUtils;
 
+import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.MathLinkException;
 
 public class MathematicaMapper
