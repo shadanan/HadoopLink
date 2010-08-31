@@ -18,7 +18,18 @@ import org.apache.hadoop.record.Buffer;
  */
 public class ExprUtil {
 
-  private static final Expr RULE = new Expr(Expr.SYMBOL, "Rule");
+  private static final Expr RULE = toSymbol("Rule");
+  private static final Expr TRUE = toSymbol("True");
+  private static final Expr FALSE = toSymbol("False");
+
+  /**
+   * Constructs a Symbol Expr from a string.
+   * @param symbol The string to turn into a symbol.
+   * @return
+   */
+  public static Expr toSymbol(String symbol) {
+    return new Expr(Expr.SYMBOL, symbol);
+  }
 
   @SuppressWarnings("unchecked")
   public static Expr toExpr(Object obj) {
@@ -58,9 +69,9 @@ public class ExprUtil {
   
   private static Expr booleanToExpr(Boolean b) {
     if (b) {
-      return new Expr(Expr.SYMBOL, "True");
+      return TRUE;
     } else {
-      return new Expr(Expr.SYMBOL, "False");
+      return FALSE;
     }
   }
 
@@ -70,7 +81,7 @@ public class ExprUtil {
     for (int i = 0; i < length; i++) {
       expressions[i] = toExpr(list.get(i));
     }
-    return new Expr(new Expr(Expr.SYMBOL, "List"), expressions);
+    return new Expr(toSymbol("List"), expressions);
   }
 
   private static Expr mapToExpr(Map<Object, Object> map) {
@@ -80,12 +91,12 @@ public class ExprUtil {
     for (Object key : map.keySet()) {
       Expr lhs = toExpr(key);
       Expr rhs = toExpr(map.get(key));
-      Expr rule = new Expr(new Expr(Expr.SYMBOL, "Rule"),
+      Expr rule = new Expr(toSymbol("Rule"),
                            new Expr[] {lhs, rhs});
       rules[i] = rule;
       i++;
     }
-    return new Expr(new Expr(Expr.SYMBOL, "List"), rules);
+    return new Expr(toSymbol("List"), rules);
   }
 
   public static Object fromExpr(Expr expr) {
