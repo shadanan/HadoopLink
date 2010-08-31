@@ -19,22 +19,40 @@ public class MathematicaMapper
 
   private HadoopLink link;
 
+  private TypedBytesWritable outputKey;
+  private TypedBytesWritable outputValue;
+
   @Override
   public void setup(Context context) {
     /* Initialize a Mathematica kernel */
     try {
-      link = new HadoopLink(context.getConfiguration());
+      Configuration conf = context.getConfiguration();
+      link = new HadoopLink(conf);
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
-      throw new RuntimeException("Could not start a Mathematica kernel");
+      throw new RuntimeException("Error initializing kernel for mapper");
     }
   }
 
   @Override
   public void map(TypedBytesWritable key, TypedBytesWritable value,
                   Context context) throws IOException, InterruptedException {
-    // transform TypedBytesWritable to JLink Expr objects
-    // submit 
+    Expr k = ExprUtil.toExpr(key);
+    Expr v = ExprUtil.toExpr(value);
+    try {
+      link.evaluateKeyValuePair(k, v);
+    } catch (MathLinkException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      return;
+    }
+    Expr resultKey;
+    Expr resultValue;
+    while((resultKey = link.nextKey()) != null) {
+      resultValue = link.nextValue();
+      outputKey.setValue(ExprUtil.fromExpr(resultKey));
+      outputValue.setValue(ExprUtil.fromExpr(resultValue));
+      context.write(outputKey, outputValue);
+    }
   }
 
   @Override
