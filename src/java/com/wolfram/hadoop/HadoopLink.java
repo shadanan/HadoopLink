@@ -1,9 +1,14 @@
 package com.wolfram.hadoop;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.mapreduce.TaskInputOutputContext;
 
 import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.KernelLink;
@@ -21,12 +26,14 @@ public class HadoopLink {
   public static final String JLINK_PATH_KEY = "wolfram.jlink.path";
   public static final String MATH_ARGS_KEY = "wolfram.math.args";
 
+  private Configuration conf;
   private KernelLink link;
 
   private List<Expr> keys;
   private List<Expr> values;
 
   public HadoopLink(Configuration conf) throws MathLinkException {
+    this.conf = conf;
     /* Find and set the location of JLink.jar */
     String jlinkPath = conf.get(JLINK_PATH_KEY);
     if (jlinkPath == null) {
@@ -44,6 +51,39 @@ public class HadoopLink {
     /* Set up key/value queues for returning results */
     keys = new ArrayList<Expr>();
     values = new ArrayList<Expr>();
+  }
+
+  /**
+   * Evaluate a Mathematica .m file in this kernel.
+   *
+   * @param context   The task context
+   * @param filename  The name of the file to evaluate
+   * @return Expr
+   * @throws IOException
+   */
+  @SuppressWarnings("rawtypes")
+  public Expr load(TaskInputOutputContext context, String filename)
+      throws IOException, MathLinkException {
+    FileSystem fs = FileSystem.get(conf);
+    Path path = context.getWorkingDirectory();
+    Path file = new Path(path, filename);
+    if (!fs.exists(file)) {
+      String error = String.format("%s not found", filename);
+      throw new IOException(error);
+    }
+    FSDataInputStream f = fs.open(file);
+    StringBuffer sb = new StringBuffer();
+    byte[] buffer = new byte[1024];
+    int bytesRead;
+    while ((bytesRead = f.read(0, buffer, 0, 1024)) > 0) {
+      byte[] chunk = new byte[bytesRead];
+      System.arraycopy(buffer, 0, chunk, 0, bytesRead);
+      sb.append(chunk);
+    }
+    f.close();
+    link.evaluate(sb.toString());
+    link.waitForAnswer();
+    return link.getExpr();
   }
 
   public void defineEvaluationFunction(Expr function)
