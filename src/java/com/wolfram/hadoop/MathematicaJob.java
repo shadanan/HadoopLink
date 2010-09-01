@@ -16,6 +16,8 @@ import com.wolfram.jlink.Expr;
  */
 public class MathematicaJob extends Configured {
 
+  public static final String M_PACKAGES = "wolfram.packages";
+
   private Job job;
 
   public MathematicaJob(Expr map, Expr reduce) throws IOException {

@@ -17,7 +17,7 @@ public class MathematicaMapper
                    TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaMapper.class);
 
-  public static final String MAPPER = "wolfram.mapper.file"; 
+  public static final String MAPPER = "wolfram.mapper.file";
 
   private HadoopLink link;
 
@@ -30,6 +30,11 @@ public class MathematicaMapper
     try {
       Configuration conf = context.getConfiguration();
       link = new HadoopLink(conf);
+      /* Load any .m files supplied with this job */
+      String packageList = conf.get(MathematicaJob.M_PACKAGES);
+      for (String packagefile : packageList.split(",")) {
+        link.load(context, packagefile);
+      }
       /* Set up the evaluation function for this task */
       Expr mapper = link.load(context, conf.get(MAPPER));
       link.defineEvaluationFunction(mapper);
