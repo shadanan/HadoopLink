@@ -40,7 +40,7 @@ public class MathematicaMapper
       link.defineEvaluationFunction(mapper);
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
-      throw new RuntimeException("Error initializing kernel for mapper");
+      throw new RuntimeException("Error initializing kernel for task");
     } catch (IOException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error reading library file");
@@ -50,8 +50,8 @@ public class MathematicaMapper
   @Override
   public void map(TypedBytesWritable key, TypedBytesWritable value,
                   Context context) throws IOException, InterruptedException {
-    Expr k = ExprUtil.toExpr(key);
-    Expr v = ExprUtil.toExpr(value);
+    Expr k = ExprUtil.toExpr(key.getValue());
+    Expr v = ExprUtil.toExpr(value.getValue());
     try {
       link.evaluateKeyValuePair(k, v);
     } catch (MathLinkException e) {

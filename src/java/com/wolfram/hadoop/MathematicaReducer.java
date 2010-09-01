@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.typedbytes.TypedBytesWritable;
 import org.apache.hadoop.util.StringUtils;
 
+import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.MathLinkException;
 
 public class MathematicaReducer extends
@@ -15,16 +17,33 @@ public class MathematicaReducer extends
     TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaReducer.class);
 
+  public static final String REDUCER = "wolfram.reducer.file";
+
   private HadoopLink link;
+
+  private TypedBytesWritable outputKey;
+  private TypedBytesWritable outputValue;
 
   @Override
   public void setup(Context context) {
     /* Initialize a Mathematica kernel */
     try {
-      link = new HadoopLink(context.getConfiguration());
+      Configuration conf = context.getConfiguration();
+      link = new HadoopLink(conf);
+      /* Load any .m files supplied with this job */
+      String packageList = conf.get(MathematicaJob.M_PACKAGES);
+      for (String packagefile : packageList.split(",")) {
+        link.load(context, packagefile);
+      }
+      /* Set up the evaluation function for this task */
+      Expr reducer = link.load(context, conf.get(REDUCER));
+      link.defineEvaluationFunction(reducer);
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
-      throw new RuntimeException("Could not start a Mathematica kernel");
+      throw new RuntimeException("Error initializing kernel for task");
+    } catch (IOException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      throw new RuntimeException("Error reading library file");
     }
   }
 
@@ -33,7 +52,24 @@ public class MathematicaReducer extends
                      Iterable<TypedBytesWritable> values,
                      Context context)
       throws IOException, InterruptedException {
-
+    Expr k = ExprUtil.toExpr(key.getValue());
+    for (TypedBytesWritable value : values) {
+      Expr v = ExprUtil.toExpr(value.getValue());
+      try {
+        link.evaluateKeyValuePair(k, v);
+      } catch (MathLinkException e) {
+        LOG.error(StringUtils.stringifyException(e));
+        continue;
+      }
+      Expr resultKey;
+      Expr resultValue;
+      while((resultKey = link.nextKey()) != null) {
+        resultValue = link.nextValue();
+        outputKey.setValue(ExprUtil.fromExpr(resultKey));
+        outputValue.setValue(ExprUtil.fromExpr(resultValue));
+        context.write(outputKey, outputValue);
+      }
+    }
   }
 
   @Override
