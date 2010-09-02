@@ -24,24 +24,17 @@ public class MathematicaReducer extends
 
   @Override
   public void setup(Context context) {
+    outputKey = new TypedBytesWritable();
+    outputValue = new TypedBytesWritable();
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
       link = new HadoopLink(conf);
-      /* Load any .m files supplied with this job */
-      String packageList = conf.get(MathematicaJob.M_PACKAGES);
-      for (String packagefile : packageList.split(",")) {
-        link.load(context, packagefile);
-      }
       /* Set up the evaluation function for this task */
-      Expr reducer = link.load(context, conf.get(REDUCER));
-      link.defineEvaluationFunction(reducer);
+      link.defineEvaluationFunction(conf.get(MathematicaJob.REDUCER));
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
-    } catch (IOException e) {
-      LOG.error(StringUtils.stringifyException(e));
-      throw new RuntimeException("Error reading library file");
     }
   }
 
