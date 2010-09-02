@@ -24,6 +24,8 @@ import com.wolfram.jlink.Expr;
 public class MathematicaJob extends Configured {
 
   public static final String M_PACKAGES = "wolfram.packages";
+  public static final String MAPPER = "wolfram.mapper.function";
+  public static final String REDUCER = "wolfram.reducer.file";
 
   private String jobName;
   private Job job;
@@ -40,12 +42,10 @@ public class MathematicaJob extends Configured {
   }
 
   public void setMapFunction(Expr map) {
-    checkFunctionExpr(map);
     this.map = map;
   }
 
   public void setReduceFunction(Expr reduce) {
-    checkFunctionExpr(reduce);
     this.reduce = reduce;
   }
 
@@ -59,14 +59,13 @@ public class MathematicaJob extends Configured {
 
   public void launch() throws Exception {
     Configuration conf = getConf();
+    conf.set(MAPPER, map.toString());
+    conf.set(REDUCER, reduce.toString());
+
     job = new Job(conf);
     job.setJobName(jobName);
     job.setJarByClass(MathematicaJob.class);
-    /* Write out map/reduce implementations to working directory */
-    Path workingPath = job.getWorkingDirectory();
-    FileSystem fs = FileSystem.get(conf);
-    writeFunctionExpr(fs, new Path(workingPath, "mapper.m"), map);
-    writeFunctionExpr(fs, new Path(workingPath, "reducer.m"), reduce);
+
     /* Set input paths */
     for (String input : inputs) {
       FileInputFormat.addInputPath(job, new Path(input));
@@ -80,21 +79,6 @@ public class MathematicaJob extends Configured {
     job.setOutputKeyClass(TypedBytesWritable.class);
     job.setOutputValueClass(TypedBytesWritable.class);
     job.setOutputFormatClass(SequenceFileOutputFormat.class);
-
     job.waitForCompletion(false);
-  }
-
-  private void writeFunctionExpr(FileSystem fs, Path file, Expr expr)
-      throws IOException {
-    FSDataOutputStream f = fs.create(file);
-    f.writeChars(expr.toString());
-    f.close();
-  }
-
-  private void checkFunctionExpr(Expr expr) {
-    if (!expr.head().equals("Function")) {
-      String error = String.format("%s is not a Function", expr);
-      throw new IllegalArgumentException(error);
-    }
   }
 }
