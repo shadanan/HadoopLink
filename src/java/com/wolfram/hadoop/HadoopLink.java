@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
@@ -19,6 +21,7 @@ import com.wolfram.jlink.MathLinkFactory;
  * Wrapper around a KernelLink, specialized for use from a Hadoop job.
  */
 public class HadoopLink {
+  static final Log LOG = LogFactory.getLog(HadoopLink.class);
 
   private static final Expr MR_TAG = ExprUtil.toSymbol("$mapreduce");
   private static final Expr MR_FUNCTION = ExprUtil.toSymbol("MapReduceFunction");
@@ -84,6 +87,14 @@ public class HadoopLink {
     link.evaluate(sb.toString());
     link.waitForAnswer();
     return link.getExpr();
+  }
+
+  public void defineEvaluationFunction(String functionDefinition)
+      throws MathLinkException {
+    link.evaluate(functionDefinition);
+    link.waitForAnswer();
+    Expr function = link.getExpr();
+    defineEvaluationFunction(function);
   }
 
   public void defineEvaluationFunction(Expr function)
