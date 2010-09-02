@@ -53,22 +53,25 @@ public class MathematicaReducer extends
                      Context context)
       throws IOException, InterruptedException {
     Expr k = ExprUtil.toExpr(key.getValue());
+    /* TODO replace with some mechanism for passing an iterator to M-- */
+    Expr vals = new Expr(ExprUtil.toSymbol("List"), new Expr[] {});
     for (TypedBytesWritable value : values) {
       Expr v = ExprUtil.toExpr(value.getValue());
-      try {
-        link.evaluateKeyValuePair(k, v);
-      } catch (MathLinkException e) {
-        LOG.error(StringUtils.stringifyException(e));
-        continue;
-      }
-      Expr resultKey;
-      Expr resultValue;
-      while((resultKey = link.nextKey()) != null) {
-        resultValue = link.nextValue();
-        outputKey.setValue(ExprUtil.fromExpr(resultKey));
-        outputValue.setValue(ExprUtil.fromExpr(resultValue));
-        context.write(outputKey, outputValue);
-      }
+      vals = vals.insert(v, -1); // append to the end of the value queue
+    }
+    try {
+      link.evaluateKeyValuePair(k, vals);
+    } catch (MathLinkException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      return;
+    }
+    Expr resultKey;
+    Expr resultValue;
+    while((resultKey = link.nextKey()) != null) {
+      resultValue = link.nextValue();
+      outputKey.setValue(ExprUtil.fromExpr(resultKey));
+      outputValue.setValue(ExprUtil.fromExpr(resultValue));
+      context.write(outputKey, outputValue);
     }
   }
 

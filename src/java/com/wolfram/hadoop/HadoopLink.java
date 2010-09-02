@@ -105,7 +105,9 @@ public class HadoopLink {
   }
 
   /**
-   * Evaluate a key-value pair.
+   * Evaluate a key-value pair. When called by a mapper, the value is a
+   * single value. When called by a reducer, the value is a List of
+   * values.
    *
    * @param key   Key to proces.
    * @param value Value to process.
