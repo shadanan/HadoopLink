@@ -17,8 +17,6 @@ public class MathematicaReducer extends
     TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaReducer.class);
 
-  public static final String REDUCER = "wolfram.reducer.file";
-
   private HadoopLink link;
 
   private TypedBytesWritable outputKey;
