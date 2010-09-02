@@ -17,8 +17,6 @@ public class MathematicaMapper
                    TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaMapper.class);
 
-  public static final String MAPPER = "wolfram.mapper.file";
-
   private HadoopLink link;
 
   private TypedBytesWritable outputKey;
@@ -26,24 +24,18 @@ public class MathematicaMapper
 
   @Override
   public void setup(Context context) {
+    outputKey = new TypedBytesWritable();
+    outputValue = new TypedBytesWritable();
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
       link = new HadoopLink(conf);
-      /* Load any .m files supplied with this job */
-      String packageList = conf.get(MathematicaJob.M_PACKAGES);
-      for (String packagefile : packageList.split(",")) {
-        link.load(context, packagefile);
-      }
       /* Set up the evaluation function for this task */
-      Expr mapper = link.load(context, conf.get(MAPPER));
-      link.defineEvaluationFunction(mapper);
+      String fn = conf.get(MathematicaJob.MAPPER);
+      link.defineEvaluationFunction(fn);
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
-    } catch (IOException e) {
-      LOG.error(StringUtils.stringifyException(e));
-      throw new RuntimeException("Error reading library file");
     }
   }
 
