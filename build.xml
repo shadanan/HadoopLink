@@ -54,6 +54,7 @@
     <delete file="${dist.dir}/${jar.name}-${version}.jar"/>
     <jar jarfile="${dist.dir}/${jar.name}-${version}.jar">
       <fileset dir="${classes.dir}"/>
+      <fileset dir="${basedir}" includes="lib/JLink.jar"/>
     </jar>
   </target>
 
