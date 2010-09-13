@@ -7,13 +7,29 @@ OpenHadoopLink::usage = "OpenHadoopLink[hadoopHome] sets up Mathematica "<>
 "for interaction with a Hadoop cluster, via the local Hadoop distribution "<>
 "found at hadoopHome." 
 
+DFSFileNames::usage = ""
+
+DFSImport::usage = ""
+
 Begin["`Private`"]
+
+$HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
+
+Map[
+	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
+	{
+		"DFS.m"
+	}
+];
 
 (* Convenience function for throwing error messages. *)
 die[message_String] := Throw[message, "HadoopLinkError"]
 
 HadoopLink /: Format[HadoopLink[rls__Rule]] :=
 	HadoopLink["HadoopHome"/.{rls}]
+
+property[HadoopLink[rls__Rule], name_String] :=
+	name /. {rls} /. name -> Null
 
 (* Set up a JVM and create a HadoopLink object to encapsulate
  * distributed file system access.
@@ -37,7 +53,7 @@ jLinkInitializedForHadoopQ[] :=
 		ValueQ[initQ]
 	]
 
-initializeJLinkForHadoop[h : HadoopLink[rls__]] :=
+initializeJLinkForHadoop[h_HadoopLink] :=
 	Module[
 		{javaVersion, hadoopHome},
 		InstallJava[];
@@ -53,13 +69,15 @@ initializeJLinkForHadoop[h : HadoopLink[rls__]] :=
             "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
 		];
 		(* Add all the Hadoop jars to the classpath *)
-		hadoopHome = "HadoopHome" /. {rls};
+		hadoopHome = property[h, "HadoopHome"]; 
 		AddToClassPath[Flatten@Map[
 			FileNames["*.jar", #]&,
 			{
 				hadoopHome,
-			 	FileNameJoin[{hadoopHome,"lib"}],
-			 	FileNameJoin[{hadoopHome, "contrib", "streaming"}]
+				FileNameJoin[{hadoopHome, "conf"}],
+			 	FileNameJoin[{hadoopHome, "lib"}],
+			 	FileNameJoin[{hadoopHome, "contrib", "streaming"}],
+			 	FileNameJoin[{$HadoopLinkPath, "Java"}]
 			}
 		]];
 		(* TODO: Add xalan to the classpath *)
@@ -68,6 +86,21 @@ initializeJLinkForHadoop[h : HadoopLink[rls__]] :=
 			$hadoopLinkInitializedProperty,
 			"True"
 		];
+	]
+
+getConf[h_HadoopLink] :=
+	JavaBlock@Module[
+		{configDir, hadoopHome, conf, url},
+		hadoopHome = property[h, "HadoopHome"];
+		configDir = FileNameJoin[{hadoopHome, "conf"}];
+		conf = JavaNew["org.apache.hadoop.conf.Configuration"];
+		KeepJavaObject[conf];
+		url = LoadJavaClass["java.net.URL"];
+		Map[
+			conf@addResource[JavaNew[url, "file://"<>#]]&,
+			FileNames["*-site.xml", configDir]
+		];
+		conf
 	]
 
 End[]
