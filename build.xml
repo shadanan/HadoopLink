@@ -8,9 +8,11 @@
   <property name="build.dir" location="build" />
   <property name="javadoc.dir" location="javadoc" />
   <property name="dist.dir" location="dist" />
+  <property name="pkg.dir" location="${build.dir}/Mathematica" />
 
   <property name="src.dir" location="src" />
   <property name="src.java.dir" location="${src.dir}/java" />
+  <property name="src.math.dir" location="${src.dir}/Mathematica" />
 
   <property name="classes.dir" location="${build.dir}/classes" />
 
@@ -58,10 +60,23 @@
     </jar>
   </target>
 
+  <target name="package" depends="jar" description="assemble Mathematica package">
+    <delete dir="${pkg.dir}"/>
+    <mkdir dir="${pkg.dir}"/>
+    <copy todir="${pkg.dir}/HadoopLink">
+      <fileset dir="${src.math.dir}" includes="**/*.m"/>
+    </copy>
+    <!-- Copy Java jars to Mathematica Java directory-->
+    <mkdir dir="${pkg.dir}/HadoopLink/Java"/>
+    <copy
+      file="${dist.dir}/${jar.name}-${version}.jar"
+      todir="${pkg.dir}/HadoopLink/Java"/>
+  </target>
+
   <target name="clean" description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build.dir}"/>
-    <delete dir="${classes.dir}" />
+    <delete dir="${classes.dir}"/>
     <delete dir="${dist.dir}"/>
   </target>
 </project>
