@@ -1,5 +1,7 @@
 package com.wolfram.hadoop;
 
+import java.util.ArrayList;
+
 import com.wolfram.jlink.Expr;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -52,14 +54,17 @@ public class SequenceFileImportReader {
     }
   }
 
-  public Expr next(int maxRecords) throws Exception {
-    Expr[] records = new Expr[maxRecords];
+  public Object[] next(int maxRecords) throws Exception {
+    ArrayList<Expr> records = new ArrayList<Expr>(maxRecords);
     for (int i = 0; i < maxRecords; i++) {
       Expr record = next();
-      if (record == null) { break; }
-      records[i] = record;
+      if (record == null) {
+        if (i == 0) { return null; }
+        break;
+      }
+      records.add(record);
     }
-    return new Expr(ExprUtil.toSymbol("List"), records);
+    return records.toArray();
   }
 
   public void close() throws Exception {

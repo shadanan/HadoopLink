@@ -50,7 +50,8 @@ DFSFileNames[h_HadoopLink, forms_, dirs : {__String}] :=
 
 DFSImport[h_HadoopLink, file_, "SequenceFile"] :=
 	JavaBlock@Module[
-		{reader, conf, path, results, record},
+		{recordsPerFetch, reader, conf, path, results, chunk},
+		recordsPerFetch = 10000;
 		InstallJava[];
 		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
 		conf = getConf[h];
@@ -58,11 +59,11 @@ DFSImport[h_HadoopLink, file_, "SequenceFile"] :=
 		Check[
 			reader = JavaNew["com.wolfram.hadoop.SequenceFileImportReader", conf, path];
 			results = {};
-			While[(record = reader@next[]) =!= Null,
-				AppendTo[results, record];
+			While[(chunk = reader@next[recordsPerFetch]) =!= Null,
+				AppendTo[results, chunk];
 			];
 			reader@close[];
-			results,
+			Flatten[results, 1],
 			die["Error reading from "<>file];
 		]
 	]
