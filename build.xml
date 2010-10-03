@@ -71,6 +71,9 @@
     <copy
       file="${dist.dir}/${jar.name}-${version}.jar"
       todir="${pkg.dir}/HadoopLink/Java"/>
+    <copy
+      file="${lib.dir}/xmlenc-0.52.jar"
+      todir="${pkg.dir}/HadoopLink/Java"/>
   </target>
 
   <target name="clean" description="clean up">

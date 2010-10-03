@@ -11,6 +11,8 @@ DFSFileNames::usage = ""
 
 DFSImport::usage = ""
 
+Emit::usage = "In a map or reduce function, write out a key/value pair."
+
 Begin["`Private`"]
 
 $HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
@@ -24,6 +26,8 @@ Map[
 
 (* Convenience function for throwing error messages. *)
 die[message_String] := Throw[message, "HadoopLinkError"]
+
+die[message_String, args__] := die[ToString@StringForm[message, args]]
 
 HadoopLink /: Format[HadoopLink[rls__Rule]] :=
 	HadoopLink["HadoopHome"/.{rls}]

@@ -23,7 +23,7 @@ import com.wolfram.jlink.MathLinkFactory;
 public class HadoopLink {
   static final Log LOG = LogFactory.getLog(HadoopLink.class);
 
-  private static final Expr MR_TAG = ExprUtil.toSymbol("$mapreduce");
+  private static final Expr MR_TAG = ExprUtil.toSymbol("HadoopLink`Private`$$mapreduce");
   private static final Expr MR_FUNCTION = ExprUtil.toSymbol("MapReduceFunction");
 
   public static final String JLINK_PATH_KEY = "wolfram.jlink.path";
