@@ -7,9 +7,11 @@ OpenHadoopLink::usage = "OpenHadoopLink[hadoopHome] sets up Mathematica "<>
 "for interaction with a Hadoop cluster, via the local Hadoop distribution "<>
 "found at hadoopHome." 
 
-DFSFileNames::usage = ""
+DFSFileNames::usage = "DFSFileNames[link, args] behaves like FileNames for "<>
+"the Hadoop cluster defined by the HadoopLink object link."
 
-DFSImport::usage = ""
+DFSImport::usage = "DFSImport[link, args] behaves like Import for the Hadoop "<>
+"cluster defined by the HadoopLink object link."
 
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 

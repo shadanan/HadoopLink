@@ -4,17 +4,13 @@
 
   <property environment="env"/>
 
-  <!-- Global properties for this build -->
   <property name="jar.name" value="HadoopLink" />
   <property name="version" value="0.1.0"/>
-
-  <!-- Directories -->
   <property name="build.dir" location="build" />
-
   <property name="src.dir" location="src" />
   <property name="src.java.dir" location="${src.dir}/java" />
   <property name="src.test.dir" location="${src.dir}/test" />
-
+  <property name="doc.src.dir" location="docs" />
   <property name="classes.dir" location="${build.dir}/classes" />
 
   <target name="init">
@@ -24,15 +20,15 @@
     <mkdir dir="${build.dir}" />
     <mkdir dir="${classes.dir}" />
 
-    <fail message="Please set the HADOOP_HOME environment variable to your Hadoop installation.">
+    <fail message="Please set the HADOOP_HOME environment variable to your Hadoop installation">
       <condition>
         <not><isset property="env.HADOOP_HOME"/></not>
       </condition>
     </fail>
 
-    <fail message="Please set the JLINK_PATH environment variable to the JLink path in your Mathematica installation.">
+    <fail message="Please set the MATHEMATICA environment variable to your Mathematica installation">
       <condition>
-        <not><isset property="env.JLINK_PATH"/></not>
+        <not><isset property="env.MATHEMATICA"/></not>
       </condition>
     </fail>
 
@@ -41,7 +37,7 @@
         <include name="*.jar"/>
         <include name="lib/**/*.jar"/>
       </fileset>
-      <fileset dir="${env.JLINK_PATH}">
+      <fileset dir="${env.MATHEMATICA}/SystemFiles/Links/JLink/">
         <include name="JLink.jar"/>
       </fileset>
     </path>
@@ -55,12 +51,24 @@
     </javac>
   </target>
 
-  <target name="jar" depends="compile" description="generate the distribution">
+  <target name="jar" depends="compile" description="package up Java components">
     <mkdir dir="HadoopLink/Java"/>
     <delete file="HadoopLink/Java/${jar.name}-${version}.jar"/>
     <jar jarfile="HadoopLink/Java/${jar.name}-${version}.jar">
       <fileset dir="${classes.dir}"/>
     </jar>
+  </target>
+
+  <target name="docbuild" description="">
+    <property name="inputDir" value="${basedir}/${doc.src.dir}/English"/>
+    <property name="outputDirNB" value="${basedir}/${jar.name}/Documentation/English"/>
+    <property name="logdir" value="${basedir}/log"/>
+
+    <!-- call into documentation build scripts that ship with Mathematica -->
+    <property name="buildNBDocs" value="true"/>
+    <ant
+      antfile="${env.MATHEMATICA}/DocumentationTools/Internal/ant/BuildDocumentation/fullbuild.xml"
+      target="main"/>
   </target>
 
   <target name="clean" description="clean up">
