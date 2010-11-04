@@ -1,0 +1,101 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      2764,         91]
+NotebookOptionsPosition[      1468,         54]
+NotebookOutlinePosition[      2609,         85]
+CellTagsIndexPosition[      2566,         82]
+WindowTitle->HadoopLink - Wolfram Mathematica
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[" ", "GuideColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 0}}],
+
+Cell[TextData[{
+ StyleBox[ButtonBox["Mathematica",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:guide/Mathematica"],
+  FontSlant->"Italic"],
+ StyleBox[" > ", "LinkTrailSeparator"]
+}], "LinkTrail"],
+
+Cell[CellGroupData[{
+
+Cell["HadoopLink", "GuideTitle",
+ CellID->942062912],
+
+Cell[TextData[{
+ "HadoopLink is a collection of tools for interacting with a Hadoop \
+distributed filesystem and running map-reduce jobs. Please visit the ",
+ ButtonBox["homepage",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"], 
+    None},
+  ButtonNote->
+   "file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"],
+ " for complete documentation."
+}], "GuideAbstract",
+ CellID->2001916300]
+}, Open  ]],
+
+Cell[" ", "FooterCell"]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"HadoopLink - Wolfram Mathematica",
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "built" -> "{2010, 11, 4, 17, 12, 59.012750}", "context" -> "HadoopLink`", 
+    "keywords" -> {}, "index" -> True, "label" -> "Hadoop Link Guide", 
+    "language" -> "en", "paclet" -> "HadoopLink", "status" -> "None", 
+    "summary" -> 
+    "HadoopLink is a collection of tools for interacting with a Hadoop \
+distributed filesystem and running map-reduce jobs. Please visit the homepage \
+for complete documentation.", "synonyms" -> {}, "title" -> "HadoopLink", 
+    "type" -> "Guide", "uri" -> "HadoopLink/guide/HadoopLink"}, 
+  "SearchTextTranslated" -> ""},
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[591, 21, 75, 1, 70, "GuideColorBar"],
+Cell[669, 24, 209, 6, 70, "LinkTrail"],
+Cell[CellGroupData[{
+Cell[903, 34, 52, 1, 70, "GuideTitle",
+ CellID->942062912],
+Cell[958, 37, 468, 12, 70, "GuideAbstract",
+ CellID->2001916300]
+}, Open  ]],
+Cell[1441, 52, 23, 0, 70, "FooterCell"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
