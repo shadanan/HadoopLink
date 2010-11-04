@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>HadoopLink</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Mathematica</name>
+			<type>2</type>
+			<location>/Users/davidh/Documents/Code/HadoopLink/src/Mathematica</location>
+		</link>
+		<link>
+			<name>build.xml</name>
+			<type>1</type>
+			<location>/Users/davidh/Documents/Code/HadoopLink/build.xml</location>
+		</link>
+		<link>
+			<name>classes</name>
+			<type>2</type>
+			<location>/Users/davidh/Documents/Code/HadoopLink/build/classes</location>
+		</link>
+		<link>
+			<name>java</name>
+			<type>2</type>
+			<location>/Users/davidh/Documents/Code/HadoopLink/src/java</location>
+		</link>
+		<link>
+			<name>test</name>
+			<type>2</type>
+			<location>/Users/davidh/Documents/Code/HadoopLink/src/test</location>
+		</link>
+	</linkedResources>
+</projectDescription>

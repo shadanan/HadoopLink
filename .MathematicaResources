@@ -1,0 +1,9 @@
+Resources[
+    Version[1],
+    Sources[
+        Directory["~"]
+    ],
+    Paclet[
+        FunctionPaclet[False]
+    ]
+]
