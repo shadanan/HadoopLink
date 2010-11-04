@@ -1,0 +1,311 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      7002,        302]
+NotebookOptionsPosition[      4113,        200]
+NotebookOutlinePosition[      4525,        216]
+CellTagsIndexPosition[      4482,        213]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->605800465],
+
+Cell["", "Categorization",
+ CellLabel->"Context",
+ CellID->468444828],
+
+Cell["XXXX", "Categorization",
+ CellLabel->"URI"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Synonyms", "SynonymsSection",
+ CellID->1427418553],
+
+Cell["XXXX", "Synonyms",
+ CellID->1251652828]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1427428552],
+
+Cell["XXXX", "Keywords",
+ CellID->1251852827]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->383431442],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->96477600],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->529741587],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->45519574],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->139713968],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->129138584],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->5902045],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["HadoopLink",
+ FontSlant->"Italic"]], "GuideTitle",
+ CellChangeTimes->{{3.495138772889172*^9, 3.495138775787921*^9}},
+ CellID->942062912],
+
+Cell[TextData[{
+ StyleBox["HadoopLink ",
+  FontSlant->"Italic"],
+ "is a toolkit for working with a Hadoop cluster. It enables interactions \
+with a distributed filesystem, implementing map-reduce jobs with ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ ", and the analysis of Hadoop map-reduce job logs."
+}], "GuideAbstract",
+ CellChangeTimes->{
+  3.495138813677404*^9, {3.495138898364088*^9, 3.495139001797559*^9}},
+ CellID->2001916300],
+
+Cell[TextData[ButtonBox["Introductory Tutorial",
+ BaseStyle->"GuideMainTutorial"]], "GuideMainTutorial",
+ CellID->1580956551],
+
+Cell[TextData[ButtonBox["Test Drive",
+ BaseStyle->"GuideTestDrive"]], "GuideTestDrive",
+ CellID->321588326]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->1866139230],
+
+Cell[TextData[{
+ Cell[BoxData["XXXX"], "InlineGuideFunction"],
+ " \[LongDash] XXXX"
+}], "GuideText",
+ CellID->203374175],
+
+Cell[TextData[{
+ Cell[BoxData["XXXX"], "InlineGuideFunction"],
+ " \[LongDash] XXXX"
+}], "GuideText",
+ CellID->1463276848],
+
+Cell[CellGroupData[{
+
+Cell["\t", "GuideDelimiter",
+ CellID->311258892],
+
+Cell["XXXX . XXXX . ", "InlineGuideFunctionListing",
+ CellID->58033752]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "GuideTutorialsSection",
+ CellID->415694126],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->806871991],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->1885805579]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "GuideMoreAboutSection",
+ CellID->23220180],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->1567025153],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->252299663]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->415694148]
+},
+WindowSize->{700, 770},
+WindowMargins->{{86, Automatic}, {Automatic, 7}},
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 324, 14, 23, "History",
+ CellID->1247902091],
+Cell[CellGroupData[{
+Cell[894, 38, 68, 1, 27, "CategorizationSection",
+ CellID->1122911449],
+Cell[965, 41, 78, 2, 70, "Categorization",
+ CellID->686433507],
+Cell[1046, 45, 73, 2, 70, "Categorization",
+ CellID->605800465],
+Cell[1122, 49, 69, 2, 70, "Categorization",
+ CellID->468444828],
+Cell[1194, 53, 49, 1, 70, "Categorization"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1280, 59, 56, 1, 17, "SynonymsSection",
+ CellID->1427418553],
+Cell[1339, 62, 45, 1, 70, "Synonyms",
+ CellID->1251652828]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1421, 68, 56, 1, 17, "KeywordsSection",
+ CellID->1427428552],
+Cell[1480, 71, 45, 1, 70, "Keywords",
+ CellID->1251852827]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1562, 77, 53, 1, 17, "DetailsSection",
+ CellID->307771771],
+Cell[1618, 80, 63, 2, 70, "Details",
+ CellID->383431442],
+Cell[1684, 84, 69, 2, 70, "Details",
+ CellID->350963985],
+Cell[1756, 88, 65, 2, 70, "Details",
+ CellID->96477600],
+Cell[1824, 92, 71, 2, 70, "Details",
+ CellID->529741587],
+Cell[1898, 96, 60, 2, 70, "Details",
+ CellID->45519574],
+Cell[1961, 100, 61, 2, 70, "Details",
+ CellID->139713968],
+Cell[2025, 104, 63, 2, 70, "Details",
+ CellID->129138584],
+Cell[2091, 108, 76, 2, 70, "Details",
+ CellID->5902045],
+Cell[2170, 112, 67, 2, 70, "Details",
+ CellID->240026365]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2274, 119, 160, 3, 76, "GuideTitle",
+ CellID->942062912],
+Cell[2437, 124, 443, 11, 53, "GuideAbstract",
+ CellID->2001916300],
+Cell[2883, 137, 125, 2, 19, "GuideMainTutorial",
+ CellID->1580956551],
+Cell[3011, 141, 107, 2, 19, "GuideTestDrive",
+ CellID->321588326]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3155, 148, 54, 1, 69, "GuideFunctionsSection",
+ CellID->1866139230],
+Cell[3212, 151, 120, 4, 21, "GuideText",
+ CellID->203374175],
+Cell[3335, 157, 121, 4, 21, "GuideText",
+ CellID->1463276848],
+Cell[CellGroupData[{
+Cell[3481, 165, 48, 1, 26, "GuideDelimiter",
+ CellID->311258892],
+Cell[3532, 168, 71, 1, 19, "InlineGuideFunctionListing",
+ CellID->58033752]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3652, 175, 62, 1, 71, "GuideTutorialsSection",
+ CellID->415694126],
+Cell[3717, 178, 49, 1, 20, "GuideTutorial",
+ CellID->806871991],
+Cell[3769, 181, 50, 1, 20, "GuideTutorial",
+ CellID->1885805579]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3856, 187, 62, 1, 71, "GuideMoreAboutSection",
+ CellID->23220180],
+Cell[3921, 190, 51, 1, 20, "GuideMoreAbout",
+ CellID->1567025153],
+Cell[3975, 193, 50, 1, 20, "GuideMoreAbout",
+ CellID->252299663]
+}, Open  ]],
+Cell[4040, 197, 69, 1, 71, "GuideRelatedLinksSection",
+ CellID->415694148]
+}
+]
+*)
+
+(* End of internal cache information *)
