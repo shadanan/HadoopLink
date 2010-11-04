@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      5344,        159]
-NotebookOptionsPosition[      4552,        126]
-NotebookOutlinePosition[      4894,        141]
-CellTagsIndexPosition[      4851,        138]
+NotebookDataLength[      6371,        193]
+NotebookOptionsPosition[      5467,        156]
+NotebookOutlinePosition[      5808,        171]
+CellTagsIndexPosition[      5765,        168]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -25,16 +25,6 @@ Cell["HadoopLink`", "Section",
 
 Cell[BoxData["Quit"], "Input",
  CellChangeTimes->{{3.493379369305284*^9, 3.493379369589121*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.493400405455937*^9, 3.493400421389214*^9}}],
-
-Cell[BoxData["\<\"/Users/davidh/Documents/Code/HadoopLink/build/Mathematica\"\
-\>"], "Output",
- CellChangeTimes->{{3.493400409032528*^9, 3.493400419975987*^9}}]
-}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -68,7 +58,7 @@ Cell[BoxData[
    ",", "\<\"/Applications/Mathematica.app/Documentation/English/System\"\>", 
    ",", "\<\"/Users/davidh/Documents/Code/HadoopLink/build/Mathematica\"\>"}],
    "}"}]], "Output",
- CellChangeTimes->{3.493400424093904*^9}]
+ CellChangeTimes->{3.493400424093904*^9, 3.494155921892412*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -95,7 +85,8 @@ Cell[BoxData[
    3.493397613526594*^9, 3.493397778522737*^9, 3.493398144633511*^9, 
    3.493398209900408*^9, 3.49339826229571*^9, 3.493398328326185*^9, {
    3.493398398935423*^9, 3.493398464616789*^9}, 3.4933991420543327`*^9, 
-   3.4933991808305397`*^9, 3.493399454628989*^9, 3.4934004261011887`*^9}]
+   3.4933991808305397`*^9, 3.493399454628989*^9, 3.4934004261011887`*^9, 
+   3.494155929314185*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -114,18 +105,57 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"1.127076`6.5034981954939575", ",", "Null"}], "}"}]], "Output",
+  RowBox[{"1.365799`6.586931783900148", ",", "Null"}], "}"}]], "Output",
  CellChangeTimes->{
   3.49339817165029*^9, 3.493398211271515*^9, 3.493398266768673*^9, 
    3.4933983336705437`*^9, {3.493398402055408*^9, 3.493398466016411*^9}, {
    3.493398527071857*^9, 3.493398530783524*^9}, {3.493399164613048*^9, 
    3.49339918252756*^9}, {3.493399428532095*^9, 3.493399456346044*^9}, 
-   3.493400428169983*^9}]
+   3.493400428169983*^9, 3.494155932166608*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"job", "=", 
+  RowBox[{"JavaNew", "[", 
+   RowBox[{"\"\<com.wolfram.hadoop.MathematicaJob\>\"", ",", "\"\<foo\>\""}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.4941559396159077`*^9, 3.494155955523497*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\[LeftGuillemet]", 
+   RowBox[{"JavaObject", "[", 
+    RowBox[{"com", ".", "wolfram", ".", "hadoop", ".", "MathematicaJob"}], 
+    "]"}], "\[RightGuillemet]"}],
+  JLink`Objects`vm1`JavaObject213188570251265]], "Output",
+ CellChangeTimes->{3.494155956435513*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"conf", "=", 
+  RowBox[{
+  "JavaNew", "[", "\"\<org.apache.hadoop.conf.Configuration\>\"", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.494155957700511*^9, 3.494155967741939*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\[LeftGuillemet]", 
+   RowBox[{"JavaObject", "[", 
+    RowBox[{
+    "org", ".", "apache", ".", "hadoop", ".", "conf", ".", "Configuration"}], 
+    "]"}], "\[RightGuillemet]"}],
+  JLink`Objects`vm1`JavaObject445934945173505]], "Output",
+ CellChangeTimes->{3.494155968251*^9}]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{640, 750},
-WindowMargins->{{Automatic, 245}, {Automatic, 129}},
+WindowMargins->{{284, Automatic}, {Automatic, 84}},
 FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
 StyleDefinitions->"Default.nb"
 ]
@@ -144,21 +174,25 @@ Cell[CellGroupData[{
 Cell[567, 22, 98, 1, 67, "Section"],
 Cell[668, 25, 96, 1, 27, "Input"],
 Cell[CellGroupData[{
-Cell[789, 30, 92, 1, 27, "Input"],
-Cell[884, 33, 160, 2, 27, "Output"]
+Cell[789, 30, 323, 8, 27, "Input"],
+Cell[1115, 40, 1230, 20, 238, "Output"]
+}, Open  ]],
+Cell[2360, 63, 121, 2, 27, "Input"],
+Cell[CellGroupData[{
+Cell[2506, 69, 266, 6, 27, "Input"],
+Cell[2775, 77, 656, 11, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1081, 40, 323, 8, 27, "Input"],
-Cell[1407, 50, 1208, 20, 238, "Output"]
-}, Open  ]],
-Cell[2630, 73, 121, 2, 27, "Input"],
-Cell[CellGroupData[{
-Cell[2776, 79, 266, 6, 27, "Input"],
-Cell[3045, 87, 630, 10, 27, "Output"]
+Cell[3468, 93, 374, 10, 58, "Input"],
+Cell[3845, 105, 456, 8, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3712, 102, 374, 10, 58, "Input"],
-Cell[4089, 114, 435, 8, 27, "Output"]
+Cell[4338, 118, 231, 5, 27, "Input"],
+Cell[4572, 125, 306, 7, 27, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4915, 137, 202, 5, 27, "Input"],
+Cell[5120, 144, 319, 8, 27, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
