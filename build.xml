@@ -94,7 +94,8 @@
   </target>
 
   <target name="package" depends="build">
-
+    <zip basedir="${build.dir}" destfile="${build.dir}/${app.name}.zip"
+      includes="HadoopLink/**"/>
   </target>
 
   <target name="clean" description="clean up">
