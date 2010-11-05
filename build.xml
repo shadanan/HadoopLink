@@ -13,6 +13,7 @@
   <property name="src.test.dir" location="${src.dir}/test" />
   <property name="doc.src.dir" location="docs" />
   <property name="classes.dir" location="${build.dir}/classes" />
+  <property name="log.dir" location="${basedir}/log" />
 
   <target name="init">
     <tstamp/>
@@ -20,6 +21,7 @@
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build.dir}" />
     <mkdir dir="${classes.dir}" />
+    <mkdir dir="${log.dir}" />
 
     <fail message="Please set the HADOOP_HOME environment variable to your Hadoop installation">
       <condition>
@@ -59,9 +61,8 @@
   </target>
 
   <target name="jar" depends="compile" description="package up Java components">
-    <mkdir dir="HadoopLink/Java"/>
-    <delete file="HadoopLink/Java/${app.name}-${version}.jar"/>
-    <jar jarfile="HadoopLink/Java/${app.name}-${version}.jar">
+    <delete file="${build.dir}/${app.name}-${version}.jar"/>
+    <jar jarfile="${build.dir}/${app.name}-${version}.jar">
       <fileset dir="${classes.dir}"/>
     </jar>
   </target>
@@ -72,8 +73,8 @@
     <property name="mathematicaInstallDir" value="${env.MATHEMATICA}"/>
     <property name="mathExe" value="${mathematicaInstallDir}/Contents/MacOS/MathKernel"/>
     <property name="inputDir" value="${doc.src.dir}/English"/>
-    <property name="outputDirNB" value="build/${app.name}/Documentation/English"/>
-    <property name="logdir" value="${basedir}/log"/>
+    <property name="outputDirNB" value="${basedir}/build/${app.name}/Documentation/English"/>
+    <property name="logdir" value="${log.dir}"/>
 
     <!-- call into documentation build scripts that ship with Mathematica -->
     <property name="buildNBDocs" value="true"/>
@@ -82,10 +83,25 @@
       target="main"/>
   </target>
 
+  <target name="build" depends="docbuild,jar" description="assemble all the components of the application">
+    <copy todir="${build.dir}/${app.name}">
+      <fileset dir="${basedir}/${app.name}">
+        <include name="**/*.m"/>
+      </fileset>
+    </copy>
+    <copy todir="${build.dir}/${app.name}/Java"
+      file="${build.dir}/${app.name}-${version}.jar"/>
+  </target>
+
+  <target name="package" depends="build">
+
+  </target>
+
   <target name="clean" description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
     <delete dir="${build.dir}"/>
     <delete dir="${classes.dir}"/>
+    <delete dir="${log.dir}"/>
     <delete dir="HadoopLink/Java"/>
   </target>
 </project>
