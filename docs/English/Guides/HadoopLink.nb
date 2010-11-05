@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      4526,        191]
-NotebookOptionsPosition[      2896,        131]
-NotebookOutlinePosition[      3309,        147]
-CellTagsIndexPosition[      3266,        144]
+NotebookDataLength[      4278,        184]
+NotebookOptionsPosition[      2649,        124]
+NotebookOutlinePosition[      3062,        140]
+CellTagsIndexPosition[      3019,        137]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -112,25 +112,18 @@ Cell[CellGroupData[{
 Cell["HadoopLink", "GuideTitle",
  CellID->942062912],
 
-Cell[TextData[{
- "HadoopLink is a collection of tools for interacting with a Hadoop \
-distributed filesystem and running map-reduce jobs. Please visit the ",
- ButtonBox["homepage",
-  BaseStyle->"Hyperlink",
-  ButtonData->{
-    URL["file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"], 
-    None},
-  ButtonNote->
-   "file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"],
- " for complete documentation."
-}], "GuideAbstract",
+Cell["\<\
+HadoopLink is a collection of tools for interacting with a Hadoop distributed \
+filesystem and running map-reduce jobs.\
+\>", "GuideAbstract",
  CellChangeTimes->{{3.49789381592591*^9, 3.497893855301951*^9}, {
-  3.497893941244164*^9, 3.497893941244636*^9}},
+  3.497893941244164*^9, 3.497893941244636*^9}, {3.497985315817177*^9, 
+  3.49798531628469*^9}},
  CellID->2001916300]
 }, Open  ]]
 },
 WindowSize->{700, 770},
-WindowMargins->{{Automatic, 473}, {Automatic, 0}},
+WindowMargins->{{Automatic, 188}, {Automatic, 6}},
 FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
@@ -190,7 +183,7 @@ Cell[2139, 104, 67, 2, 29, "Details",
 Cell[CellGroupData[{
 Cell[2243, 111, 52, 1, 76, "GuideTitle",
  CellID->942062912],
-Cell[2298, 114, 582, 14, 39, "GuideAbstract",
+Cell[2298, 114, 335, 7, 39, "GuideAbstract",
  CellID->2001916300]
 }, Open  ]]
 }
