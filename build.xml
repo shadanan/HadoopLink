@@ -4,8 +4,9 @@
 
   <property environment="env"/>
 
-  <property name="jar.name" value="HadoopLink" />
+  <property name="app.name" value="HadoopLink" />
   <property name="version" value="0.1.0"/>
+
   <property name="build.dir" location="build" />
   <property name="src.dir" location="src" />
   <property name="src.java.dir" location="${src.dir}/java" />
@@ -32,6 +33,12 @@
       </condition>
     </fail>
 
+    <fail message="Please set the MATH_APPS environment variable to the global Mathematica applications directory">
+      <condition>
+        <not><isset property="env.MATH_APPS"/></not>
+      </condition>
+    </fail>
+
     <path id="classpath">
       <fileset dir="${env.HADOOP_HOME}">
         <include name="*.jar"/>
@@ -53,21 +60,25 @@
 
   <target name="jar" depends="compile" description="package up Java components">
     <mkdir dir="HadoopLink/Java"/>
-    <delete file="HadoopLink/Java/${jar.name}-${version}.jar"/>
-    <jar jarfile="HadoopLink/Java/${jar.name}-${version}.jar">
+    <delete file="HadoopLink/Java/${app.name}-${version}.jar"/>
+    <jar jarfile="HadoopLink/Java/${app.name}-${version}.jar">
       <fileset dir="${classes.dir}"/>
     </jar>
   </target>
 
-  <target name="docbuild" description="">
-    <property name="inputDir" value="${basedir}/${doc.src.dir}/English"/>
-    <property name="outputDirNB" value="${basedir}/${jar.name}/Documentation/English"/>
+  <target name="docbuild" depends="init" description="">
+    <!-- Set up the properties expected by the doc build script -->
+    <property name="appPath" value="${env.MATH_APPS}"/>
+    <property name="mathematicaInstallDir" value="${env.MATHEMATICA}"/>
+    <property name="mathExe" value="${mathematicaInstallDir}/Contents/MacOS/MathKernel"/>
+    <property name="inputDir" value="${doc.src.dir}/English"/>
+    <property name="outputDirNB" value="build/${app.name}/Documentation/English"/>
     <property name="logdir" value="${basedir}/log"/>
 
     <!-- call into documentation build scripts that ship with Mathematica -->
     <property name="buildNBDocs" value="true"/>
     <ant
-      antfile="${env.MATHEMATICA}/DocumentationTools/Internal/ant/BuildDocumentation/fullbuild.xml"
+      antfile="${appPath}/DocumentationTools/Internal/ant/BuildDocumentation/fullbuild.xml"
       target="main"/>
   </target>
 
