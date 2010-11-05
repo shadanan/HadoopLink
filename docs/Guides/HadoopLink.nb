@@ -1,0 +1,200 @@
+(* Content-type: application/mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 7.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       145,          7]
+NotebookDataLength[      4526,        191]
+NotebookOptionsPosition[      2896,        131]
+NotebookOutlinePosition[      3309,        147]
+CellTagsIndexPosition[      3266,        144]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellID->1247902091],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["HadoopLink", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->605800465],
+
+Cell["HadoopLink`", "Categorization",
+ CellLabel->"Context",
+ CellID->468444828],
+
+Cell["HadoopLink/guide/HadoopLink", "Categorization",
+ CellLabel->"URI"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1427428552],
+
+Cell["XXXX", "Keywords",
+ CellID->1251852827]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellChangeTimes->{{3.497893790150652*^9, 3.497893792540143*^9}},
+ CellLabel->"Lead",
+ CellID->795394057],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->802101],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->509823116],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->199884516],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->463951815],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->8237523],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->813936640],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["HadoopLink", "GuideTitle",
+ CellID->942062912],
+
+Cell[TextData[{
+ "HadoopLink is a collection of tools for interacting with a Hadoop \
+distributed filesystem and running map-reduce jobs. Please visit the ",
+ ButtonBox["homepage",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"], 
+    None},
+  ButtonNote->
+   "file:///Users/davidh/Documents/Code/HadoopLink/docs/index.html"],
+ " for complete documentation."
+}], "GuideAbstract",
+ CellChangeTimes->{{3.49789381592591*^9, 3.497893855301951*^9}, {
+  3.497893941244164*^9, 3.497893941244636*^9}},
+ CellID->2001916300]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{Automatic, 473}, {Automatic, 0}},
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[545, 20, 325, 14, 23, "History",
+ CellID->1247902091],
+Cell[CellGroupData[{
+Cell[895, 38, 68, 1, 27, "CategorizationSection",
+ CellID->1122911449],
+Cell[966, 41, 78, 2, 29, "Categorization",
+ CellID->686433507],
+Cell[1047, 45, 83, 2, 29, "Categorization",
+ CellID->605800465],
+Cell[1133, 49, 80, 2, 29, "Categorization",
+ CellID->468444828],
+Cell[1216, 53, 72, 1, 29, "Categorization"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1325, 59, 56, 1, 17, "KeywordsSection",
+ CellID->1427428552],
+Cell[1384, 62, 45, 1, 17, "Keywords",
+ CellID->1251852827]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1466, 68, 53, 1, 17, "DetailsSection",
+ CellID->307771771],
+Cell[1522, 71, 129, 3, 29, "Details",
+ CellID->795394057],
+Cell[1654, 76, 69, 2, 29, "Details",
+ CellID->350963985],
+Cell[1726, 80, 63, 2, 29, "Details",
+ CellID->802101],
+Cell[1792, 84, 71, 2, 29, "Details",
+ CellID->509823116],
+Cell[1866, 88, 61, 2, 29, "Details",
+ CellID->199884516],
+Cell[1930, 92, 61, 2, 29, "Details",
+ CellID->463951815],
+Cell[1994, 96, 61, 2, 29, "Details",
+ CellID->8237523],
+Cell[2058, 100, 78, 2, 29, "Details",
+ CellID->813936640],
+Cell[2139, 104, 67, 2, 29, "Details",
+ CellID->240026365]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2243, 111, 52, 1, 76, "GuideTitle",
+ CellID->942062912],
+Cell[2298, 114, 582, 14, 39, "GuideAbstract",
+ CellID->2001916300]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
