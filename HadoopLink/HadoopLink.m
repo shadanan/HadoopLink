@@ -1,17 +1,19 @@
 BeginPackage["HadoopLink`", {"JLink`"}]
 
-HadoopLink::usage = "HadoopLink[args] is an object that represents a "<>
-"connection to a Hadoop cluster, via a locally installed Hadoop distribution."
+HadoopLink::usage = "HadoopLink is an object that represents a Hadoop \
+installation and configuration."
 
-OpenHadoopLink::usage = "OpenHadoopLink[hadoopHome] sets up Mathematica "<>
-"for interaction with a Hadoop cluster, via the local Hadoop distribution "<>
-"found at hadoopHome." 
+OpenHadoopLink::usage = "OpenHadoopLink[path] creates a HadoopLink object \
+from the provided Hadoop installation path."
 
-DFSFileNames::usage = "DFSFileNames[link, args] behaves like FileNames for "<>
-"the Hadoop cluster defined by the HadoopLink object link."
+DFSFileNames::usage = "DFSFileNames[link] lists all files in the working \
+directory on a distributed filesystem."
 
-DFSImport::usage = "DFSImport[link, args] behaves like Import for the Hadoop "<>
-"cluster defined by the HadoopLink object link."
+DFSImport::usage = "DFSImport[link, file] imports data from a file stored on \
+distributed filesystem."
+
+DFSExport::usage = "DFSExport[link, \"file.ext\", expr] exports data to a \
+file on a distributed filesystem."
 
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 

@@ -87,3 +87,31 @@ DFSImport[h_HadoopLink, file_, args___] :=
 		DeleteFile[tempfile];
 		results
 	]
+
+(* Export to the DFS *)
+DFSExport[h_HadoopLink, file_, args___] :=
+	JavaBlock@Module[
+		{fs, dir, dfsPath, filename, tempfile, $path, results}
+		(* Double-check the JVM state *)
+		InstallJava[];
+		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
+		(* Export the file locally *)
+		dir = CreateDirectory[];
+		With[
+			{parts=FileNameSplit[file]},
+			dfsPath = Most[parts];
+			filename = Last[parts];
+		];
+		tempfile = FileNameJoin[{dir, filename}];
+		Export[tempfile, args];
+		(* Copy the exported file to HDFS *)
+		fs = getDefaultDFS[h];
+		$path = LoadJavaClass["org.apache.hadoop.fs.Path"];
+		Check[
+			fs@copyFromLocalFile[JavaNew[$path, tempfile], JavaNew[$path, file]],
+			die["Could not write file to DFS"]
+		];
+		(* Clean up *)
+		DeleteDirectory[dir];
+		file
+	]
