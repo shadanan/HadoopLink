@@ -112,6 +112,6 @@ DFSExport[h_HadoopLink, file_, args___] :=
 			die["Could not write file to DFS"]
 		];
 		(* Clean up *)
-		DeleteDirectory[dir];
+		DeleteDirectory[dir, DeleteContents -> True];
 		file
 	]
