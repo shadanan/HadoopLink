@@ -149,6 +149,7 @@ DFSAbsoluteFileName[h_HadoopLink, file_String] :=
 		If[ $DFS@exists[path],
 			status = $DFS@getFileStatus[path];
 			status@getPath[]@toUri[]@getPath[],
+
 			$Failed
 		]
 	]
@@ -185,4 +186,30 @@ DFSFileType[h_HadoopLink, file_String] :=
 			True,
 			File
 		]
+	]
+
+DFSFileByteCount[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{status, path},
+		path = JavaNew[$path, file];
+		If[ $DFS@exists[path],
+			status = $DFS@getFileStatus[path];
+			status@getLen[],
+
+			$Failed
+		]
+	]
+
+(* Start of epoch, in local AbsoluteTime *)
+$epoch = AbsoluteTime[DatePlus[{1970, 1, 1}, {$TimeZone, "Hour"}]];
+
+DFSFileDate[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{status, path, t},
+		path = JavaNew[$path, file];
+		If[!$DFS@exists[path], Return[$Failed]];
+
+		status = $DFS@getFileStatus[path];
+		t = status@getModificationTime[];
+		DateList[N[t/1000] + $epoch]
 	]

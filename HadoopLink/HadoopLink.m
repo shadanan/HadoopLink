@@ -27,6 +27,12 @@ directory with the specified name exists, and gives False otherwise."
 DFSFileType::usage = "DFSFileType[link, \"name\"] gives the type of a file: \
 File, Directory, or None."
 
+DFSFileByteCount::usage = "DFSFileByteCount[link, \"name\"] gives the number \
+of bytes in a file."
+
+DFSFileDate::usage = "DFSFileDate[link, \"name\"] gives the date and time at \
+which a file was last modified."
+
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
 Begin["`Private`"]
