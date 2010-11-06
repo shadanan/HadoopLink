@@ -251,3 +251,54 @@ DFSRenameFile[h_HadoopLink, old_String, new_String] :=
 	]
 
 DFSRenameDirectory = DFSRenameFile;
+
+DFSCopyFile[h_HadoopLink, file1_String, file2_String] :=
+	dfsModule[h,
+		{path1, path2},
+		path1 = JavaNew[$path, file1];
+		path2 = JavaNew[$path, file2];
+		LoadJavaClass["org.apache.hadoop.fs.FileUtil", StaticsVisible -> True];
+		Quiet@Check[
+			FileUtil`copy[
+				path1@getFileSystem[$Configuration],
+				path1,
+				path2@getFileSystem[$Configuration],
+				path2,
+				False,
+				$Configuration
+			];,
+			$Failed
+		]
+	]
+
+DFSCopyDirectory = DFSCopyFile;
+
+DFSCopyFromLocal[h_HadoopLink, localName0_String, dfsName_String] :=
+	dfsModule[h,
+		{localName, path1, path2},
+		localName = StringReplace[localName0, "~" -> $HomeDirectory];
+		path1 = JavaNew[$path, localName];
+		path2 = JavaNew[$path, dfsName];
+		If[ !FileExistsQ[localName],
+			Return[$Failed]
+		];
+		Quiet@Check[
+			$DFS@copyFromLocalFile[path1, path2];,
+			$Failed
+		]
+	]
+
+DFSCopyToLocal[h_HadoopLink, dfsName_String, localName0_String] :=
+	dfsModule[h,
+		{localName, path1, path2},
+		localName = StringReplace[localName0, "~" -> $HomeDirectory];
+		path1 = JavaNew[$path, dfsName];
+		path2 = JavaNew[$path, localName];
+		If[ !$DFS@exists[path1],
+			Return[$Failed]
+		];
+		Quiet@Check[
+			$DFS@copyToLocalFile[path1, path2];,
+			$Failed
+		]
+	]

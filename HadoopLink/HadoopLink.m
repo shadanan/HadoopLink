@@ -41,8 +41,19 @@ specified directory and all of its contents."
 DFSRenameFile::usage = "DFSRenameFile[link \"old\", \"name\"] renames the \
 file \"old\" to \"new\"."
 
-DFSRenameDirectory::usage = "DFSRenameDirectory[link \"old\", \"name\"] renames the \
-directory \"old\" to \"new\"."
+DFSRenameDirectory::usage = "DFSRenameDirectory[link \"old\", \"name\"] \
+renames the directory \"old\" to \"new\"."
+
+DFSCopyFile::usage = "DFSCopyFile[\"file1\",\"file2\"] copies file1 to file2."
+
+DFSCopyDirectory::usage = "DFSCopyDirectory[\"dir1\",\"dir2\"] copies the \
+directory dir1 to dir2."
+
+DFSCopyFromLocal::usage = "DFSCopyFromLocal[link, \"local\", \"remote\"] \
+copies a local file or directory to the distributed filesystem."
+
+DFSCopyToLocal::usage = "DFSCopyToLocal[link, \"remote\", \"local\"] \
+copies a file from the distributed filesystem to the local filesystem."
 
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
