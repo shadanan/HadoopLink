@@ -15,6 +15,15 @@ distributed filesystem."
 DFSExport::usage = "DFSExport[link, \"file.ext\", expr] exports data to a \
 file on a distributed filesystem."
 
+DFSAbsoluteFileName::usage = "DFSAbsoluteFileName[\"name\"] gives the full \
+absolute version of the name for a file on the distributed filesystem."
+
+DFSFileExistsQ::usage = "DFSFileExistsQ[\"name\"] gives True if the file with \
+the specified name exists, and gives False otherwise."
+
+DFSDirectoryQ::usage = "DirectoryQ[\"name\"] gives True if the directory with \
+the specified name exists, and gives False otherwise."
+
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
 Begin["`Private`"]

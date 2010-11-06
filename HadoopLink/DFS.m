@@ -141,3 +141,31 @@ DFSExport[h_HadoopLink, file_String, args___] :=
 		DeleteDirectory[tempDir, DeleteContents -> True];
 		file
 	]
+
+DFSAbsoluteFileName[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{path, status},
+		path = JavaNew[$path, file];
+		If[ $DFS@exists[path],
+			status = $DFS@getFileStatus[path];
+			status@getPath[]@toUri[]@getPath[],
+			$Failed
+		]
+	]
+
+DFSFileExistsQ[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{},
+		$DFS@exists[JavaNew[$path, file]]
+	]
+
+DFSDirectoryQ[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{status, path},
+		path = JavaNew[$path, file];
+		If[ $DFS@exists[path],
+			status = $DFS@getFileStatus[path];
+			status@isDir[],
+			False
+		]
+	]
