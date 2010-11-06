@@ -45,7 +45,7 @@ DFSFileNames[h_HadoopLink, forms_, dirs : {__String}] :=
 				forms
 			]&
 		];
-		Flatten[listMatchingNames /@ dirs]
+		Flatten[listMatchingNames /@ Select[dirs, fs@exists[JavaNew[$path, #]]&]]
 	]
 
 DFSImport[h_HadoopLink, file_, "SequenceFile"] :=
@@ -91,7 +91,7 @@ DFSImport[h_HadoopLink, file_, args___] :=
 (* Export to the DFS *)
 DFSExport[h_HadoopLink, file_, args___] :=
 	JavaBlock@Module[
-		{fs, dir, dfsPath, filename, tempfile, $path, results}
+		{fs, dir, dfsPath, filename, tempfile, $path, results},
 		(* Double-check the JVM state *)
 		InstallJava[];
 		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
