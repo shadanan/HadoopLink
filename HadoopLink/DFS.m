@@ -169,3 +169,20 @@ DFSDirectoryQ[h_HadoopLink, file_String] :=
 			False
 		]
 	]
+
+DFSFileType[h_HadoopLink, file_String] :=
+	dfsModule[h,
+		{status, path},
+		path = JavaNew[$path, file];
+		Which[
+			!$DFS@exists[path],
+			None,
+
+			status = $DFS@getFileStatus[path];
+			status@isDir[],
+			Directory,
+
+			True,
+			File
+		]
+	]

@@ -15,14 +15,17 @@ distributed filesystem."
 DFSExport::usage = "DFSExport[link, \"file.ext\", expr] exports data to a \
 file on a distributed filesystem."
 
-DFSAbsoluteFileName::usage = "DFSAbsoluteFileName[\"name\"] gives the full \
-absolute version of the name for a file on the distributed filesystem."
+DFSAbsoluteFileName::usage = "DFSAbsoluteFileName[link, \"name\"] gives the \
+full absolute version of the name for a file on the distributed filesystem."
 
-DFSFileExistsQ::usage = "DFSFileExistsQ[\"name\"] gives True if the file with \
-the specified name exists, and gives False otherwise."
+DFSFileExistsQ::usage = "DFSFileExistsQ[link, \"name\"] gives True if the file \
+with the specified name exists, and gives False otherwise."
 
-DFSDirectoryQ::usage = "DirectoryQ[\"name\"] gives True if the directory with \
-the specified name exists, and gives False otherwise."
+DFSDirectoryQ::usage = "DFSDirectoryQ[link, \"name\"] gives True if the \
+directory with the specified name exists, and gives False otherwise."
+
+DFSFileType::usage = "DFSFileType[link, \"name\"] gives the type of a file: \
+File, Directory, or None."
 
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
