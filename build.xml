@@ -1,54 +1,93 @@
 <?xml version="1.0"?>
 
-<project name="HadoopLink" basedir="." default="jar">
+<project name="HadoopLink" basedir="." default="build">
 
-  <property environment="env"/>
-
-  <property name="app.name" value="HadoopLink" />
+  <property name="app.name" value="HadoopLink"/>
   <property name="version" value="0.1.0"/>
 
-  <property name="build.dir" location="build" />
+  <property name="build.dir" location="build"/>
   <property name="src.dir" location="src" />
-  <property name="src.java.dir" location="${src.dir}/java" />
-  <property name="src.test.dir" location="${src.dir}/test" />
-  <property name="doc.src.dir" location="docs" />
-  <property name="classes.dir" location="${build.dir}/classes" />
-  <property name="log.dir" location="${basedir}/log" />
+  <property name="src.java.dir" location="${src.dir}/java"/>
+  <property name="src.test.dir" location="${src.dir}/test"/>
+  <property name="doc.src.dir" location="docs"/>
+  <property name="classes.dir" location="${build.dir}/classes"/>
+  <property name="log.dir" location="${basedir}/log"/>
 
   <target name="init">
     <tstamp/>
 
     <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build.dir}" />
-    <mkdir dir="${classes.dir}" />
-    <mkdir dir="${log.dir}" />
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+    <mkdir dir="${log.dir}"/>
 
-    <fail message="Please set the HADOOP_HOME environment variable to your Hadoop installation">
+    <fail message="Please set the hadoop.home property to the path of your Hadoop installation.">
       <condition>
-        <not><isset property="env.HADOOP_HOME"/></not>
+        <not><isset property="hadoop.home"/></not>
       </condition>
     </fail>
 
-    <fail message="Please set the MATHEMATICA environment variable to your Mathematica installation">
+    <fail message="Please set the mathematica.dir property to the path of your Mathematica installation.">
       <condition>
-        <not><isset property="env.MATHEMATICA"/></not>
+        <not><isset property="mathematica.dir"/></not>
       </condition>
     </fail>
 
-    <fail message="Please set the MATH_APPS environment variable to the global Mathematica applications directory">
-      <condition>
-        <not><isset property="env.MATH_APPS"/></not>
-      </condition>
-    </fail>
+    <property name="jlink.jar" location="${mathematica.dir}/SystemFiles/Links/JLink/JLink.jar"/>
+    <property name="mathExe" value="${mathematica.dir}/Contents/MacOS/MathKernel"/>
+
+    <condition property="skip.docbuild">
+      <not><isset property="workbench.dir"/></not>
+    </condition>
+
+    <!-- Load J/Link and set up the mathematica task type -->
+    <taskdef name="mathematica" classname="com.wolfram.jlink.util.MathematicaTask"
+      classpath="${jlink.jar}"/>
+
+    <mathematica exe="${mathExe}">
+      <![CDATA[
+
+        AntSetProperty["user.app.dir", FileNameJoin[{$UserBaseDirectory, "Applications"}]];
+
+        search[path_, form_] :=
+          Module[
+            {files, dirs},
+            files = FileNames[form, {path}];
+            If[ Length@files > 0,
+
+              files,
+              dirs = Select[FileNames["*", path], DirectoryQ];
+              Flatten@Table[search[dir, form], {dir, dirs}]
+            ]
+          ];
+
+          workbenchDir = AntProperty["workbench.dir"];
+          If[ workbenchDir =!= Null,
+
+            AntLog["Searching path "<>workbenchDir<>" for DocumentationBuild source."];
+            paths = search[workbenchDir, "DocumentationBuild"];
+
+            If[ Length@paths > 0,
+
+              AntLog[paths[[1]]];
+
+              AntSetProperty[
+                "mathematica.app.dir",
+                ParentDirectory[AbsoluteFileName@paths[[1]]]
+              ];
+
+            ]
+          ];
+
+      ]]>
+    </mathematica>
 
     <path id="classpath">
-      <fileset dir="${env.HADOOP_HOME}">
+      <fileset dir="${hadoop.home}">
         <include name="*.jar"/>
         <include name="lib/**/*.jar"/>
       </fileset>
-      <fileset dir="${env.MATHEMATICA}/SystemFiles/Links/JLink/">
-        <include name="JLink.jar"/>
-      </fileset>
+      <pathelement location="${jlink.jar}"/>
     </path>
   </target>
 
@@ -67,23 +106,32 @@
     </jar>
   </target>
 
-  <target name="docbuild" depends="init" description="">
+  <target name="docbuild" depends="init" unless="skip.docbuild" description="">
+    <!-- Check for the location of DocumentationBuild -->
+    <fail message="Please set the mathematica.app.dir property to
+      the path where the DocumentationBuild application is located">
+      <condition>
+        <not><isset property="mathematica.app.dir"/></not>
+      </condition>
+    </fail>
+
     <!-- Set up the properties expected by the doc build script -->
-    <property name="appPath" value="${env.MATH_APPS}"/>
-    <property name="mathematicaInstallDir" value="${env.MATHEMATICA}"/>
-    <property name="mathExe" value="${mathematicaInstallDir}/Contents/MacOS/MathKernel"/>
+    <property name="appPath" value="${mathematica.app.dir}"/>
+    <property name="mathematicaInstallDir" value="${mathematica.dir}"/>
     <property name="inputDir" value="${doc.src.dir}/English"/>
     <property name="outputDirNB" value="${basedir}/build/${app.name}/Documentation/English"/>
     <property name="logdir" value="${log.dir}"/>
+    <property name="JLinkLoaded" value="true"/>
+    <property name="jlink.lib" value="${jlink.jar}"/>
 
     <!-- call into documentation build scripts that ship with Mathematica -->
-    <property name="buildNBDocs" value="true"/>
     <ant
-      antfile="${appPath}/DocumentationTools/Internal/ant/BuildDocumentation/fullbuild.xml"
+      antfile="${appPath}/DocumentationBuild/SystemFiles/ant/Build/notebook.xml"
       target="main"/>
   </target>
 
-  <target name="build" depends="docbuild,jar" description="assemble all the components of the application">
+  <target name="build" depends="jar" description="assemble all the components of the application">
+    <mkdir dir="${build.dir}/${app.name}"/>
     <copy todir="${build.dir}/${app.name}">
       <fileset dir="${basedir}/${app.name}">
         <include name="**/*.m"/>
@@ -93,9 +141,14 @@
       file="${build.dir}/${app.name}-${version}.jar"/>
   </target>
 
-  <target name="package" depends="build">
-    <zip basedir="${build.dir}" destfile="${build.dir}/${app.name}.zip"
+  <target name="package" depends="build,docbuild">
+    <zip basedir="${build.dir}" destfile="${build.dir}/${app.name}-${version}.zip"
       includes="HadoopLink/**"/>
+  </target>
+
+  <target name="install" depends="package">
+    <delete dir="${user.app.dir}/${app.name}"/>
+    <unzip src="${build.dir}/${app.name}-${version}.zip" dest="${user.app.dir}"/>
   </target>
 
   <target name="clean" description="clean up">
