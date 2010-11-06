@@ -38,6 +38,12 @@ DFSDeleteFile::usage = "DFSDeleteFile[link, \"file\"] deletes a file."
 DFSDeleteDirectory::usage = "DFSDeleteDirectory[link, \"dir\"] deletes the \
 specified directory and all of its contents."
 
+DFSRenameFile::usage = "DFSRenameFile[link \"old\", \"name\"] renames the \
+file \"old\" to \"new\"."
+
+DFSRenameDirectory::usage = "DFSRenameDirectory[link \"old\", \"name\"] renames the \
+directory \"old\" to \"new\"."
+
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
 Begin["`Private`"]

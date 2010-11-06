@@ -237,3 +237,17 @@ DFSDeleteDirectory[h_HadoopLink, directory_String] :=
 			$Failed
 		]
 	]
+
+DFSRenameFile[h_HadoopLink, old_String, new_String] :=
+	dfsModule[h,
+		{oldPath, newPath},
+		oldPath = JavaNew[$path, old];
+		newPath = JavaNew[$path, new];
+		If[ !$DFS@exists[oldPath], Return[$Failed] ];
+		Quiet@Check[
+			$DFS@rename[oldPath, newPath];,
+			$Failed
+		]
+	]
+
+DFSRenameDirectory = DFSRenameFile;
