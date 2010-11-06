@@ -16,20 +16,24 @@ DFSFileNames[h_HadoopLink] :=
 	DFSFileNames[h, "*"]
 
 DFSFileNames[h_HadoopLink, form_] :=
-	DFSFileNames[h, form, {"/user/"<>$UserName}]
+	DFSFileNames[h, form, {}]
 
 DFSFileNames[h_HadoopLink, forms_, dir_String] :=
 	DFSFileNames[h, forms, {dir}]
 
-DFSFileNames[h_HadoopLink, forms_, dirs : {__String}] :=
+DFSFileNames[h_HadoopLink, forms_, dirs0 : {___String}] :=
 	JavaBlock@Module[
-		{$path, conf, fs, uri, trimUrl, listMatchingNames},
+		{$path, conf, fs, dirs, uri, trimUrl, listMatchingNames},
 		(* Double-check the JVM state *)
 		InstallJava[];
 		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
 		LoadJavaClass["org.apache.hadoop.fs.FileSystem", StaticsVisible -> True];
 		$path = LoadJavaClass["org.apache.hadoop.fs.Path"];
 		fs = getDefaultDFS[h];
+		If[ Length@dirs0 == 0,
+			dirs = {fs@getHomeDirectory[]@toUri[]@getPath[]},
+			dirs = dirs0
+		];
 		(* Set up a function to trim the DFS URL off of filenames *)
 		conf = getConf[h];
 		uri = FileSystem`getDefaultUri[conf]@toString[];
