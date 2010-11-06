@@ -42,10 +42,11 @@ property[HadoopLink[rls__Rule], name_String] :=
 (* Set up a JVM and create a HadoopLink object to encapsulate
  * distributed file system access.
  *)
-OpenHadoopLink[hadoopHome_String] :=
+OpenHadoopLink[hadoopHome_String, opts___Rule] :=
 	Module[
-		{hadoopLink},
-		hadoopLink = HadoopLink["HadoopHome"->hadoopHome];
+		{hadoopLink, properties},
+		properties = Cases[{opts}, HoldPattern[_String -> _String]];
+		hadoopLink = HadoopLink["HadoopHome"->hadoopHome, "Configuration" -> properties];
 		initializeJLinkForHadoop[hadoopLink];
 		hadoopLink
 	]
@@ -107,6 +108,11 @@ getConf[h_HadoopLink] :=
 		Map[
 			conf@addResource[JavaNew[url, "file://"<>#]]&,
 			FileNames["*-site.xml", configDir]
+		];
+		(* Override with custom configuration set by this HadoopLink *)
+		Map[
+			conf@set[Sequence@@#] &,
+			property[h, "Configuration"]
 		];
 		conf
 	]
