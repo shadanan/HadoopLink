@@ -33,6 +33,11 @@ of bytes in a file."
 DFSFileDate::usage = "DFSFileDate[link, \"name\"] gives the date and time at \
 which a file was last modified."
 
+DFSDeleteFile::usage = "DFSDeleteFile[link, \"file\"] deletes a file."
+
+DFSDeleteDirectory::usage = "DFSDeleteDirectory[link, \"dir\"] deletes the \
+specified directory and all of its contents."
+
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
 Begin["`Private`"]

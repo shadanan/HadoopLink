@@ -213,3 +213,27 @@ DFSFileDate[h_HadoopLink, file_String] :=
 		t = status@getModificationTime[];
 		DateList[N[t/1000] + $epoch]
 	]
+
+DFSDeleteFile[h_HadoopLink, file_String] :=
+	DFSDeleteFile[h, {file}]
+
+DFSDeleteFile[h_HadoopLink, files : {__String}] :=
+	dfsModule[h,
+		{},
+		Quiet@Check[
+			Map[
+				$DFS@delete[JavaNew[$path, #], False]&,
+				files
+			];,
+			$Failed
+		]
+	]
+
+DFSDeleteDirectory[h_HadoopLink, directory_String] :=
+	dfsModule[h,
+		{},
+		Quiet@Check[
+			$DFS@delete[JavaNew[$path, directory], True];,
+			$Failed
+		]
+	]
