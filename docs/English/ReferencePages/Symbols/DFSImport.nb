@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     14051,        552]
+NotebookDataLength[     14066,        553]
 NotebookOptionsPosition[      9501,        389]
-NotebookOutlinePosition[     10115,        413]
-CellTagsIndexPosition[     10037,        408]
+NotebookOutlinePosition[     10130,        414]
+CellTagsIndexPosition[     10052,        409]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -387,10 +387,11 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{1001, 1006},
+WindowSize->{823, 1001},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 4, \
+2010)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
@@ -407,7 +408,7 @@ CellTagsIndex->{
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 9899, 401}
+ {"ExtendedExamples", 9914, 402}
  }
 *)
 (*NotebookFileOutline

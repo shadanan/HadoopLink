@@ -19,7 +19,7 @@ DFSAbsoluteFileName::usage = "DFSAbsoluteFileName[link, \"name\"] gives the \
 full absolute version of the name for a file on the distributed filesystem."
 
 DFSFileExistsQ::usage = "DFSFileExistsQ[link, \"name\"] gives True if the file \
-with the specified name exists, and gives False otherwise."
+with the specified name exists and gives False otherwise."
 
 DFSDirectoryQ::usage = "DFSDirectoryQ[link, \"name\"] gives True if the \
 directory with the specified name exists, and gives False otherwise."
