@@ -79,6 +79,18 @@ HadoopLink /: Format[HadoopLink[rls__Rule]] :=
 property[HadoopLink[rls__Rule], name_String] :=
 	name /. {rls} /. name -> Null
 
+OpenHadoopLink[] :=
+	Module[
+		{hadoopHome},
+		hadoopHome = Environment["HADOOP_HOME"];
+		If[ hadoopHome =!= $Failed,
+			OpenHadoopLink[hadoopHome],
+			Print["Please define the HADOOP_HOME environment variable"];
+			$Failed
+		]
+	]
+
+
 (* Set up a JVM and create a HadoopLink object to encapsulate
  * distributed file system access.
  *)
