@@ -53,6 +53,32 @@ DFSFileNames[h_HadoopLink, form_] :=
 DFSFileNames[h_HadoopLink, forms_, dir_String] :=
 	DFSFileNames[h, forms, {dir}]
 
+(* Return a directory listing for the provided exact path, returning a list of
+ * length 0 when the path does not exist.
+ *
+ * Must be called from within a dfsModule! *)
+listingForPathname[pathname_String] /; StringFreeQ[pathname, "*"] :=
+	Module[
+		{path},
+		path = JavaNew[$path, pathname];
+		If[ $DFS@exists[path],
+			$DFS@listStatus[path],
+			{}
+		]
+	]
+
+(* Return a directory listing for the provided glob path.
+ *
+ * Must be called from within a dfsModule! *)
+listingForPathname[pathname0_String] :=
+	Module[
+		{pathname, path},
+		(* Add a glob for files in the matched directories if not present *)
+		pathname = pathname0 /. s_?(StringTake[#, -2] != "/*"&) :> s<>"/*";
+		path = JavaNew[$path, pathname];
+		$DFS@globStatus[path]
+	]
+
 DFSFileNames[h_HadoopLink, forms_, dirs0 : {___String}] :=
 	dfsModule[h,
 		{dirs, names},
@@ -63,16 +89,7 @@ DFSFileNames[h_HadoopLink, forms_, dirs0 : {___String}] :=
 			dirs = dirs0
 		];
 
-		names = Flatten@Map[
-			With[
-				{p = JavaNew[$path, #]},
-				If[ $DFS@exists[p],
-					$DFS@listStatus[p],
-					{}
-				]
-			]&,
-			dirs
-		];
+		names = Flatten@Map[listingForPathname, dirs];
 
 		(* Show just the path component of the file URIs *)
 		names = Map[#@getPath[]@toUri[]@getPath[]&, names];
