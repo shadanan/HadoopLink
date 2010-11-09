@@ -3,7 +3,6 @@
 <project name="HadoopLink" basedir="." default="build">
 
   <property name="app.name" value="HadoopLink"/>
-  <property name="version" value="0.2.0"/>
 
   <property name="build.dir" location="build"/>
   <property name="src.dir" location="src" />
@@ -79,6 +78,14 @@
             ]
           ];
 
+          (* Extract the version number from PacletInfo.m *)
+          paclet = Import[FileNameJoin[{
+            AntProperty["basedir"],
+            AntProperty["app.name"],
+            "PacletInfo.m"}]
+          ];
+          version = Version /. List@@paclet;
+          AntSetProperty["version", version];
       ]]>
     </mathematica>
 
