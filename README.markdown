@@ -60,7 +60,7 @@ using appropriate values for your system.
 There are a number of areas in which HadoopLink could be improved.
 
 - Define a Mathematica API for use in the _Mathematica_ implementation of mapper and reducer functions.
-- Add sequence file export from _Mathematica_.
+- Make sequence file export from _Mathematica_ break writes up into chunks to avoid Java out of heap errors.
 - Make sequence file import compatible with all Writable subclasses in `org.apache.hadoop.io`.
 - Improve error handling in DFS interaction functions.
 - Switch error messages from using <code>Throw</code> to <code>Message</code>.
