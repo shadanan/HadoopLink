@@ -143,7 +143,7 @@ DFSExport[h_HadoopLink, file_String, expr_, "SequenceFile"] :=
 		{recordsPerWrite, writer, path},
 		recordsPerWrite = 10000;
 		(* Check that expr has dimensions appropriate to a list of key-value pairs. *)
-		If[ !MatchQ[Dimensions[expr], {2,2,___}],
+		If[ !MatchQ[Dimensions[expr], {_,2,___}],
 			die["Can only export lists of pairs."]
 		];
 		path = JavaNew[$path, file];
