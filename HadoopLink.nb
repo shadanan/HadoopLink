@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      1423,         56]
-NotebookOptionsPosition[      1067,         38]
-NotebookOutlinePosition[      1444,         55]
-CellTagsIndexPosition[      1401,         52]
+NotebookDataLength[      2601,         91]
+NotebookOptionsPosition[      2044,         67]
+NotebookOutlinePosition[      2406,         83]
+CellTagsIndexPosition[      2363,         80]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -22,6 +22,24 @@ Notebook[{
 Cell[CellGroupData[{
 Cell["HadoopLink`", "Section",
  CellChangeTimes->{{3.493117227767763*^9, 3.4931172307030897`*^9}}],
+
+Cell[BoxData["Quit"], "Input",
+ CellChangeTimes->{{3.498478235601001*^9, 3.498478235910166*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.498477143068391*^9, 3.4984771477660637`*^9}}],
+
+Cell[BoxData["\<\"/Users/davidh/Documents/Code/HadoopLink\"\>"], "Output",
+ CellChangeTimes->{
+  3.498477148168789*^9, {3.4984772797939997`*^9, 3.4984773064556417`*^9}, 
+   3.498477361302112*^9, 3.498477458752448*^9, 3.498477529130642*^9, 
+   3.4984777659870443`*^9, 3.498478240566382*^9, {3.498478860833832*^9, 
+   3.4984788762186613`*^9}}]
+}, Open  ]],
 
 Cell[BoxData[
  RowBox[{
@@ -33,14 +51,24 @@ Cell[BoxData[
        RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<build\>\""}], "}"}],
       "]"}]}], "]"}], ";"}]], "Input",
  CellChangeTimes->{{3.498036638343223*^9, 3.4980366581612453`*^9}, {
-  3.498037146629251*^9, 3.4980371477862587`*^9}}]
+  3.498037146629251*^9, 3.4980371477862587`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"<<", "HadoopLink`"}]], "Input",
+ CellChangeTimes->{{3.498476867324545*^9, 3.498476871192643*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"$hl", "=", 
+   RowBox[{"OpenHadoopLink", "[", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.498476919394981*^9, 3.498476923713871*^9}, 
+   3.498478991572287*^9}]
 }, Open  ]]
 },
-WindowSize->{640, 750},
-WindowMargins->{{Automatic, 18}, {Automatic, 69}},
+WindowSize->{1145, 1036},
+WindowMargins->{{Automatic, 67}, {Automatic, 0}},
 ShowSelection->True,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 4, \
-2010)",
+FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -56,7 +84,14 @@ CellTagsIndex->{}
 Notebook[{
 Cell[CellGroupData[{
 Cell[567, 22, 98, 1, 67, "Section"],
-Cell[668, 25, 383, 10, 27, "Input"]
+Cell[668, 25, 96, 1, 27, "Input"],
+Cell[CellGroupData[{
+Cell[789, 30, 172, 3, 27, "Input"],
+Cell[964, 35, 341, 5, 27, "Output"]
+}, Open  ]],
+Cell[1320, 43, 383, 10, 27, "Input"],
+Cell[1706, 55, 121, 2, 27, "Input"],
+Cell[1830, 59, 198, 5, 27, "Input"]
 }, Open  ]]
 }
 ]

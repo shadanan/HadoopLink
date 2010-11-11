@@ -138,6 +138,24 @@ DFSImport[h_HadoopLink, file_String, args___] :=
 		results
 	]
 
+DFSExport[h_HadoopLink, file_String, expr_, "SequenceFile"] :=
+	dfsModule[h,
+		{recordsPerWrite, writer, path},
+		recordsPerWrite = 10000;
+		(* Check that expr has dimensions appropriate to a list of key-value pairs. *)
+		If[ !MatchQ[Dimensions[expr], {2,2,___}],
+			die["Can only export lists of pairs."]
+		];
+		path = JavaNew[$path, file];
+		Check[
+			writer = JavaNew["com.wolfram.hadoop.SequenceFileExportWriter", $Configuration, path];
+			writer@write[expr];
+			writer@close[];
+			file,
+			die["Could not write sequence file to DFS"]
+		]
+	]
+
 DFSExport[h_HadoopLink, file_String, args___] :=
 	dfsModule[h,
 		{tempDir, filename, tempFile},
