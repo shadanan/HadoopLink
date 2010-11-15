@@ -44,9 +44,9 @@ file \"old\" to \"new\"."
 DFSRenameDirectory::usage = "DFSRenameDirectory[link \"old\", \"name\"] \
 renames the directory \"old\" to \"new\"."
 
-DFSCopyFile::usage = "DFSCopyFile[\"file1\",\"file2\"] copies file1 to file2."
+DFSCopyFile::usage = "DFSCopyFile[link, \"file1\",\"file2\"] copies file1 to file2."
 
-DFSCopyDirectory::usage = "DFSCopyDirectory[\"dir1\",\"dir2\"] copies the \
+DFSCopyDirectory::usage = "DFSCopyDirectory[link, \"dir1\",\"dir2\"] copies the \
 directory dir1 to dir2."
 
 DFSCopyFromLocal::usage = "DFSCopyFromLocal[link, \"local\", \"remote\"] \
