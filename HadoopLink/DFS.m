@@ -337,3 +337,13 @@ DFSCopyToLocal[h_HadoopLink, dfsName_String, localName0_String] :=
 			$Failed
 		]
 	]
+
+DFSCreateDirectory[h_HadoopLink, dir_String] :=
+	dfsModule[h,
+		{path},
+		path = JavaNew[$path, dir];
+		Quiet@Check[
+			$DFS@mkdirs[path];,
+			$Failed
+		]
+	]

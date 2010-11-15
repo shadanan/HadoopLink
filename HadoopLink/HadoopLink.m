@@ -55,6 +55,9 @@ copies a local file or directory to the distributed filesystem."
 DFSCopyToLocal::usage = "DFSCopyToLocal[link, \"remote\", \"local\"] \
 copies a file from the distributed filesystem to the local filesystem."
 
+DFSCreateDirectory::usage = "DFSCreateDirectory[link, \"dir\"] creates a \
+directory on the distributed filesystem."
+
 Emit::usage = "In a map or reduce function, write out a key/value pair."
 
 Begin["`Private`"]
