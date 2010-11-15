@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      2601,         91]
-NotebookOptionsPosition[      2044,         67]
-NotebookOutlinePosition[      2406,         83]
-CellTagsIndexPosition[      2363,         80]
+NotebookDataLength[      3165,        106]
+NotebookOptionsPosition[      2518,         79]
+NotebookOutlinePosition[      2896,         96]
+CellTagsIndexPosition[      2853,         93]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -38,7 +38,7 @@ Cell[BoxData["\<\"/Users/davidh/Documents/Code/HadoopLink\"\>"], "Output",
   3.498477148168789*^9, {3.4984772797939997`*^9, 3.4984773064556417`*^9}, 
    3.498477361302112*^9, 3.498477458752448*^9, 3.498477529130642*^9, 
    3.4984777659870443`*^9, 3.498478240566382*^9, {3.498478860833832*^9, 
-   3.4984788762186613`*^9}}]
+   3.4984788762186613`*^9}, 3.498827090450844*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -62,13 +62,26 @@ Cell[BoxData[
   RowBox[{"$hl", "=", 
    RowBox[{"OpenHadoopLink", "[", "]"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.498476919394981*^9, 3.498476923713871*^9}, 
-   3.498478991572287*^9}]
+   3.498478991572287*^9}],
+
+Cell[BoxData[
+ RowBox[{"DFSCreateDirectory", "[", 
+  RowBox[{"$hl", ",", "\"\<foo\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.498826899125136*^9, 3.498826905578734*^9}, {
+  3.498827087807851*^9, 3.4988270880125513`*^9}, {3.4988271910993767`*^9, 
+  3.498827193564631*^9}}],
+
+Cell[BoxData[
+ RowBox[{"DFSDeleteDirectory", "[", 
+  RowBox[{"$hl", ",", "\"\<foo\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.498827196206895*^9, 3.498827210955513*^9}}]
 }, Open  ]]
 },
 WindowSize->{1145, 1036},
 WindowMargins->{{Automatic, 67}, {Automatic, 0}},
 ShowSelection->True,
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
+2010)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -87,11 +100,13 @@ Cell[567, 22, 98, 1, 67, "Section"],
 Cell[668, 25, 96, 1, 27, "Input"],
 Cell[CellGroupData[{
 Cell[789, 30, 172, 3, 27, "Input"],
-Cell[964, 35, 341, 5, 27, "Output"]
+Cell[964, 35, 363, 5, 27, "Output"]
 }, Open  ]],
-Cell[1320, 43, 383, 10, 27, "Input"],
-Cell[1706, 55, 121, 2, 27, "Input"],
-Cell[1830, 59, 198, 5, 27, "Input"]
+Cell[1342, 43, 383, 10, 27, "Input"],
+Cell[1728, 55, 121, 2, 27, "Input"],
+Cell[1852, 59, 198, 5, 27, "Input"],
+Cell[2053, 66, 274, 5, 27, "Input"],
+Cell[2330, 73, 172, 3, 27, "Input"]
 }, Open  ]]
 }
 ]
