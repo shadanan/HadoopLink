@@ -17,7 +17,7 @@ public class MathematicaReducer extends
     TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaReducer.class);
 
-  private HadoopLink link;
+  private MapReduceKernelLink link;
 
   private TypedBytesWritable outputKey;
   private TypedBytesWritable outputValue;
@@ -29,7 +29,7 @@ public class MathematicaReducer extends
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
-      link = new HadoopLink(conf);
+      link = new MapReduceKernelLink(conf);
       /* Set up the evaluation function for this task */
       link.defineEvaluationFunction(conf.get(MathematicaJob.REDUCER));
     } catch (MathLinkException e) {
@@ -43,27 +43,7 @@ public class MathematicaReducer extends
                      Iterable<TypedBytesWritable> values,
                      Context context)
       throws IOException, InterruptedException {
-    Expr k = ExprUtil.toExpr(key.getValue());
-    /* TODO replace with some mechanism for passing an iterator to M-- */
-    Expr vals = new Expr(ExprUtil.toSymbol("List"), new Expr[] {});
-    for (TypedBytesWritable value : values) {
-      Expr v = ExprUtil.toExpr(value.getValue());
-      vals = vals.insert(v, -1); // append to the end of the value queue
-    }
-    try {
-      link.evaluateKeyValuePair(k, vals);
-    } catch (MathLinkException e) {
-      LOG.error(StringUtils.stringifyException(e));
-      return;
-    }
-    Expr resultKey;
-    Expr resultValue;
-    while((resultKey = link.nextKey()) != null) {
-      resultValue = link.nextValue();
-      outputKey.setValue(ExprUtil.fromExpr(resultKey));
-      outputValue.setValue(ExprUtil.fromExpr(resultValue));
-      context.write(outputKey, outputValue);
-    }
+
   }
 
   @Override

@@ -20,8 +20,8 @@ import com.wolfram.jlink.MathLinkFactory;
 /**
  * Wrapper around a KernelLink, specialized for use from a Hadoop job.
  */
-public class HadoopLink {
-  static final Log LOG = LogFactory.getLog(HadoopLink.class);
+public class MapReduceKernelLink {
+  static final Log LOG = LogFactory.getLog(MapReduceKernelLink.class);
 
   private static final Expr MR_FUNCTION = ExprUtil.toSymbol("MapReduceFunction");
 
@@ -31,10 +31,7 @@ public class HadoopLink {
   private Configuration conf;
   private KernelLink link;
 
-  private List<Expr> keys;
-  private List<Expr> values;
-
-  public HadoopLink(Configuration conf) throws MathLinkException {
+  public MapReduceKernelLink(Configuration conf) throws MathLinkException {
     this.conf = conf;
 
     /* Find and set the location of JLink.jar */
@@ -56,10 +53,6 @@ public class HadoopLink {
 
     /* Register a shutdown hook to close this kernel */
     Runtime.getRuntime().addShutdownHook(new ShutdownHook(this));
-
-    /* Set up key/value queues for returning results */
-    keys = new ArrayList<Expr>();
-    values = new ArrayList<Expr>();
   }
 
   /**
@@ -132,9 +125,9 @@ public class HadoopLink {
 
 class ShutdownHook extends Thread {
 
-  private HadoopLink link;
+  private MapReduceKernelLink link;
 
-  ShutdownHook(HadoopLink link) {
+  ShutdownHook(MapReduceKernelLink link) {
     this.link = link;
   }
 

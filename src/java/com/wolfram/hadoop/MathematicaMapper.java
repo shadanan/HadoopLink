@@ -17,7 +17,7 @@ public class MathematicaMapper
                    TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaMapper.class);
 
-  private HadoopLink link;
+  private MapReduceKernelLink link;
 
   private TypedBytesWritable outputKey;
   private TypedBytesWritable outputValue;
@@ -29,7 +29,7 @@ public class MathematicaMapper
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
-      link = new HadoopLink(conf);
+      link = new MapReduceKernelLink(conf);
       /* Set up the evaluation function for this task */
       String fn = conf.get(MathematicaJob.MAPPER);
       link.defineEvaluationFunction(fn);
@@ -42,22 +42,7 @@ public class MathematicaMapper
   @Override
   public void map(TypedBytesWritable key, TypedBytesWritable value,
                   Context context) throws IOException, InterruptedException {
-    Expr k = ExprUtil.toExpr(key.getValue());
-    Expr v = ExprUtil.toExpr(value.getValue());
-    try {
-      link.evaluateKeyValuePair(k, v);
-    } catch (MathLinkException e) {
-      LOG.error(StringUtils.stringifyException(e));
-      return;
-    }
-    Expr resultKey;
-    Expr resultValue;
-    while((resultKey = link.nextKey()) != null) {
-      resultValue = link.nextValue();
-      outputKey.setValue(ExprUtil.fromExpr(resultKey));
-      outputValue.setValue(ExprUtil.fromExpr(resultValue));
-      context.write(outputKey, outputValue);
-    }
+
   }
 
   @Override
