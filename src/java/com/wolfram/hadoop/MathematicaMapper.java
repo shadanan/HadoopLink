@@ -13,8 +13,6 @@ import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathLinkException;
 
-import static com.wolfram.hadoop.ExprUtil.*;
-
 public class MathematicaMapper
     extends Mapper<TypedBytesWritable, TypedBytesWritable,
                    TypedBytesWritable, TypedBytesWritable> {
@@ -43,8 +41,10 @@ public class MathematicaMapper
       link.waitForAnswer();
       Expr mapFn = link.getExpr();
 
-      Expr set = new Expr(toSymbol("Set"), new Expr[] {mapper, mapFn});
-      link.evaluate(set);
+      link.putFunction("Set", 2);
+        link.put(mapper);
+        link.put(mapFn);
+      link.endPacket();
       link.discardAnswer();
 
     } catch (MathLinkException e) {
@@ -58,8 +58,10 @@ public class MathematicaMapper
                   Context context) throws IOException, InterruptedException {
     task.setContext(context);
     try {
-      link.putFunction("MapReduceImplementation", 4);
-        link.put(task);
+      /* Evaluates this record in Mathematica, injecting a MathematicaTask
+         object to wrap the context and enable communication back to Java */
+      link.putFunction("MapImplementation", 4);
+        link.putReference(task);
         link.put(mapper);
         link.put(key.getValue());
         link.put(value.getValue());

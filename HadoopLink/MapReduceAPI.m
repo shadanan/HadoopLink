@@ -11,6 +11,6 @@ IncrementCounter[name_String, n_Integer] :=
 (* Wrapper function for writing output records from a map or reduce task *)
 Yield[k_, v_] := $task@write[k, v]
 
-(* Sets up context for an individual map or reduce call *)
-MapReduceImplementation[task_, fn_Function, k_, v_] :=
+(* Sets up context for an individual map call *)
+MapImplementation[task_, fn_Function, k_, v_] :=
 	Block[{$task = task}, fn[k, v]]
