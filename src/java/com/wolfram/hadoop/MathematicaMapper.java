@@ -19,7 +19,6 @@ public class MathematicaMapper
   private static final Log LOG = LogFactory.getLog(MathematicaMapper.class);
 
   private Expr mapper;
-
   private KernelLink link;
   private MathematicaTask task;
 
