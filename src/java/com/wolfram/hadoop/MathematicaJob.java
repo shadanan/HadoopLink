@@ -22,16 +22,16 @@ public class MathematicaJob extends Configured {
 
   public static final String M_PACKAGES = "wolfram.packages";
   public static final String MAPPER = "wolfram.mapper.function";
-  public static final String REDUCER = "wolfram.reducer.file";
+  public static final String REDUCER = "wolfram.reducer.function";
 
   private String jobName;
   private Job job;
 
-  private Expr map;
-  private Expr reduce;
+  private Expr map = null;
+  private Expr reduce = null;
 
   private List<String> inputs;
-  private String output;
+  private String output = null;
  
   public MathematicaJob(String jobName) {
     this.jobName = jobName;
@@ -54,8 +54,12 @@ public class MathematicaJob extends Configured {
     this.output = output;
   }
 
-  public void launch() throws Exception {
-    Configuration conf = getConf();
+  public Job launch(Configuration conf) throws Exception {
+    assert inputs.size() != 0;
+    assert output != null;
+    assert map != null;
+    assert reduce != null;
+
     conf.set(MAPPER, map.toString());
     conf.set(REDUCER, reduce.toString());
 
@@ -76,6 +80,7 @@ public class MathematicaJob extends Configured {
     job.setOutputKeyClass(TypedBytesWritable.class);
     job.setOutputValueClass(TypedBytesWritable.class);
     job.setOutputFormatClass(SequenceFileOutputFormat.class);
-    job.waitForCompletion(false);
+    job.submit();
+    return job;
   }
 }

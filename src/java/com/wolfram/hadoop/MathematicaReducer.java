@@ -1,6 +1,7 @@
 package com.wolfram.hadoop;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,8 +67,8 @@ public class MathematicaReducer extends
         link.put(reducer);
         link.put(key.getValue());
         link.putReference(iter);
-        link.endPacket();
-        link.waitForAnswer();
+      link.endPacket();
+      link.discardAnswer();
     } catch (MathLinkException ex) {
       LOG.error(StringUtils.stringifyException(ex));
     }
@@ -95,6 +96,8 @@ class ValuesIterator implements Iterator {
   }
 
   public Object next() {
-    return iter.next().getValue();
+    return ((TypedBytesWritable) iter.next()).getValue();
   }
+
+  public void remove() {}
 }

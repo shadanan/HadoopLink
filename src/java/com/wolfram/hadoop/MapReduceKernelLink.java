@@ -50,13 +50,15 @@ public class MapReduceKernelLink {
       link.enableObjectReferences();
 
       /* Load the map-reduce API code */
-      InputStream stream = MapReduceKernelLink.class.getResourceAsStream("/MapReduceAPI.m");
+      ClassLoader classLoader = MapReduceKernelLink.class.getClassLoader();
+      InputStream stream = classLoader.getResourceAsStream("MapReduceAPI.m");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
       StringBuilder sb = new StringBuilder();
       try {
         String line;
         while((line = reader.readLine()) != null) {
           sb.append(line);
+          sb.append("\n");
         }
       } catch (IOException ex) {
         throw new RuntimeException("Couldn't load map-reduce API");

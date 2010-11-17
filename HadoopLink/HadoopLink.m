@@ -58,6 +58,8 @@ copies a file from the distributed filesystem to the local filesystem."
 DFSCreateDirectory::usage = "DFSCreateDirectory[link, \"dir\"] creates a \
 directory on the distributed filesystem."
 
+MapReduceJob::usage = ""
+
 Begin["`Private`"]
 
 $HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
@@ -65,7 +67,8 @@ $HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
 Map[
 	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
 	{
-		"DFS.m"
+		"DFS.m",
+		"MapReduce.m"
 	}
 ];
 
