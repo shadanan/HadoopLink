@@ -64,8 +64,8 @@ public class MathematicaMapper
         link.put(mapper);
         link.put(key.getValue());
         link.put(value.getValue());
-        link.endPacket();
-        link.waitForAnswer();
+      link.endPacket();
+      link.discardAnswer();
     } catch (MathLinkException ex) {
       LOG.error(StringUtils.stringifyException(ex));
     }
