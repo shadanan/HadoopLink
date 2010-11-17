@@ -1,6 +1,7 @@
 package com.wolfram.hadoop;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,8 +50,7 @@ public class MapReduceKernelLink {
       link.enableObjectReferences();
 
       /* Load the map-reduce API code */
-      ClassLoader cl = getClass().getClassLoader();
-      InputStream stream = cl.getResourceAsStream("MapReduceAPI.m");
+      InputStream stream = MapReduceKernelLink.class.getResourceAsStream("/MapReduceAPI.m");
       BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
       StringBuilder sb = new StringBuilder();
       try {
@@ -59,7 +59,7 @@ public class MapReduceKernelLink {
           sb.append(line);
         }
       } catch (IOException ex) {
-        throw new RuntimeError("Couldn't load map-reduce API");
+        throw new RuntimeException("Couldn't load map-reduce API");
       }
       link.evaluate(sb.toString());
       link.discardAnswer();
