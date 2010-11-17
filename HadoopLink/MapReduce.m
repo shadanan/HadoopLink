@@ -1,7 +1,5 @@
 (* Functions for map-reduce jobs *)
 
-Protect[$$mapreduce];
-
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
@@ -10,7 +8,7 @@ MapReduceJob[h_HadoopLink,
 			 reducer_Function
 			 ] :=
 	JavaBlock@Module[
-		{job, conf},
+		{job, jobRef, conf},
 
 		(* Ensure that Java and the Hadoop classes are properly initialized *)
 		InstallJava[];
@@ -52,5 +50,15 @@ MapReduceJob[h_HadoopLink,
 		job@setReduceFunction[reducer];
 
 		(* Launch the job asynchronously *)
-		job@launch[]; 
+		jobRef = job@launch[conf];
+		KeepJavaObject[jobRef];
+		JobInProgress[jobRef]
+	]
+
+JobInProgress /: Format[JobInProgress[jobRef_]] :=
+	Module[
+		{url, jobId},
+		url = jobRef@getTrackingURL[];
+		jobId = StringCases[url, "jobid="~~id__ :> id][[1]];
+		Panel[Hyperlink[jobId, url]]
 	]

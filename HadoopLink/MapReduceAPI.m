@@ -1,5 +1,4 @@
 
-
 (* Wrapper function for incrementing Hadoop counters in map or reduce tasks *)
 IncrementCounter[{group_String, name_String}, n_Integer] :=
 	$task@incrementCounter[group, name, n]
