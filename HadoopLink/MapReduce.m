@@ -2,22 +2,15 @@
 
 Protect[$$mapreduce];
 
-Emit[k_, v_] := Sow[{k,v}, $$mapreduce]
-
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
 			 outputPath_String,
-			 mapper : _Symbol | _Function,
-			 reducer : _Symbol | _Function
+			 mapper_Function,
+			 reducer_Function
 			 ] :=
 	JavaBlock@Module[
-		{
-			job,
-			conf,
-			mapfn,
-			reducefn
-		},
+		{job, conf},
 
 		(* Ensure that Java and the Hadoop classes are properly initialized *)
 		InstallJava[];
@@ -54,27 +47,10 @@ MapReduceJob[h_HadoopLink,
 		(* Define output path *)
 		job@setOutputPath[outputPath];
 
-		(* Define the map function for the job *)
-		Switch[mapper,
+		(* Define the map and reduce implementation functions *)
+		job@setMapFunction[mapper];
+		job@setReduceFunction[reducer];
 
-			_Function,
-			mapfn = mapper,
-
-			_Symbol,
-			mapfn = Function[{k,v}, mapper[k,v]];
-		];
-		job@setMapFunction[ ];
-		(* Define the reduce function for the job *)
-		Switch[reducer,
-			(* *)
-			_Function,
-			reducefn = reducer,
-
-			_Symbol,
-			reducefn = Function[{k,v}, reducer[k,v]];
-		];
-		
-		job@setReduceFunction[ ];
 		(* Launch the job asynchronously *)
 		job@launch[]; 
 	]

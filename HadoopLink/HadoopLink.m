@@ -58,8 +58,6 @@ copies a file from the distributed filesystem to the local filesystem."
 DFSCreateDirectory::usage = "DFSCreateDirectory[link, \"dir\"] creates a \
 directory on the distributed filesystem."
 
-Emit::usage = "In a map or reduce function, write out a key/value pair."
-
 Begin["`Private`"]
 
 $HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
