@@ -10,6 +10,7 @@ import org.apache.hadoop.typedbytes.TypedBytesWritable;
 import org.apache.hadoop.util.StringUtils;
 
 import com.wolfram.jlink.Expr;
+import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathLinkException;
 
 public class MathematicaReducer extends
@@ -17,21 +18,17 @@ public class MathematicaReducer extends
     TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaReducer.class);
 
-  private MapReduceKernelLink link;
-
-  private TypedBytesWritable outputKey;
-  private TypedBytesWritable outputValue;
+  private KernelLink link;
 
   @Override
   public void setup(Context context) {
-    outputKey = new TypedBytesWritable();
-    outputValue = new TypedBytesWritable();
+
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
-      link = new MapReduceKernelLink(conf);
-      /* Set up the evaluation function for this task */
-      link.defineEvaluationFunction(conf.get(MathematicaJob.REDUCER));
+      link = MapReduceKernelLink.get(conf);
+
+
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
@@ -49,6 +46,7 @@ public class MathematicaReducer extends
   @Override
   public void cleanup(Context context) {
     /* Shut down Mathematica connection */
+    link.terminateKernel();
     link.close();
   }
 

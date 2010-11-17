@@ -10,29 +10,31 @@ import org.apache.hadoop.typedbytes.TypedBytesWritable;
 import org.apache.hadoop.util.StringUtils;
 
 import com.wolfram.jlink.Expr;
+import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathLinkException;
+
+import static com.wolfram.hadoop.ExprUtil.*;
 
 public class MathematicaMapper
     extends Mapper<TypedBytesWritable, TypedBytesWritable,
                    TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaMapper.class);
 
-  private MapReduceKernelLink link;
+  /* Symbol for storing Mathematica implementation function */
+  private static final Expr MAPPER_FUNCTION = toSymbol("$$fn");
 
-  private TypedBytesWritable outputKey;
-  private TypedBytesWritable outputValue;
+  private KernelLink link;
 
   @Override
   public void setup(Context context) {
-    outputKey = new TypedBytesWritable();
-    outputValue = new TypedBytesWritable();
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
-      link = new MapReduceKernelLink(conf);
+      link = MapReduceKernelLink.get(conf);
+
       /* Set up the evaluation function for this task */
       String fn = conf.get(MathematicaJob.MAPPER);
-      link.defineEvaluationFunction(fn);
+
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
@@ -42,13 +44,15 @@ public class MathematicaMapper
   @Override
   public void map(TypedBytesWritable key, TypedBytesWritable value,
                   Context context) throws IOException, InterruptedException {
+    Expr k = toExpr(key.getValue());
+    Expr v = toExpr(value.getValue());
 
   }
 
   @Override
   public void cleanup(Context context) {
     /* Shut down Mathematica connection */
+    link.terminateKernel();
     link.close();
   }
-
 }

@@ -1,5 +1,7 @@
 package com.wolfram.hadoop;
 
+import java.io.IOException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.mapreduce.Counter;
@@ -30,7 +32,7 @@ public class MathematicaTask {
     this.context = context;
   }
 
-  public void write(Expr k, Expr v) {
+  public void write(Expr k, Expr v) throws InterruptedException, IOException {
     key.setValue(fromExpr(k));
     value.setValue(fromExpr(v));
     context.write(key, value);
