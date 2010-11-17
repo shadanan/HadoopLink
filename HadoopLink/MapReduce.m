@@ -5,6 +5,25 @@ Yield[k_, v_] := Print[ToString@k<>"\t"<>ToString@v]
 
 IncrementCounter[___] = Null;
 
+fullDefString[sym_] := ToString@InputForm[FullDefinition[sym]]
+
+(* Get the definition dependencies for a pure function as a string,
+ * removing any definitions for symbols that will be redefined in the
+ * map-reduce task kernels. *)
+getFunctionDependencies[fn_Function] :=
+	Module[
+		{fnSym},
+		fnSym = fn;
+		StringReplace[
+			fullDefString[fnSym],
+			{
+				ToString@InputForm[Definition[fnSym]] -> "",
+				fullDefString[Yield] -> "",
+				fullDefString[IncrementCounter] -> ""
+			}
+		]
+	]
+
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
@@ -13,7 +32,7 @@ MapReduceJob[h_HadoopLink,
 			 reducer_Function
 			 ] :=
 	JavaBlock@Module[
-		{job, jobRef, conf},
+		{conf, job, jobRef},
 
 		(* Ensure that Java and the Hadoop classes are properly initialized *)
 		InstallJava[];
@@ -53,6 +72,7 @@ MapReduceJob[h_HadoopLink,
 		(* Define the map and reduce implementation functions *)
 		job@setMapFunction[mapper];
 		job@setReduceFunction[reducer];
+
 
 		(* Launch the job asynchronously *)
 		jobRef = job@launch[conf];

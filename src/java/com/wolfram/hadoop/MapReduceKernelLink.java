@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.TaskInputOutputContext;
+import org.apache.hadoop.util.StringUtils;
 
 import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.KernelLink;
@@ -29,6 +31,9 @@ public class MapReduceKernelLink {
   public static final String JLINK_PATH_KEY = "wolfram.jlink.path";
   public static final String MATH_ARGS_KEY = "wolfram.math.args";
 
+  /**
+   * Create a KernelLink object initialized for use in a map or reduce task.
+   */
   public static KernelLink get(Configuration conf) throws MathLinkException {
       /* Find and set the location of JLink.jar */
       String jlinkPath = conf.get(JLINK_PATH_KEY);
@@ -50,26 +55,42 @@ public class MapReduceKernelLink {
       link.enableObjectReferences();
 
       /* Load the map-reduce API code */
-      ClassLoader classLoader = MapReduceKernelLink.class.getClassLoader();
-      InputStream stream = classLoader.getResourceAsStream("MapReduceAPI.m");
-      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-      StringBuilder sb = new StringBuilder();
-      try {
-        String line;
-        while((line = reader.readLine()) != null) {
-          sb.append(line);
-          sb.append("\n");
-        }
-      } catch (IOException ex) {
-        throw new RuntimeException("Couldn't load map-reduce API");
-      }
-      link.evaluate(sb.toString());
-      link.discardAnswer();
+      loadPackageFromJar(link, "MapReduceAPI.m");
 
       /* Register a shutdown hook to close this kernel */
       Runtime.getRuntime().addShutdownHook(new ShutdownHook(link));
 
       return link;
+  }
+
+  /**
+   * Attempt to load a Mathematica library present as a resource in the
+   * parent jar file.
+   *
+   * @param link Mathematica kernel where the package will be loaded
+   * @param packageName name of the file in the jar to load
+   */
+  public static void loadPackageFromJar(KernelLink link, String packageName) {
+    ClassLoader loader = ClassLoader.getSystemClassLoader();
+    URL packageURL = loader.getResource(packageName);
+    if (packageURL == null) { return; }
+    String packagePath = packageURL.getPath();
+    int n = packagePath.lastIndexOf("!");
+    String jarPath = packagePath.substring(5, n);
+    LOG.info("Loading "+packageName+" from "+jarPath);
+    try {
+      link.putFunction("Import", 2);
+        link.put(jarPath);
+        link.putFunction("List", 4);
+          link.put("ZIP");
+          link.put("FileNames");
+          link.put(packageName);
+          link.put("Package");
+      link.endPacket();
+      link.discardAnswer();
+    } catch (MathLinkException ex) {
+      LOG.error(StringUtils.stringifyException(ex));
+    }
   }
 }
 

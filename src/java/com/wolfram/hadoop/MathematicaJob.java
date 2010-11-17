@@ -35,7 +35,7 @@ public class MathematicaJob extends Configured {
  
   public MathematicaJob(String jobName) {
     this.jobName = jobName;
-   inputs = new ArrayList<String>();
+    inputs = new ArrayList<String>();
   }
 
   public void setMapFunction(Expr map) {
