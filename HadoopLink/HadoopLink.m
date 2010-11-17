@@ -58,7 +58,14 @@ copies a file from the distributed filesystem to the local filesystem."
 DFSCreateDirectory::usage = "DFSCreateDirectory[link, \"dir\"] creates a \
 directory on the distributed filesystem."
 
-MapReduceJob::usage = ""
+MapReduceJob::usage = "MapReduceJob[link, \"jobname\", {\"input\"}, \"output\", \
+mapfn, reducefn] submits a map-reduce job implemented in Mathematica."
+
+Yield::usage = "Yield[key, value] writes a key-value pair to the ouput of a \
+map or reduce task as part of a call to MapReduceJob."
+
+IncrementCounter::usage = "IncrementCounter[\"name\", n] increments a named \
+Hadoop counter by n when used as part of a call to MapReduceJob."
 
 Begin["`Private`"]
 

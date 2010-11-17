@@ -1,3 +1,6 @@
+(* This package file is only used on remote kernels, as part of the context of
+ * Mathematica map-reduce tasks. *)
+
 
 (* Wrapper function for incrementing Hadoop counters in map or reduce tasks *)
 IncrementCounter[{group_String, name_String}, n_Integer] :=
@@ -19,9 +22,9 @@ MapImplementation[task_, mapper_Function, key_, value_] :=
 	]
 
 (* Evaluate an individual reduce call *)
-ReduceImplementation[task_, reducer_Function key_, values_] :=
+ReduceImplementation[task_, reducer_Function, key_, values_] :=
 	Block[
-		{$task},
+		{$task = task},
 
 		(* Define List[] for the iterator so the user can instantiate its
 		   contents as a list, if memory overhead is not a concern. *)

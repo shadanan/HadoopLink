@@ -1,5 +1,10 @@
 (* Functions for map-reduce jobs *)
 
+(* Local definitions of the map-reduce task API functions *)
+Yield[k_, v_] := Print[ToString@k<>"\t"<>ToString@v]
+
+IncrementCounter[___] = Null;
+
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
