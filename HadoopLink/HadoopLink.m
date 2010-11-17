@@ -140,6 +140,10 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 			"javax.xml.parsers.DocumentBuilderFactory",
             "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
 		];
+		System`setProperty[
+			"javax.xml.transform.TransformerFactory",
+			"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"
+		];
 		(* Add all the Hadoop jars to the classpath *)
 		hadoopHome = property[h, "HadoopHome"]; 
 		AddToClassPath[Flatten@Map[
