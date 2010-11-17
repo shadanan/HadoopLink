@@ -23,7 +23,8 @@ public class MathematicaTask {
   private TypedBytesWritable key;
   private TypedBytesWritable value;
 
-  public MathematicaTask() {
+  public MathematicaTask(TaskInputOutputContext context) {
+    this.context = context;
     key = new TypedBytesWritable();
     value = new TypedBytesWritable();
   }
