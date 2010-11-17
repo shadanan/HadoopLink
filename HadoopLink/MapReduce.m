@@ -62,8 +62,14 @@ MapReduceJob[h_HadoopLink,
 
 SetAttributes[progressBar, HoldFirst];
 
-progressBar[expr_] = Dynamic@Refresh[ProgressIndicator[expr], UpdateInterval -> 1]
-
+progressBar[expr_] =
+	Dynamic@Refresh[
+		ProgressIndicator[
+			expr,
+			ImageSize -> {150, 15}
+		],
+		UpdateInterval -> 5
+	]
 
 JobInProgress /: Format[JobInProgress[jobRef_]] :=
 	Module[
@@ -76,10 +82,11 @@ JobInProgress /: Format[JobInProgress[jobRef_]] :=
 		Panel[
 			Grid[
 				{
-					{Hyperlink[jobId, url], SpanFromLeft},
-					{Style["map", Bold], mapPercent},
-					{Style["reduce", Bold], reducePercent}
-				}
+					{Style["Job Details:", Bold], Hyperlink[jobId, url]},
+					{Style["Map Progress:", Bold], mapPercent},
+					{Style["Reduce Progress:", Bold], reducePercent}
+				},
+				Alignment -> Left
 			]
 		]
 	]
