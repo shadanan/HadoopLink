@@ -1,5 +1,7 @@
 package com.wolfram.hadoop;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +43,26 @@ public class MapReduceKernelLink {
       }
 
       /* Attempt to obtain a connection to a kernel */
-      link = MathLinkFactory.createKernelLink(mathArgs);
+      KernelLink link = MathLinkFactory.createKernelLink(mathArgs);
       link.discardAnswer();
 
       link.enableObjectReferences();
+
+      /* Load the map-reduce API code */
+      ClassLoader cl = getClass().getClassLoader();
+      InputStream stream = cl.getResourceAsStream("MapReduceAPI.m");
+      BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+      StringBuilder sb = new StringBuilder();
+      try {
+        String line;
+        while((line = reader.readLine()) != null) {
+          sb.append(line);
+        }
+      } catch (IOException ex) {
+        throw new RuntimeError("Couldn't load map-reduce API");
+      }
+      link.evaluate(sb.toString());
+      link.discardAnswer();
 
       /* Register a shutdown hook to close this kernel */
       Runtime.getRuntime().addShutdownHook(new ShutdownHook(link));
