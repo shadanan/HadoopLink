@@ -110,6 +110,9 @@
     <delete file="${build.dir}/${app.name}-${version}.jar"/>
     <jar jarfile="${build.dir}/${app.name}-${version}.jar">
       <fileset dir="${classes.dir}"/>
+      <fileset dir="${basedir}/${app.name}">
+        <include name="MapReduceAPI.m"/>
+      </fileset>
     </jar>
   </target>
 
