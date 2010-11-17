@@ -57,8 +57,39 @@ MapReduceJob[h_HadoopLink,
 
 JobInProgress /: Format[JobInProgress[jobRef_]] :=
 	Module[
-		{url, jobId},
+		{url, jobId, mapPercent, reducePercent},
 		url = jobRef@getTrackingURL[];
 		jobId = StringCases[url, "jobid="~~id__ :> id][[1]];
-		Panel[Hyperlink[jobId, url]]
+
+		mapPercent = Dynamic@Refresh[
+			With[
+				{progress = jobRef@mapProgress[]},
+				If[ progress < 1.,
+					ProgressIndicator[progress],
+					mapPercent = ProgressIndicator[progress]
+				]
+			],
+			UpdateInterval -> 1
+		];
+
+		reducePercent = Dynamic@Refresh[
+			With[
+				{progress = jobRef@reduceProgress[]},
+				If[ progress < 1.,
+					ProgressIndicator[progress],
+					reducePercent = ProgressIndicator[progress]
+				]
+			],
+			UpdateInterval -> 1
+		];
+
+		Panel[
+			Grid[
+				{
+					{Hyperlink[jobId, url], SpanFromLeft},
+					{Style["map", Bold], mapPercent},
+					{Style["reduce", Bold], reducePercent}
+				}
+			]
+		]
 	]
