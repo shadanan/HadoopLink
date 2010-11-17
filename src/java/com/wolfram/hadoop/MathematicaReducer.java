@@ -18,16 +18,33 @@ public class MathematicaReducer extends
     TypedBytesWritable, TypedBytesWritable> {
   private static final Log LOG = LogFactory.getLog(MathematicaReducer.class);
 
+  private Expr reducer;
   private KernelLink link;
+  private MathematicaTask task;
 
   @Override
   public void setup(Context context) {
-
     /* Initialize a Mathematica kernel */
     try {
       Configuration conf = context.getConfiguration();
       link = MapReduceKernelLink.get(conf);
 
+      task = new MathematicaTask(context);
+
+      /* Set up the evaluation function for this task */
+      link.evaluate("Unique[reducefn]");
+      link.waitForAnswer();
+      reducer = link.getExpr();
+
+      link.evaluate(conf.get(MathematicaJob.REDUCER));
+      link.waitForAnswer();
+      Expr reduceFn = link.getExpr();
+
+      link.putFunction("Set", 2);
+        link.put(reducer);
+        link.put(reduceFn);
+      link.endPacket();
+      link.discardAnswer();
 
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
@@ -38,9 +55,22 @@ public class MathematicaReducer extends
   @Override
   public void reduce(TypedBytesWritable key,
                      Iterable<TypedBytesWritable> values,
-                     Context context)
-      throws IOException, InterruptedException {
-
+                     Context context) throws IOException, InterruptedException {
+    task.setContext(context);
+    ValuesIterator iter = new ValuesIterator(values.iterator());
+    try {
+      /* Evaluates this record in Mathematica, injecting a MathematicaTask
+         object to wrap the context and enable communication back to Java */
+      link.putFunction("ReduceImplementation", 4);
+        link.putReference(task);
+        link.put(reducer);
+        link.put(key.getValue());
+        link.putReference(iter);
+        link.endPacket();
+        link.waitForAnswer();
+    } catch (MathLinkException ex) {
+      LOG.error(StringUtils.stringifyException(ex));
+    }
   }
 
   @Override
@@ -50,4 +80,21 @@ public class MathematicaReducer extends
     link.close();
   }
 
+}
+
+class ValuesIterator implements Iterator {
+
+  private Iterator iter;
+
+  ValuesIterator(Iterator iter) {
+    this.iter = iter;
+  }
+
+  public boolean hasNext() {
+    return iter.hasNext();
+  }
+
+  public Object next() {
+    return iter.next().getValue();
+  }
 }
