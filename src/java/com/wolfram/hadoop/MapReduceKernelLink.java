@@ -44,6 +44,8 @@ public class MapReduceKernelLink {
       link = MathLinkFactory.createKernelLink(mathArgs);
       link.discardAnswer();
 
+      link.enableObjectReferences();
+
       /* Register a shutdown hook to close this kernel */
       Runtime.getRuntime().addShutdownHook(new ShutdownHook(link));
 
