@@ -51,7 +51,7 @@ The following properties affect the HadoopLink ant tasks:
 
 Build the HadoopLink distribution by running:
 
-`ant -Dmathematica.dir=$MATHEMATICA_PATH -Dhadoop.home=$HADOOP_PATH -Dworkbench.dir=$WORKBENCH_PATH build`
+	ant -Dmathematica.dir=$MATHEMATICA_PATH -Dhadoop.home=$HADOOP_PATH -Dworkbench.dir=$WORKBENCH_PATH build
 
 using appropriate values for your system.
 
@@ -59,8 +59,9 @@ using appropriate values for your system.
 
 There are a number of areas in which HadoopLink could be improved.
 
-- Define a Mathematica API for use in the _Mathematica_ implementation of mapper and reducer functions.
 - Make sequence file export from _Mathematica_ break writes up into chunks to avoid Java out of heap errors.
-- Make sequence file import compatible with all Writable subclasses in `org.apache.hadoop.io`.
+- Make sequence file import compatible with all `Writable` subclasses in `org.apache.hadoop.io`.
 - Improve error handling in DFS interaction functions.
-- Switch error messages from using <code>Throw</code> to <code>Message</code>.
+- Switch error messages from using `Throw` to `Message`
+- Add support for shipping package dependencies along with map-reduce jobs
+- Use `MemoryConstrained` in map-reduce tasks

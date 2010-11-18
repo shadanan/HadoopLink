@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      5278,        187]
-NotebookOptionsPosition[      4191,        144]
-NotebookOutlinePosition[      4568,        161]
-CellTagsIndexPosition[      4525,        158]
+NotebookDataLength[      2588,         94]
+NotebookOptionsPosition[      2012,         69]
+NotebookOutlinePosition[      2390,         86]
+CellTagsIndexPosition[      2347,         83]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -28,24 +28,11 @@ Cell[BoxData["Quit"], "Input",
  CellChangeTimes->{{3.498478235601001*^9, 3.498478235910166*^9}, 
    3.498928195435011*^9}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{"SetDirectory", "[", 
   RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
  CellChangeTimes->{{3.498477143068391*^9, 3.4984771477660637`*^9}, 
    3.498928195437489*^9}],
-
-Cell[BoxData["\<\"/Users/davidh/Documents/Code/HadoopLink\"\>"], "Output",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{
-  3.498477148168789*^9, {3.4984772797939997`*^9, 3.4984773064556417`*^9}, 
-   3.498477361302112*^9, 3.498477458752448*^9, 3.498477529130642*^9, 
-   3.4984777659870443`*^9, 3.498478240566382*^9, {3.498478860833832*^9, 
-   3.4984788762186613`*^9}, 3.498827090450844*^9, 3.498921475757597*^9, 
-   3.498928195439641*^9}]
-}, Open  ]],
 
 Cell[BoxData[
  RowBox[{
@@ -64,86 +51,24 @@ Cell[BoxData[
  CellChangeTimes->{{3.498476867324545*^9, 3.498476871192643*^9}, 
    3.498928195442225*^9}],
 
-Cell[BoxData[
- RowBox[{
-  RowBox[{"f", "[", "x_", "]"}], ":=", 
-  RowBox[{"x", "^", "2"}]}]], "Input",
- CellChangeTimes->{{3.498946076893819*^9, 3.4989460798199778`*^9}}],
-
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"mapfn", "=", 
-  RowBox[{"Function", "[", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{"k", ",", "v"}], "}"}], ",", 
-    RowBox[{"f", "[", "v", "]"}]}], "]"}]}]], "Input",
- CellChangeTimes->{{3.498946073436942*^9, 3.4989460973389893`*^9}, {
-  3.498946153477146*^9, 3.498946157780875*^9}}],
+ RowBox[{"OpenHadoopLink", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.498951159805937*^9, 3.498951163844253*^9}}],
 
 Cell[BoxData[
- RowBox[{"Function", "[", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"k", ",", "v"}], "}"}], ",", 
-   RowBox[{"f", "[", "v", "]"}]}], "]"}]], "Output",
- CellChangeTimes->{3.498946097666359*^9, 3.498946158370901*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"mapfn", "//", "FullForm"}]], "Input",
- CellChangeTimes->{{3.498946184872829*^9, 3.498946186852997*^9}}],
-
-Cell[BoxData[
- TagBox[
-  StyleBox[
-   RowBox[{"Function", "[", 
-    RowBox[{
-     RowBox[{"List", "[", 
-      RowBox[{"k", ",", "v"}], "]"}], ",", 
-     RowBox[{"f", "[", "v", "]"}]}], "]"}],
-   ShowSpecialCharacters->False,
-   ShowStringCharacters->True,
-   NumberMarks->True],
-  FullForm]], "Output",
- CellChangeTimes->{3.498946187341387*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"Cases", "[", 
-  RowBox[{"mapfn", ",", "_Symbol", ",", "Infinity"}], "]"}]], "Input",
- CellChangeTimes->{{3.498946159439754*^9, 3.4989461714208107`*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"k", ",", "v", ",", "v"}], "}"}]], "Output",
- CellChangeTimes->{{3.498946168145608*^9, 3.4989461718443613`*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"ToString", "@", "%2"}]], "Input",
- CellChangeTimes->{{3.498946099667034*^9, 3.4989461033709583`*^9}}],
-
-Cell[BoxData["\<\"Function[{k, v}, f[v]]\"\>"], "Output",
- CellChangeTimes->{3.498946103689241*^9}]
-}, Open  ]],
-
-Cell[BoxData["Definition"], "Input",
- CellChangeTimes->{{3.49894611151206*^9, 3.498946115684359*^9}}],
-
-Cell[BoxData["Kernel"], "Input",
- CellChangeTimes->{{3.4989462593837967`*^9, 3.498946262999002*^9}}]
+ RowBox[{"HadoopLink", "[", "\<\"/Users/davidh/Library/Hadoop/hadoop\"\>", 
+  "]"}]], "Output",
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{3.498951164512178*^9, 3.4989861115835733`*^9, 
+  3.498997734393692*^9}]
+}, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1001, 1006},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{762, 1036},
+WindowMargins->{{540, Automatic}, {Automatic, 0}},
 ShowSelection->True,
 FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
 2010)",
@@ -163,31 +88,13 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[567, 22, 126, 2, 67, "Section"],
 Cell[696, 26, 122, 2, 27, "Input"],
+Cell[821, 30, 198, 4, 27, "Input"],
+Cell[1022, 36, 406, 10, 27, "Input"],
+Cell[1431, 48, 147, 3, 27, "Input"],
 Cell[CellGroupData[{
-Cell[843, 32, 198, 4, 27, "Input"],
-Cell[1044, 38, 461, 8, 27, "Output"]
-}, Open  ]],
-Cell[1520, 49, 406, 10, 27, "Input"],
-Cell[1929, 61, 147, 3, 27, "Input"],
-Cell[2079, 66, 170, 4, 27, "Input"],
-Cell[CellGroupData[{
-Cell[2274, 74, 310, 8, 27, "Input"],
-Cell[2587, 84, 227, 6, 27, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[2851, 95, 127, 2, 27, "Input"],
-Cell[2981, 99, 344, 12, 39, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3362, 116, 176, 3, 27, "Input"],
-Cell[3541, 121, 151, 3, 27, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[3729, 129, 125, 2, 27, "Input"],
-Cell[3857, 133, 99, 1, 27, "Output"]
-}, Open  ]],
-Cell[3971, 137, 101, 1, 27, "Input"],
-Cell[4075, 140, 100, 1, 27, "Input"]
+Cell[1603, 55, 128, 2, 27, "Input"],
+Cell[1734, 59, 250, 6, 27, "Output"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
