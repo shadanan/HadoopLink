@@ -21,8 +21,12 @@ import com.wolfram.jlink.Expr;
 public class MathematicaJob extends Configured {
 
   public static final String M_PACKAGES = "wolfram.packages";
+
   public static final String MAPPER = "wolfram.mapper.function";
+  public static final String MAPPER_DEPENDENCIES = "wolfram.mapper.dependencies";
+
   public static final String REDUCER = "wolfram.reducer.function";
+  public static final String REDUCER_DEPENDENCIES = "wolfram.reducer.dependencies";
 
   private String jobName;
   private Job job;

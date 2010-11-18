@@ -63,7 +63,7 @@ MapReduceJob[h_HadoopLink,
 			 reducer_Function
 			 ] :=
 	JavaBlock@Module[
-		{conf, tmp, jar, job, jobRef},
+		{conf, jar, mapperPkg, reducerPkg, $job, job, jobRef},
 
 		(* Ensure that Java and the Hadoop classes are properly initialized.
 		 * UninstallJava must be called here to ensure that previous job jars
@@ -96,26 +96,32 @@ MapReduceJob[h_HadoopLink,
 		(* Find the definitions of any dependencies of the map and reduce
 		 * functions, write them out to temporary files, and repackage the
 		 * HadoopLink jar with the dependencies included. *)
-		tmp = CreateDirectory[];
+		mapperPkg = Close[OpenWrite[]];
 		Export[
-			FileNameJoin[{tmp, "map.m"}],
+			mapperPkg,
 			getFunctionDependencies[mapper],
 			"Text"
 		];
+		reducerPkg = Close[OpenWrite[]];
 		Export[
-			FileNameJoin[{tmp, "reduce.m"}],
+			reducerPkg,
 			getFunctionDependencies[reducer],
 			"Text"
 		];
 		jar = reJar[
 			First@FileNames["HadoopLink-mapreduce-*.jar", FileNameJoin[{$HadoopLinkPath, "Data"}]],
-			FileNameJoin[{tmp, #}]& /@ {"map.m", "reduce.m"}
+			{mapperPkg, reducerPkg}
 		];
 
 		AddToClassPath[jar];
 
 		(* Initialize a new Mathematica map-reduce job *)
-		job = JavaNew["com.wolfram.hadoop.mapreduce.MathematicaJob", name];
+		$job = LoadJavaClass["com.wolfram.hadoop.mapreduce.MathematicaJob", StaticsVisible -> True];
+		job = JavaNew[$job, name];
+
+		(* Set the names of the map and reduce dependency packages *)
+		conf@set[MathematicaJob`MAPPERUDEPENDENCIES, FileBaseName[mapperPkg]];
+		conf@set[MathematicaJob`REDUCERUDEPENDENCIES, FileBaseName[reducerPkg]];
 
 		(* Define input paths *)
 		job@addInputPath[#]& /@ inputPaths;
