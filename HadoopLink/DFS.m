@@ -28,6 +28,7 @@ dfsModule[h_HadoopLink, args_, expr_] :=
 		(* Make sure the JVM state is initialized for use with this link *)
 		InstallJava[];
 		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
+		AddToClassPath[FileNameJoin[{$HadoopLinkPath, "Java"}]];
 		LoadJavaClass["org.apache.hadoop.fs.FileSystem", StaticsVisible -> True];
 		$Configuration = getConf[h];
 		$DFS = FileSystem`get[$Configuration];

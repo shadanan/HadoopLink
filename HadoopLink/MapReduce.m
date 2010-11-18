@@ -5,6 +5,8 @@ Yield[k_, v_] := Print[ToString@k<>"\t"<>ToString@v]
 
 IncrementCounter[___] = Null;
 
+SetAttributes[fullDefString, HoldFirst];
+
 fullDefString[sym_] := ToString@InputForm[FullDefinition[sym]]
 
 (* Get the definition dependencies for a pure function as a string,
@@ -24,6 +26,35 @@ getFunctionDependencies[fn_Function] :=
 		]
 	]
 
+
+(* Unpack jar file into a temporary directory, add the listed files, and
+ * repackage it as a new jar, whose path will be returned. *)
+reJar[jarFile_String, files0 : {__String}] /; FileExistsQ[jarFile] :=
+	Module[
+		{files, tmp, newJarFile, exprs, types},
+		files = Select[files0, FileExistsQ];
+		tmp = CreateDirectory[];
+		(* Extract the contents of the jar file to a temporary directory *)
+		ExtractArchive[jarFile, tmp];
+		(* Copy the files to add to the temporary directory *)
+		Map[
+			CopyFile[#, FileNameJoin[{tmp, Last@FileNameSplit[#]}]]&,
+			files
+		];
+		{exprs, types} = Transpose@Cases[
+			Select[FileNames[___, tmp, Infinity], !DirectoryQ[#]&],
+			s_String :> {Import[s, "Binary"], {StringReplace[s,tmp<>"/" -> ""], "Binary"}}
+		];
+		(* Generate a timestamped name for the new jar file *)
+		newJarFile = FileNameJoin[{
+			$TemporaryDirectory,
+			FileBaseName[jarFile]<>ToString@Floor@AbsoluteTime[]<>".jar"
+		}];
+		Export[newJarFile, exprs, {"ZIP", types}];
+		DeleteDirectory[tmp, DeleteContents -> True];
+		newJarFile
+	]
+
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
@@ -32,16 +63,16 @@ MapReduceJob[h_HadoopLink,
 			 reducer_Function
 			 ] :=
 	JavaBlock@Module[
-		{conf, job, jobRef},
+		{conf, tmp, jar, job, jobRef},
 
-		(* Ensure that Java and the Hadoop classes are properly initialized *)
-		InstallJava[];
-		If[ !jLinkInitializedForHadoopQ[], initializeJLinkForHadoop[h]];
+		(* Ensure that Java and the Hadoop classes are properly initialized.
+		 * Must call ReinstallJava here, so that only the repacked HadoopLink
+		 * jar will be on the classpath. *)
+		UninstallJava[];
+		initializeJLinkForHadoop[h];
+		Sow[JavaClassPath[]];
 
 		conf = getConf[h];
-
-		(* Initialize a new Mathematica map-reduce job *)
-		job = JavaNew["com.wolfram.hadoop.MathematicaJob", name];
 
 		(* Test for Mathematica configuration on cluster machines in Hadoop
 		 * conf. Technically, this only needs to be defined in the
@@ -63,6 +94,30 @@ MapReduceJob[h_HadoopLink,
 			{"wolfram.jlink.path", "wolfram.math.args"}
 		];
 
+		(* Find the definitions of any dependencies of the map and reduce
+		 * functions, write them out to temporary files, and repackage the
+		 * HadoopLink jar with the dependencies included. *)
+		tmp = CreateDirectory[];
+		Export[
+			FileNameJoin[{tmp, "map.m"}],
+			getFunctionDependencies[mapper],
+			"Text"
+		];
+		Export[
+			FileNameJoin[{tmp, "reduce.m"}],
+			getFunctionDependencies[reducer],
+			"Text"
+		];
+		jar = reJar[
+			First@FileNames["HadoopLink-*.jar", FileNameJoin[{$HadoopLinkPath, "Java"}]],
+			FileNameJoin[{tmp, #}]& /@ {"map.m", "reduce.m"}
+		];
+
+		AddToClassPath[jar];
+
+		(* Initialize a new Mathematica map-reduce job *)
+		job = JavaNew["com.wolfram.hadoop.MathematicaJob", name];
+
 		(* Define input paths *)
 		job@addInputPath[#]& /@ inputPaths;
 
@@ -72,7 +127,6 @@ MapReduceJob[h_HadoopLink,
 		(* Define the map and reduce implementation functions *)
 		job@setMapFunction[mapper];
 		job@setReduceFunction[reducer];
-
 
 		(* Launch the job asynchronously *)
 		jobRef = job@launch[conf];

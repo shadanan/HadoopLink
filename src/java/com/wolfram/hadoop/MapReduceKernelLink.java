@@ -73,7 +73,10 @@ public class MapReduceKernelLink {
   public static void loadPackageFromJar(KernelLink link, String packageName) {
     ClassLoader loader = ClassLoader.getSystemClassLoader();
     URL packageURL = loader.getResource(packageName);
-    if (packageURL == null) { return; }
+    if (packageURL == null) {
+      LOG.error("Could not load "+packageName);
+      return;
+    }
     String packagePath = packageURL.getPath();
     int n = packagePath.lastIndexOf("!");
     String jarPath = packagePath.substring(5, n);

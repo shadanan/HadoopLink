@@ -151,12 +151,10 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 			{
 				hadoopHome,
 				FileNameJoin[{hadoopHome, "conf"}],
-			 	FileNameJoin[{hadoopHome, "lib"}],
-			 	FileNameJoin[{hadoopHome, "contrib", "streaming"}],
-			 	FileNameJoin[{$HadoopLinkPath, "Java"}]
+				FileNameJoin[{hadoopHome, "lib"}],
+				FileNameJoin[{hadoopHome, "contrib", "streaming"}]
 			}
 		]];
-		(* TODO: Add xalan to the classpath *)
 		(* Mark the JVM as initialized for HadoopLink` *)
 		System`setProperty[
 			$hadoopLinkInitializedProperty,
