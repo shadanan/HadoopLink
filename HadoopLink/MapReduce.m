@@ -112,7 +112,6 @@ MapReduceJob[h_HadoopLink,
 			First@FileNames["HadoopLink-mapreduce-*.jar", FileNameJoin[{$HadoopLinkPath, "Data"}]],
 			{mapperPkg, reducerPkg}
 		];
-
 		AddToClassPath[jar];
 
 		(* Initialize a new Mathematica map-reduce job *)
@@ -136,6 +135,12 @@ MapReduceJob[h_HadoopLink,
 		(* Launch the job asynchronously *)
 		jobRef = job@launch[conf];
 		KeepJavaObject[jobRef];
+
+		(* Clean up temporary files *)
+		DeleteFile[mapperPkg];
+		DeleteFile[reducerPkg];
+		DeleteFile[jar];
+
 		JobInProgress[jobRef]
 	]
 
