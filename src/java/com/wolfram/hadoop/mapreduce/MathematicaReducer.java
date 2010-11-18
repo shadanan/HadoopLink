@@ -1,4 +1,4 @@
-package com.wolfram.hadoop;
+package com.wolfram.hadoop.mapreduce;
 
 import java.io.IOException;
 import java.util.Iterator;

@@ -116,7 +116,7 @@ MapReduceJob[h_HadoopLink,
 		AddToClassPath[jar];
 
 		(* Initialize a new Mathematica map-reduce job *)
-		job = JavaNew["com.wolfram.hadoop.MathematicaJob", name];
+		job = JavaNew["com.wolfram.hadoop.mapreduce.MathematicaJob", name];
 
 		(* Define input paths *)
 		job@addInputPath[#]& /@ inputPaths;

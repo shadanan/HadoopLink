@@ -111,7 +111,7 @@ DFSImport[h_HadoopLink, file_String, "SequenceFile"] :=
 		recordsPerFetch = 10000;
 		path = JavaNew[$path, file];
 		Check[
-			reader = JavaNew["com.wolfram.hadoop.SequenceFileImportReader", $Configuration, path];
+			reader = JavaNew["com.wolfram.hadoop.dfs.SequenceFileImportReader", $Configuration, path];
 			results = {};
 			While[(chunk = reader@next[recordsPerFetch]) =!= Null,
 				AppendTo[results, chunk];
@@ -149,7 +149,7 @@ DFSExport[h_HadoopLink, file_String, expr_, "SequenceFile"] :=
 		];
 		path = JavaNew[$path, file];
 		Check[
-			writer = JavaNew["com.wolfram.hadoop.SequenceFileExportWriter", $Configuration, path];
+			writer = JavaNew["com.wolfram.hadoop.dfs.SequenceFileExportWriter", $Configuration, path];
 			writer@write[expr];
 			writer@close[];
 			file,

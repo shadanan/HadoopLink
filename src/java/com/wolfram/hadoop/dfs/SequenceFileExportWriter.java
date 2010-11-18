@@ -1,4 +1,4 @@
-package com.wolfram.hadoop;
+package com.wolfram.hadoop.dfs;
 
 
 import com.wolfram.jlink.Expr;
@@ -7,6 +7,8 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.SequenceFile;
 import org.apache.hadoop.typedbytes.TypedBytesWritable;
+
+import com.wolfram.hadoop.ExprUtil;
 
 /**
  * Helper class to speed up export of Mathematica expressions to sequence files.

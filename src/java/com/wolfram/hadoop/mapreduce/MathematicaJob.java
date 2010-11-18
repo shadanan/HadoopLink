@@ -1,4 +1,4 @@
-package com.wolfram.hadoop;
+package com.wolfram.hadoop.mapreduce;
 
 import java.util.ArrayList;
 import java.util.List;
