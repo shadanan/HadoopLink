@@ -107,9 +107,22 @@
   </target>
 
   <target name="jar" depends="compile" description="package up Java components">
-    <delete file="${build.dir}/${app.name}-${version}.jar"/>
-    <jar jarfile="${build.dir}/${app.name}-${version}.jar">
-      <fileset dir="${classes.dir}"/>
+    <!-- The core jar holds classes intended to be used primarily from Mathematica -->
+    <delete file="${build.dir}/${app.name}-core-${version}.jar"/>
+    <jar jarfile="${build.dir}/${app.name}-core-${version}.jar">
+      <fileset dir="${classes.dir}">
+        <include name="**/ExprUtil.class"/>
+        <include name="com/wolfram/hadoop/dfs/*.class"/>
+      </fileset>
+    </jar>
+
+    <!-- The mapreduce jar is used to construct job jars. -->
+    <delete file="${build.dir}/${app.name}-mapreduce-${version}.jar"/>
+    <jar jarfile="${build.dir}/${app.name}-mapreduce-${version}.jar">
+      <fileset dir="${classes.dir}">
+        <include name="**/ExprUtil.class"/>
+        <include name="com/wolfram/hadoop/mapreduce/*.class"/>
+      </fileset>
       <fileset dir="${basedir}/${app.name}">
         <include name="MapReduceAPI.m"/>
       </fileset>
@@ -148,7 +161,9 @@
       </fileset>
     </copy>
     <copy todir="${build.dir}/${app.name}/Java"
-      file="${build.dir}/${app.name}-${version}.jar"/>
+      file="${build.dir}/${app.name}-core-${version}.jar"/>
+    <copy todir="${build.dir}/${app.name}/Data"
+      file="${build.dir}/${app.name}-mapreduce-${version}.jar"/>
   </target>
 
   <target name="package" depends="build,docbuild">
