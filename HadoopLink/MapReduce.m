@@ -74,8 +74,7 @@ MapReduceJob[h_HadoopLink,
 		conf = getConf[h];
 
 		(* Test for Mathematica configuration on cluster machines in Hadoop
-		 * conf. Technically, this only needs to be defined in the
-		 * configuration on the tasktracker nodes.
+		 * conf.
 		 *
 		 * wolfram.jlink.path:
 		 * Location of the JLink jar file in the cluster's Mathematica
