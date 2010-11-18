@@ -28,7 +28,7 @@ public class MathematicaMapper
     try {
       Configuration conf = context.getConfiguration();
       link = MapReduceKernelLink.get(conf);
-      MapReduceKernelLink.loadPackageFromJar(link, "mapper.m");
+      MapReduceKernelLink.loadPackageFromJar(link, "map.m");
 
       task = new MathematicaTask(context);
 

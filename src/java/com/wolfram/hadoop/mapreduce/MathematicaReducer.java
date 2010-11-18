@@ -29,7 +29,7 @@ public class MathematicaReducer extends
     try {
       Configuration conf = context.getConfiguration();
       link = MapReduceKernelLink.get(conf);
-      MapReduceKernelLink.loadPackageFromJar(link, "reducer.m");
+      MapReduceKernelLink.loadPackageFromJar(link, "reduce.m");
 
       task = new MathematicaTask(context);
 

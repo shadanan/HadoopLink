@@ -66,11 +66,10 @@ MapReduceJob[h_HadoopLink,
 		{conf, tmp, jar, job, jobRef},
 
 		(* Ensure that Java and the Hadoop classes are properly initialized.
-		 * Must call ReinstallJava here, so that only the repacked HadoopLink
-		 * jar will be on the classpath. *)
+		 * UninstallJava must be called here to ensure that previous job jars
+		 * are no longer on the classpath. *)
 		UninstallJava[];
 		initializeJLinkForHadoop[h];
-		Sow[JavaClassPath[]];
 
 		conf = getConf[h];
 
@@ -109,7 +108,7 @@ MapReduceJob[h_HadoopLink,
 			"Text"
 		];
 		jar = reJar[
-			First@FileNames["HadoopLink-*.jar", FileNameJoin[{$HadoopLinkPath, "Java"}]],
+			First@FileNames["HadoopLink-mapreduce-*.jar", FileNameJoin[{$HadoopLinkPath, "Data"}]],
 			FileNameJoin[{tmp, #}]& /@ {"map.m", "reduce.m"}
 		];
 
