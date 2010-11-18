@@ -55,6 +55,9 @@ reJar[jarFile_String, files0 : {__String}] /; FileExistsQ[jarFile] :=
 		newJarFile
 	]
 
+MapReduceJob[h_HadoopLink, name_String, inputPath_String, args__] :=
+	MapReduceJob[h, name, {inputPath}, args]
+
 MapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
