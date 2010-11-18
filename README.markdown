@@ -65,3 +65,4 @@ There are a number of areas in which HadoopLink could be improved.
 - Switch error messages from using `Throw` to `Message`
 - Add support for shipping package dependencies along with map-reduce jobs
 - Use `MemoryConstrained` in map-reduce tasks
+- Rewrite the `reJar` function in Java for better performance
