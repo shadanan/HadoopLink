@@ -154,7 +154,7 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 				FileNameJoin[{hadoopHome, "lib"}],
 				FileNameJoin[{hadoopHome, "contrib", "streaming"}]
 			}
-		]];
+		], Prepend -> True];
 		(* Mark the JVM as initialized for HadoopLink` *)
 		System`setProperty[
 			$hadoopLinkInitializedProperty,
