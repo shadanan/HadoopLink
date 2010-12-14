@@ -3,3 +3,6 @@ build
 javadoc
 dist
 bin
+.classpath
+.project
+*.class
