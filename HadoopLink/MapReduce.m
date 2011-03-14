@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 (* Functions for map-reduce jobs *)
 
 (* Local definitions of the map-reduce task API functions *)
@@ -34,22 +36,30 @@ reJar[jarFile_String, files0 : {__String}] /; FileExistsQ[jarFile] :=
 		{files, tmp, newJarFile, exprs, types},
 		files = Select[files0, FileExistsQ];
 		tmp = CreateDirectory[];
+
 		(* Extract the contents of the jar file to a temporary directory *)
 		ExtractArchive[jarFile, tmp];
+
 		(* Copy the files to add to the temporary directory *)
 		Map[
 			CopyFile[#, FileNameJoin[{tmp, Last@FileNameSplit[#]}]]&,
 			files
 		];
+
+		(* Create an Export[..., "ZIP"] spec corresponding to the directory
+			structure we have built *)
 		{exprs, types} = Transpose@Cases[
 			Select[FileNames[___, tmp, Infinity], !DirectoryQ[#]&],
-			s_String :> {Import[s, "Binary"], {StringReplace[s,tmp<>"/" -> ""], "Binary"}}
+			s_String :> {Import[s, "Binary"], {StringReplace[
+				StringReplace[s,tmp<>$PathnameSeparator -> ""],"\\"->"/"], "Binary"}}
 		];
+
 		(* Generate a timestamped name for the new jar file *)
 		newJarFile = FileNameJoin[{
 			$TemporaryDirectory,
 			FileBaseName[jarFile]<>ToString@Floor@AbsoluteTime[]<>".jar"
 		}];
+
 		Export[newJarFile, exprs, {"ZIP", types}];
 		DeleteDirectory[tmp, DeleteContents -> True];
 		newJarFile
@@ -110,8 +120,12 @@ MapReduceJob[h_HadoopLink,
 			getFunctionDependencies[reducer],
 			"Text"
 		];
+
+		(* repackage with new files *)
 		jar = reJar[
-			First@FileNames["HadoopLink-mapreduce-*.jar", FileNameJoin[{$HadoopLinkPath, "Data"}]],
+			(* we use Last@FileNames to hopefully get the most recent version
+				(in case several are present... we could be smarter. *)
+			Last@FileNames["HadoopLink-mapreduce-*.jar", FileNameJoin[{$HadoopLinkPath, "Data"}]],
 			{mapperPkg, reducerPkg}
 		];
 		AddToClassPath[jar];
@@ -141,7 +155,8 @@ MapReduceJob[h_HadoopLink,
 		(* Clean up temporary files *)
 		DeleteFile[mapperPkg];
 		DeleteFile[reducerPkg];
-		DeleteFile[jar];
+		Quiet[DeleteFile[jar]]; (* seems this temp file deletion can fail for permissions,
+			at least on Windows. no biggie. *)
 
 		JobInProgress[jobRef]
 	]
@@ -176,3 +191,4 @@ JobInProgress /: Format[JobInProgress[jobRef_]] :=
 			]
 		]
 	]
+

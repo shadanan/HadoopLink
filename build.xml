@@ -1,9 +1,8 @@
-<?xml version="1.0"?>
-
-<project name="HadoopLink" basedir="." default="build">
+<project name="HadoopLink" default="build" basedir=".">
+  <property environment="env"/>
 
   <property name="app.name" value="HadoopLink"/>
-
+	
   <property name="build.dir" location="build"/>
   <property name="src.dir" location="src" />
   <property name="src.java.dir" location="${src.dir}/java"/>
@@ -11,6 +10,9 @@
   <property name="doc.src.dir" location="docs"/>
   <property name="classes.dir" location="${build.dir}/classes"/>
   <property name="log.dir" location="${basedir}/log"/>
+	
+	<property name="hadoop.home" location="${env.HADOOP_HOME}"/>
+	<property name="mathematica.dir" location="/Applications/Mathematica.app"/>
 
   <target name="init">
     <tstamp/>
@@ -93,6 +95,7 @@
       <fileset dir="${hadoop.home}">
         <include name="*.jar"/>
         <include name="lib/**/*.jar"/>
+      	<include name="contrib/streaming/*.jar"/>
       </fileset>
       <pathelement location="${jlink.jar}"/>
     </path>

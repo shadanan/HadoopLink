@@ -171,8 +171,11 @@ getConf[h_HadoopLink] :=
 		KeepJavaObject[conf];
 		url = LoadJavaClass["java.net.URL"];
 		Map[
-			conf@addResource[JavaNew[url, "file://"<>#]]&,
-			FileNames["*-site.xml", configDir]
+			conf@addResource[JavaNew[url,
+				If[$OperatingSystem==="Windows", "file:///", "file://"] <> #
+			]]&,
+			(*FileNames["*-site.xml", configDir]*)
+			FileNames[Except["."] ~~ ___ ~~ "-site.xml", configDir]
 		];
 		(* Override with custom configuration set by this HadoopLink *)
 		Map[
@@ -185,3 +188,4 @@ getConf[h_HadoopLink] :=
 End[]
 
 EndPackage[]
+
