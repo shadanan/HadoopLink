@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[      2588,         94]
-NotebookOptionsPosition[      2012,         69]
-NotebookOutlinePosition[      2390,         86]
-CellTagsIndexPosition[      2347,         83]
+NotebookDataLength[     12178,        357]
+NotebookOptionsPosition[     10849,        306]
+NotebookOutlinePosition[     11229,        323]
+CellTagsIndexPosition[     11186,        320]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,24 +29,6 @@ Cell[BoxData["Quit"], "Input",
    3.498928195435011*^9}],
 
 Cell[BoxData[
- RowBox[{"SetDirectory", "[", 
-  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
- CellChangeTimes->{{3.498477143068391*^9, 3.4984771477660637`*^9}, 
-   3.498928195437489*^9}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"PrependTo", "[", 
-   RowBox[{"$Path", ",", 
-    RowBox[{"FileNameJoin", "[", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<build\>\""}], "}"}],
-      "]"}]}], "]"}], ";"}]], "Input",
- CellChangeTimes->{{3.498036638343223*^9, 3.4980366581612453`*^9}, {
-   3.498037146629251*^9, 3.4980371477862587`*^9}, 3.498928195441114*^9}],
-
-Cell[BoxData[
  RowBox[{"<<", "HadoopLink`"}]], "Input",
  CellChangeTimes->{{3.498476867324545*^9, 3.498476871192643*^9}, 
    3.498928195442225*^9}],
@@ -54,24 +36,279 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"OpenHadoopLink", "[", "]"}]], "Input",
- CellChangeTimes->{{3.498951159805937*^9, 3.498951163844253*^9}}],
+ RowBox[{"link", "=", 
+  RowBox[{"OpenHadoopLink", "[", "]"}]}]], "Input",
+ CellChangeTimes->{{3.5286546259037247`*^9, 3.528654632453204*^9}}],
 
 Cell[BoxData[
- RowBox[{"HadoopLink", "[", "\<\"/Users/davidh/Library/Hadoop/hadoop\"\>", 
-  "]"}]], "Output",
- GeneratedCell->False,
- CellAutoOverwrite->False,
- CellChangeTimes->{3.498951164512178*^9, 3.4989861115835733`*^9, 
-  3.498997734393692*^9}]
+ RowBox[{"HadoopLink", "[", 
+  RowBox[{"\<\"Configuration\"\>", "\[Rule]", 
+   RowBox[{"{", "}"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.528654633059516*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"link", "=", 
+  RowBox[{"OpenHadoopLink", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "\"\<fs.default.name\>\"", "\[Rule]", 
+     "\"\<hdfs://hadoopheadlx.wolfram.com:8020\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<mapred.job.tracker\>\"", "\[Rule]", 
+     "\"\<hadoopheadlx.wolfram.com:8021\>\""}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<wolfram.jlink.path\>\"", "\[Rule]", 
+     "\"\</usr/local/Wolfram/Mathematica/7.0/SystemFiles/Links/JLink\>\""}], 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<wolfram.math.args\>\"", "\[Rule]", 
+     "\"\<-linkmode launch -linkname /usr/local/bin/math -mathlink\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.498951159805937*^9, 3.498951163844253*^9}, {
+  3.52865334279844*^9, 3.5286533434472733`*^9}, {3.528653388902525*^9, 
+  3.528653403536824*^9}, {3.528653761616489*^9, 3.528653831316063*^9}}],
+
+Cell[BoxData[
+ RowBox[{"HadoopLink", "[", 
+  RowBox[{"\<\"Configuration\"\>", "\[Rule]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\<\"fs.default.name\"\>", 
+      "\[Rule]", "\<\"hdfs://hadoopheadlx.wolfram.com:8020\"\>"}], ",", 
+     RowBox[{"\<\"mapred.job.tracker\"\>", 
+      "\[Rule]", "\<\"hadoopheadlx.wolfram.com:8021\"\>"}], ",", 
+     RowBox[{"\<\"wolfram.jlink.path\"\>", 
+      "\[Rule]", \
+"\<\"/usr/local/Wolfram/Mathematica/7.0/SystemFiles/Links/JLink\"\>"}], ",", 
+     RowBox[{"\<\"wolfram.math.args\"\>", 
+      "\[Rule]", "\<\"-linkmode launch -linkname /usr/local/bin/math \
+-mathlink\"\>"}]}], "}"}]}], "]"}]], "Output",
+ CellChangeTimes->{{3.5286532955014772`*^9, 3.528653308857566*^9}, 
+   3.5286533438520727`*^9, 3.528653404337431*^9, 3.528653780845468*^9, 
+   3.528653832599019*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSFileNames", "[", "link", "]"}]], "Input",
+ CellChangeTimes->{{3.528653363394668*^9, 3.5286533677719517`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/user/shads/.logs_1312830061429\"\>", 
+   ",", "\<\"/user/shads/.logs_1312830208433\"\>", 
+   ",", "\<\"/user/shads/.logs_1312834752040\"\>", 
+   ",", "\<\"/user/shads/.oldlogs\"\>", 
+   ",", "\<\"/user/shads/binned_webstats_20110310\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110601\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110602\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110603\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_output\"\>", 
+   ",", "\<\"/user/shads/dir1\"\>", ",", "\<\"/user/shads/edgecast\"\>", 
+   ",", "\<\"/user/shads/edgecastlog\"\>", ",", "\<\"/user/shads/foo.seq\"\>",
+    ",", "\<\"/user/shads/input.seq\"\>", 
+   ",", "\<\"/user/shads/load_binned_webstats_20110310\"\>", 
+   ",", "\<\"/user/shads/mysql5log\"\>", ",", "\<\"/user/shads/output\"\>", 
+   ",", "\<\"/user/shads/splats_test\"\>", 
+   ",", "\<\"/user/shads/uniques_by_platform_20110428_pre1\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.5286533690235233`*^9, 3.528653408581736*^9, 
+  3.528653782903207*^9, 3.528653836292873*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSImport", "[", 
+  RowBox[{
+  "link", ",", "\"\</user/shads/input.seq\>\"", ",", "\"\<SequenceFile\>\""}],
+   "]"}]], "Input",
+ CellChangeTimes->{{3.528653489359765*^9, 3.528653520826878*^9}, {
+  3.528653555073962*^9, 3.528653557272675*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "10"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"b\"\>", ",", "7"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"c\"\>", ",", "15"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"d\"\>", ",", "11"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.528653522254915*^9, 3.528653558027403*^9, 
+  3.528653784651779*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mapper", "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"key", ",", "val"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Yield", "[", 
+      RowBox[{"\"\<count\>\"", ",", "val"}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{3.528653937550815*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"reducer", "=", 
+   RowBox[{"Function", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"key", ",", "vals"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Module", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"sum", "=", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"While", "[", 
+         RowBox[{
+          RowBox[{"vals", "@", 
+           RowBox[{"hasNext", "[", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"sum", "+=", 
+           RowBox[{"vals", "@", 
+            RowBox[{"next", "[", "]"}]}]}]}], "\[IndentingNewLine]", "]"}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"Yield", "[", 
+         RowBox[{"key", ",", "sum"}], "]"}]}]}], "\[IndentingNewLine]", 
+      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{3.528653934728104*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSFileNames", "[", "link", "]"}]], "Input",
+ CellChangeTimes->{{3.528653990619607*^9, 3.528654000384438*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/user/shads/.logs_1312830061429\"\>", 
+   ",", "\<\"/user/shads/.logs_1312830208433\"\>", 
+   ",", "\<\"/user/shads/.logs_1312834752040\"\>", 
+   ",", "\<\"/user/shads/.oldlogs\"\>", 
+   ",", "\<\"/user/shads/binned_webstats_20110310\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110601\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110602\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_20110603\"\>", 
+   ",", "\<\"/user/shads/cookie_session_starts_hourly_output\"\>", 
+   ",", "\<\"/user/shads/dir1\"\>", ",", "\<\"/user/shads/edgecast\"\>", 
+   ",", "\<\"/user/shads/edgecastlog\"\>", ",", "\<\"/user/shads/foo.seq\"\>",
+    ",", "\<\"/user/shads/input.seq\"\>", 
+   ",", "\<\"/user/shads/load_binned_webstats_20110310\"\>", 
+   ",", "\<\"/user/shads/mysql5log\"\>", 
+   ",", "\<\"/user/shads/splats_test\"\>", 
+   ",", "\<\"/user/shads/uniques_by_platform_20110428_pre1\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.528654002126121*^9, 3.5286540294546432`*^9}}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"DFSDeleteDirectory", "[", 
+  RowBox[{"link", ",", " ", "\"\<output\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.528654004469619*^9, 3.5286540226726933`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MapReduceJob", "[", 
+  RowBox[{
+  "link", ",", "\"\<my map-reduce job\>\"", ",", "\"\<input.seq\>\"", ",", 
+   "\"\<output\>\"", ",", "mapper", ",", "reducer"}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"Last", "::", "nolast"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"\[NoBreak]\\!\\({}\\)\[NoBreak] has a length of zero and \
+no last element. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\
+\"Link\\\", ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/Last/nolast\
+\\\", ButtonNote -> \\\"Last::nolast\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.528653978397705*^9, 3.5286540335252666`*^9}],
+
+Cell[BoxData[
+ PanelBox[
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"Job Details:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      TagBox[
+       ButtonBox[
+        PaneSelectorBox[{False->"\<\"job_201110251051_0220\"\>", True->
+         StyleBox["\<\"job_201110251051_0220\"\>", "HyperlinkActive"]}, 
+         Dynamic[
+          CurrentValue["MouseOver"]],
+         BaseStyle->{"Hyperlink"},
+         BaselinePosition->Baseline,
+         FrameMargins->0,
+         ImageSize->Automatic],
+        BaseStyle->"Hyperlink",
+        ButtonData->{
+          URL[
+          "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201110251051_0220"], None},
+        ButtonNote->
+         "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201110251051_0220"],
+       Annotation[#, 
+        "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201110251051_0220", "Hyperlink"]& ]},
+     {
+      StyleBox["\<\"Map Progress:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      DynamicBox[ToBoxes[
+        Refresh[
+         ProgressIndicator[
+          JLink`Objects`vm3`JavaObject9246383533981697[
+           HadoopLink`Private`mapProgress[]], ImageSize -> {150, 15}], 
+         UpdateInterval -> 5], StandardForm],
+       ImageSizeCache->{521., {17., 10.}}]},
+     {
+      StyleBox["\<\"Reduce Progress:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      DynamicBox[ToBoxes[
+        Refresh[
+         ProgressIndicator[
+          JLink`Objects`vm3`JavaObject9246383533981697[
+           HadoopLink`Private`reduceProgress[]], ImageSize -> {150, 15}], 
+         UpdateInterval -> 5], StandardForm],
+       ImageSizeCache->{150., {5., 10.}}]}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"]]], "Output",
+ CellChangeTimes->{3.52865397923779*^9, 3.5286540397053957`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["HadoopLink`Private`$HadoopLinkPath"], "Input",
+ CellChangeTimes->{{3.528655182326215*^9, 3.528655193135487*^9}}],
+
+Cell[BoxData["\<\"/Users/shads/Workspace/HadoopLink/HadoopLink/\"\>"], \
+"Output",
+ CellChangeTimes->{3.528655193892823*^9}]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{762, 1036},
-WindowMargins->{{540, Automatic}, {Automatic, 0}},
+WindowSize->{771, 953},
+WindowMargins->{{Automatic, -795}, {47, Automatic}},
 ShowSelection->True,
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -88,12 +325,38 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[567, 22, 126, 2, 67, "Section"],
 Cell[696, 26, 122, 2, 27, "Input"],
-Cell[821, 30, 198, 4, 27, "Input"],
-Cell[1022, 36, 406, 10, 27, "Input"],
-Cell[1431, 48, 147, 3, 27, "Input"],
+Cell[821, 30, 147, 3, 27, "Input"],
 Cell[CellGroupData[{
-Cell[1603, 55, 128, 2, 27, "Input"],
-Cell[1734, 59, 250, 6, 27, "Output"]
+Cell[993, 37, 156, 3, 27, "Input"],
+Cell[1152, 42, 174, 4, 27, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1363, 51, 925, 21, 88, "Input"],
+Cell[2291, 74, 811, 17, 73, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3139, 96, 136, 2, 27, "Input"],
+Cell[3278, 100, 1142, 20, 148, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4457, 125, 266, 6, 27, "Input"],
+Cell[4726, 133, 413, 12, 27, "Output"]
+}, Open  ]],
+Cell[5154, 148, 359, 10, 58, "Input"],
+Cell[5516, 160, 924, 23, 163, "Input"],
+Cell[CellGroupData[{
+Cell[6465, 187, 134, 2, 27, "Input"],
+Cell[6602, 191, 1062, 19, 148, "Output"]
+}, Open  ]],
+Cell[7679, 213, 183, 3, 27, "Input"],
+Cell[CellGroupData[{
+Cell[7887, 220, 202, 4, 27, "Input"],
+Cell[8092, 226, 474, 9, 23, "Message"],
+Cell[8569, 237, 1962, 55, 99, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10568, 297, 126, 1, 27, "Input"],
+Cell[10697, 300, 124, 2, 27, "Output"]
 }, Open  ]]
 }, Open  ]]
 }

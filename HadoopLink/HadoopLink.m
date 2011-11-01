@@ -84,32 +84,16 @@ die[message_String] := Throw[message, "HadoopLinkError"]
 
 die[message_String, args__] := die[ToString@StringForm[message, args]]
 
-HadoopLink /: Format[HadoopLink[rls__Rule]] :=
-	HadoopLink["HadoopHome"/.{rls}]
-
 property[HadoopLink[rls__Rule], name_String] :=
 	name /. {rls} /. name -> Null
 
-OpenHadoopLink[] :=
-	Module[
-		{hadoopHome},
-		hadoopHome = Environment["HADOOP_HOME"];
-		If[ hadoopHome =!= $Failed,
-			OpenHadoopLink[hadoopHome],
-			Print["Please define the HADOOP_HOME environment variable"];
-			$Failed
-		]
-	]
-
-
 (* Set up a JVM and create a HadoopLink object to encapsulate
- * distributed file system access.
- *)
-OpenHadoopLink[hadoopHome_String, opts___Rule] :=
+ * distributed file system access. *)
+OpenHadoopLink[opts___Rule] :=
 	Module[
 		{hadoopLink, properties},
 		properties = Cases[{opts}, HoldPattern[_String -> _String]];
-		hadoopLink = HadoopLink["HadoopHome"->hadoopHome, "Configuration" -> properties];
+		hadoopLink = HadoopLink["Configuration" -> properties];
 		initializeJLinkForHadoop[hadoopLink];
 		hadoopLink
 	]
@@ -127,7 +111,7 @@ jLinkInitializedForHadoopQ[] :=
 
 initializeJLinkForHadoop[h_HadoopLink] :=
 	Module[
-		{javaVersion, hadoopHome},
+		{javaVersion},
 		InstallJava[];
 		LoadJavaClass["java.lang.System", StaticsVisible -> True];
 		(* Check Java version *)
@@ -144,17 +128,6 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 			"javax.xml.transform.TransformerFactory",
 			"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"
 		];
-		(* Add all the Hadoop jars to the classpath *)
-		hadoopHome = property[h, "HadoopHome"]; 
-		AddToClassPath[Flatten@Map[
-			FileNames["*.jar", #]&,
-			{
-				hadoopHome,
-				FileNameJoin[{hadoopHome, "conf"}],
-				FileNameJoin[{hadoopHome, "lib"}],
-				FileNameJoin[{hadoopHome, "contrib", "streaming"}]
-			}
-		], Prepend -> True];
 		(* Mark the JVM as initialized for HadoopLink` *)
 		System`setProperty[
 			$hadoopLinkInitializedProperty,
@@ -164,24 +137,10 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 
 getConf[h_HadoopLink] :=
 	JavaBlock@Module[
-		{configDir, hadoopHome, conf, url},
-		hadoopHome = property[h, "HadoopHome"];
-		configDir = FileNameJoin[{hadoopHome, "conf"}];
+		{conf},
 		conf = JavaNew["org.apache.hadoop.conf.Configuration"];
 		KeepJavaObject[conf];
-		url = LoadJavaClass["java.net.URL"];
-		Map[
-			conf@addResource[JavaNew[url,
-				If[$OperatingSystem==="Windows", "file:///", "file://"] <> #
-			]]&,
-			(*FileNames["*-site.xml", configDir]*)
-			FileNames[Except["."] ~~ ___ ~~ "-site.xml", configDir]
-		];
-		(* Override with custom configuration set by this HadoopLink *)
-		Map[
-			conf@set[Sequence@@#] &,
-			property[h, "Configuration"]
-		];
+		Map[conf@set[Sequence@@#] &, property[h, "Configuration"]];
 		conf
 	]
 

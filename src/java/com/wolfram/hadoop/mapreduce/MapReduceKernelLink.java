@@ -1,23 +1,12 @@
 package com.wolfram.hadoop.mapreduce;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FSDataInputStream;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.mapreduce.TaskInputOutputContext;
 import org.apache.hadoop.util.StringUtils;
 
-import com.wolfram.jlink.Expr;
 import com.wolfram.jlink.KernelLink;
 import com.wolfram.jlink.MathLinkException;
 import com.wolfram.jlink.MathLinkFactory;
@@ -105,6 +94,7 @@ class ShutdownHook extends Thread {
     this.link = link;
   }
 
+  @Override
   public void run() {
     link.terminateKernel();
     link.close();

@@ -2,6 +2,7 @@
   <property environment="env"/>
 
   <property name="app.name" value="HadoopLink"/>
+  <property name="dist.name" value="dist"/>
 	
   <property name="build.dir" location="build"/>
   <property name="src.dir" location="src" />
@@ -10,10 +11,22 @@
   <property name="doc.src.dir" location="docs"/>
   <property name="classes.dir" location="${build.dir}/classes"/>
   <property name="log.dir" location="${basedir}/log"/>
+	<property name="lib.dir" location="${basedir}/Java"/>
 	
 	<property name="hadoop.home" location="${env.HADOOP_HOME}"/>
 	<property name="mathematica.dir" location="/Applications/Mathematica.app"/>
+	<property name="workbench.dir" location="/Applications/eclipse"/>
+  <property name="dist.dir" value="${basedir}/${dist.name}/${app.name}"/>
 
+  <target name="clean" description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${classes.dir}"/>
+    <delete dir="${log.dir}"/>
+  	<delete dir="${basedir}/${dist.name}"/>
+    <delete dir="HadoopLink/Java"/>
+  </target>
+	
   <target name="init">
     <tstamp/>
 
@@ -145,7 +158,7 @@
     <property name="appPath" value="${mathematica.app.dir}"/>
     <property name="mathematicaInstallDir" value="${mathematica.dir}"/>
     <property name="inputDir" value="${doc.src.dir}/English"/>
-    <property name="outputDir" value="${basedir}/build/${app.name}/Documentation/English"/>
+    <property name="outputDir" value="${dist.dir}/Documentation/English"/>
     <property name="logdir" value="${log.dir}"/>
     <property name="JLinkLoaded" value="true"/>
     <property name="jlink.lib" value="${jlink.jar}"/>
@@ -157,33 +170,24 @@
   </target>
 
   <target name="build" depends="jar" description="assemble all the components of the application">
-    <mkdir dir="${build.dir}/${app.name}"/>
-    <copy todir="${build.dir}/${app.name}">
+    <mkdir dir="${dist.dir}"/>
+    <copy todir="${dist.dir}">
       <fileset dir="${basedir}/${app.name}">
         <include name="**/*.m"/>
       </fileset>
     </copy>
-    <copy todir="${build.dir}/${app.name}/Java"
+    <copy todir="${dist.dir}/Java"
       file="${build.dir}/${app.name}-core-${version}.jar"/>
-    <copy todir="${build.dir}/${app.name}/Data"
+  	<copy todir="${dist.dir}/Java">
+      <fileset dir="${basedir}/Java/">
+        <include name="*.jar" />
+      </fileset>
+  	</copy>
+    <copy todir="${dist.dir}/Data"
       file="${build.dir}/${app.name}-mapreduce-${version}.jar"/>
   </target>
-
-  <target name="package" depends="build,docbuild">
-    <zip basedir="${build.dir}" destfile="${build.dir}/${app.name}-${version}.zip"
-      includes="HadoopLink/**"/>
-  </target>
-
-  <target name="install" depends="package">
-    <delete dir="${user.app.dir}/${app.name}"/>
-    <unzip src="${build.dir}/${app.name}-${version}.zip" dest="${user.app.dir}"/>
-  </target>
-
-  <target name="clean" description="clean up">
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build.dir}"/>
-    <delete dir="${classes.dir}"/>
-    <delete dir="${log.dir}"/>
-    <delete dir="HadoopLink/Java"/>
+	
+  <target name="dist" depends="build,docbuild">
+    <zip destfile="${basedir}/${dist.name}/${app.name}-${version}.zip" basedir="${basedir}/${dist.name}"/>
   </target>
 </project>
