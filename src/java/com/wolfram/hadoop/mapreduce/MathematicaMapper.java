@@ -53,6 +53,9 @@ public class MathematicaMapper
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
+    } catch (IOException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      throw new RuntimeException("Error initializing kernel for task");
     }
   }
 

@@ -18,18 +18,18 @@ public class MathematicaTask {
 
   private static final String DEFAULT_COUNTER_GROUP = "Mathematica";
 
-  private TaskInputOutputContext context;
+  private TaskInputOutputContext<?, ?, TypedBytesWritable, TypedBytesWritable> context;
 
   private TypedBytesWritable key;
   private TypedBytesWritable value;
 
-  public MathematicaTask(TaskInputOutputContext context) {
+  public MathematicaTask(TaskInputOutputContext<?, ?, TypedBytesWritable, TypedBytesWritable> context) {
     this.context = context;
     key = new TypedBytesWritable();
     value = new TypedBytesWritable();
   }
 
-  public void setContext(TaskInputOutputContext context) {
+  public void setContext(TaskInputOutputContext<?, ?, TypedBytesWritable, TypedBytesWritable> context) {
     this.context = context;
   }
 

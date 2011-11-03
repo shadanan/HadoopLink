@@ -54,6 +54,9 @@ public class MathematicaReducer extends
     } catch (MathLinkException e) {
       LOG.error(StringUtils.stringifyException(e));
       throw new RuntimeException("Error initializing kernel for task");
+    } catch (IOException e) {
+      LOG.error(StringUtils.stringifyException(e));
+      throw new RuntimeException("Error initializing kernel for task");
     }
   }
 
@@ -84,24 +87,25 @@ public class MathematicaReducer extends
     link.terminateKernel();
     link.close();
   }
-
 }
 
-class ValuesIterator implements Iterator {
+class ValuesIterator implements Iterator<Object> {
+  private Iterator<TypedBytesWritable> iter;
 
-  private Iterator iter;
-
-  ValuesIterator(Iterator iter) {
+  ValuesIterator(Iterator<TypedBytesWritable> iter) {
     this.iter = iter;
   }
 
+  @Override
   public boolean hasNext() {
     return iter.hasNext();
   }
 
+  @Override
   public Object next() {
-    return ((TypedBytesWritable) iter.next()).getValue();
+    return ((TypedBytesWritable)iter.next()).getValue();
   }
 
+  @Override
   public void remove() {}
 }

@@ -98,13 +98,13 @@ MapReduceJob[h_HadoopLink,
 		 * Arguments passed in the start up of a Mathematica kernel on the
 		 * cluster.
 		 *)
-		Map[
+(*		Map[
 			If[ conf@get[#] == Null,
 				die["Please define `` in your Hadoop configuration", #]
 			]&,
 			{"wolfram.jlink.path", "wolfram.math.args"}
 		];
-
+*)
 		(* Find the definitions of any dependencies of the map and reduce
 		 * functions, write them out to temporary files, and repackage the
 		 * HadoopLink jar with the dependencies included. *)
