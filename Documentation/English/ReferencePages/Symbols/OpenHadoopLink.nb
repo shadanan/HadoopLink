@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     13098,        507]
-NotebookOptionsPosition[      8697,        350]
-NotebookOutlinePosition[      9309,        374]
-CellTagsIndexPosition[      9231,        369]
+NotebookDataLength[     14263,        541]
+NotebookOptionsPosition[      9658,        377]
+NotebookOutlinePosition[     10288,        402]
+CellTagsIndexPosition[     10209,        397]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -136,32 +136,58 @@ Cell["OpenHadoopLink", "ObjectName",
 Cell[TextData[{
  Cell["   ", "ModInfo"],
  Cell[BoxData[
-  RowBox[{"OpenHadoopLink", "[", "\"\<\!\(\*
-StyleBox[\"path\", \"TI\"]\)\>\"", "]"}]], "InlineFormula"],
+  RowBox[{"OpenHadoopLink", "[", "]"}]], "InlineFormula"],
  " \[LineSeparator]creates a ",
  Cell[BoxData[
   ButtonBox["HadoopLink",
    BaseStyle->"Link",
    ButtonData->"paclet:HadoopLink/ref/HadoopLink"]], "InlineFormula"],
- " object from the Hadoop installation directory at ",
- Cell[BoxData[
-  StyleBox["path", "TI"]], "InlineFormula"],
- ". "
+ " object. "
 }], "Usage",
  CellChangeTimes->{{3.497977480572016*^9, 3.497977548033399*^9}, {
   3.4979776340905323`*^9, 3.497977700508329*^9}, {3.49797836555151*^9, 
-  3.497978376586051*^9}},
+  3.497978376586051*^9}, {3.529430331545583*^9, 3.5294303420535793`*^9}},
  CellID->982511436],
 
 Cell[TextData[{
  Cell[BoxData["OpenHadoopLink"], "InlineFormula"],
- " uses the Hadoop configuration and libraries found in the supplied path to \
-make connections to a Hadoop cluster."
+ " establishes a connection with a Hadoop cluster. The function takes a \
+sequence of rules that set the configuration for the link. A list of valid \
+options are available on the ",
+ ButtonBox["Apache Hadoop Getting Started with Hadoop wiki",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://wiki.apache.org/hadoop/GettingStartedWithHadoop"], None}],
+ "."
 }], "Notes",
  CellChangeTimes->{{3.497977723185627*^9, 3.4979778624286337`*^9}, {
   3.4979778953876047`*^9, 3.497977899017358*^9}, {3.497978054553995*^9, 
-  3.4979780676863327`*^9}},
- CellID->1067943069]
+  3.4979780676863327`*^9}, {3.529430367957551*^9, 3.529430414032319*^9}, {
+  3.529430461502116*^9, 3.5294305487996387`*^9}, {3.5294305912948923`*^9, 
+  3.529430632441923*^9}, {3.5294306813916683`*^9, 3.529430689555173*^9}},
+ CellID->1067943069],
+
+Cell["\<\
+For most basic installations of Hadoop, there are two required configuration \
+options:\
+\>", "Notes",
+ CellChangeTimes->{{3.5294306919705353`*^9, 3.529430820669119*^9}},
+ CellID->538676797],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "ModInfo"], "\"\<fs.default.name\>\"", 
+    "\"\<hdfs://hadoophead.mydomain.com:8020\>\"", Cell["\<\
+Specifies the Hadoop name node or local directory to use for HDFS operation. \
+Include this option if you want to enable HDFS access on this link.\
+\>", "TableText"]},
+   {Cell["      ", "ModInfo"], "\"\<mapred.job.tracker\>\"", 
+    "\"\<hadoophead.mydomain.com:8021\>\"", Cell["\<\
+Specifies the Hadoop job tracker. This option enables map / reduce jobs to be \
+submitted to the cluster on this link.\
+\>", "TableText"]}
+  }]], "3ColumnTableMod",
+ CellChangeTimes->{{3.529430975406599*^9, 3.529431075492037*^9}},
+ CellID->1623870243]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -224,67 +250,68 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
-Cell[TextData[{
- "The path supplied to ",
- Cell[BoxData["OpenHadoopLink"], "InlineFormula"],
- " should be the path of a local Hadoop installation."
-}], "ExampleText",
- CellChangeTimes->{{3.49797797562714*^9, 3.4979780340854387`*^9}},
- CellID->231055593],
-
-Cell[CellGroupData[{
+Cell["\<\
+Establish a HadoopLink to a Hadoop cluster available on the local network:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.529431134193879*^9, 3.529431174653363*^9}},
+ CellID->17504378],
 
 Cell[BoxData[
- RowBox[{"FileNames", "[", 
-  RowBox[{"\"\<*\>\"", ",", "\"\</Library/Hadoop\>\""}], "]"}]], "Input",
- CellChangeTimes->{{3.497977932708437*^9, 3.49797794538412*^9}},
- CellLabel->"In[11]:=",
- CellID->2081212944],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"\<\"/Library/Hadoop/bin\"\>", 
-   ",", "\<\"/Library/Hadoop/build.xml\"\>", 
-   ",", "\<\"/Library/Hadoop/c++\"\>", 
-   ",", "\<\"/Library/Hadoop/CHANGES.txt\"\>", 
-   ",", "\<\"/Library/Hadoop/cloudera\"\>", 
-   ",", "\<\"/Library/Hadoop/conf\"\>", 
-   ",", "\<\"/Library/Hadoop/contrib\"\>", 
-   ",", "\<\"/Library/Hadoop/docs\"\>", 
-   ",", "\<\"/Library/Hadoop/example-confs\"\>", 
-   ",", "\<\"/Library/Hadoop/hadoop-ant-0.20.2+737.jar\"\>", 
-   ",", "\<\"/Library/Hadoop/hadoop-core-0.20.2+737.jar\"\>", 
-   ",", "\<\"/Library/Hadoop/hadoop-examples-0.20.2+737.jar\"\>", 
-   ",", "\<\"/Library/Hadoop/hadoop-test-0.20.2+737.jar\"\>", 
-   ",", "\<\"/Library/Hadoop/hadoop-tools-0.20.2+737.jar\"\>", 
-   ",", "\<\"/Library/Hadoop/ivy\"\>", ",", "\<\"/Library/Hadoop/ivy.xml\"\>",
-    ",", "\<\"/Library/Hadoop/lib\"\>", 
-   ",", "\<\"/Library/Hadoop/LICENSE.txt\"\>", 
-   ",", "\<\"/Library/Hadoop/NOTICE.txt\"\>", 
-   ",", "\<\"/Library/Hadoop/pids\"\>", 
-   ",", "\<\"/Library/Hadoop/README.txt\"\>", 
-   ",", "\<\"/Library/Hadoop/sbin\"\>", ",", "\<\"/Library/Hadoop/src\"\>", 
-   ",", "\<\"/Library/Hadoop/webapps\"\>"}], "}"}]], "Output",
- CellChangeTimes->{{3.4979779401579523`*^9, 3.497977946005785*^9}},
- CellLabel->"Out[11]=",
- CellID->662900947]
-}, Open  ]],
+ RowBox[{"Needs", "[", "\"\<HadoopLink`\>\"", "]"}]], "Input", "Deemphasis",
+ CellID->2138305054],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"link", "=", 
-  RowBox[{"OpenHadoopLink", "[", "\"\</Library/Hadoop\>\"", "]"}]}]], "Input",\
-
- CellChangeTimes->{{3.497977906590169*^9, 3.497977923333294*^9}},
- CellLabel->"In[9]:=",
- CellID->2132385780],
+  RowBox[{"OpenHadoopLink", "[", 
+   RowBox[{
+    RowBox[{
+    "\"\<fs.default.name\>\"", "\[Rule]", 
+     "\"\<hdfs://hadoopheadlx.wolfram.com:8020\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<mapred.job.tracker\>\"", "\[Rule]", 
+     "\"\<hadoopheadlx.wolfram.com:8021\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.529431181775281*^9, 3.5294312000880136`*^9}, 
+   3.5294314116753902`*^9},
+ CellLabel->"In[13]:=",
+ CellID->354210033],
 
 Cell[BoxData[
- RowBox[{"HadoopLink", "[", "\<\"/Library/Hadoop\"\>", "]"}]], "Output",
- CellChangeTimes->{3.497977923808814*^9},
- CellLabel->"Out[9]=",
- CellID->1800703324]
+ RowBox[{"HadoopLink", "[", 
+  RowBox[{"\<\"Configuration\"\>", "\[Rule]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\<\"fs.default.name\"\>", 
+      "\[Rule]", "\<\"hdfs://hadoopheadlx.wolfram.com:8020\"\>"}], ",", 
+     RowBox[{"\<\"mapred.job.tracker\"\>", 
+      "\[Rule]", "\<\"hadoopheadlx.wolfram.com:8021\"\>"}]}], "}"}]}], 
+  "]"}]], "Output",
+ CellChangeTimes->{3.529431411957306*^9},
+ CellLabel->"Out[13]=",
+ CellID->1320543596]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSFileNames", "[", 
+  RowBox[{"link", ",", "\"\<*\>\"", ",", "\"\</\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.5294312058146763`*^9, 3.529431217076035*^9}},
+ CellLabel->"In[12]:=",
+ CellID->599014629],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/Users\"\>", ",", "\<\"/backup\"\>", ",", "\<\"/data\"\>", 
+   ",", "\<\"/hbase\"\>", ",", "\<\"/log\"\>", ",", "\<\"/lost+found\"\>", 
+   ",", "\<\"/system\"\>", ",", "\<\"/tmp\"\>", ",", "\<\"/user\"\>", 
+   ",", "\<\"/var\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.529431210760479*^9, 3.5294312180119658`*^9}, 
+   3.52943137804568*^9},
+ CellLabel->"Out[12]=",
+ CellID->1600054190]
 }, Open  ]]
 }, Open  ]],
 
@@ -320,7 +347,7 @@ Cell[BoxData[
  InterpretationBox[Cell["XXXX", "ExampleSubsection"],
   $Line = 0; Null]], "ExampleSubsection",
  CellID->1295379749]
-}, Closed]],
+}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[Cell["Applications", "ExampleSection"],
@@ -348,10 +375,11 @@ Cell[BoxData[
  CellID->589267740]
 }, Open  ]]
 },
-WindowSize->{700, 770},
+WindowSize->{807, 777},
 WindowMargins->{{4, Automatic}, {Automatic, 0}},
 CellContext->"Global`",
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
@@ -361,14 +389,14 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[7177, 292, 100, 2, 53, "ExtendedExamplesSection",
+  Cell[8138, 319, 100, 2, 53, "ExtendedExamplesSection",
    CellTags->"ExtendedExamples",
    CellID->1854448968]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 9093, 362}
+ {"ExtendedExamples", 10071, 390}
  }
 *)
 (*NotebookFileOutline
@@ -429,84 +457,90 @@ Cell[2529, 125, 67, 2, 70, "Details",
 Cell[CellGroupData[{
 Cell[2633, 132, 57, 1, 62, "ObjectName",
  CellID->1224892054],
-Cell[2693, 135, 646, 18, 71, "Usage",
+Cell[2693, 135, 539, 14, 71, "Usage",
  CellID->982511436],
-Cell[3342, 155, 388, 8, 38, "Notes",
- CellID->1067943069]
+Cell[3235, 151, 832, 16, 53, "Notes",
+ CellID->1067943069],
+Cell[4070, 169, 200, 5, 24, "Notes",
+ CellID->538676797],
+Cell[4273, 176, 678, 13, 105, "3ColumnTableMod",
+ CellID->1623870243]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3767, 168, 57, 1, 43, "TutorialsSection",
+Cell[4988, 194, 57, 1, 43, "TutorialsSection",
  CellID->250839057],
-Cell[3827, 171, 45, 1, 16, "Tutorials",
+Cell[5048, 197, 45, 1, 16, "Tutorials",
  CellID->341631938]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[3909, 177, 83, 1, 30, "RelatedDemonstrationsSection",
+Cell[5130, 203, 83, 1, 30, "RelatedDemonstrationsSection",
  CellID->1268215905],
-Cell[3995, 180, 58, 1, 16, "RelatedDemonstrations",
+Cell[5216, 206, 58, 1, 16, "RelatedDemonstrations",
  CellID->1129518860]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4090, 186, 65, 1, 30, "RelatedLinksSection",
+Cell[5311, 212, 65, 1, 30, "RelatedLinksSection",
  CellID->1584193535],
-Cell[4158, 189, 49, 1, 16, "RelatedLinks",
+Cell[5379, 215, 49, 1, 16, "RelatedLinks",
  CellID->1038487239]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4244, 195, 55, 1, 30, "SeeAlsoSection",
+Cell[5465, 221, 55, 1, 30, "SeeAlsoSection",
  CellID->1255426704],
-Cell[4302, 198, 43, 1, 16, "SeeAlso",
+Cell[5523, 224, 43, 1, 16, "SeeAlso",
  CellID->929782353]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4382, 204, 57, 1, 30, "MoreAboutSection",
+Cell[5603, 230, 57, 1, 30, "MoreAboutSection",
  CellID->38303248],
-Cell[4442, 207, 46, 1, 16, "MoreAbout",
+Cell[5663, 233, 46, 1, 16, "MoreAbout",
  CellID->1665078683]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4525, 213, 356, 11, 69, "PrimaryExamplesSection",
+Cell[5746, 239, 356, 11, 69, "PrimaryExamplesSection",
  CellID->880084151],
-Cell[4884, 226, 253, 6, 21, "ExampleText",
- CellID->231055593],
+Cell[6105, 252, 190, 4, 20, "ExampleText",
+ CellID->17504378],
+Cell[6298, 258, 111, 2, 23, "Input",
+ CellID->2138305054],
 Cell[CellGroupData[{
-Cell[5162, 236, 225, 5, 23, "Input",
- CellID->2081212944],
-Cell[5390, 243, 1299, 26, 188, "Output",
- CellID->662900947]
+Cell[6434, 264, 495, 14, 69, "Input",
+ CellID->354210033],
+Cell[6932, 280, 456, 12, 53, "Output",
+ CellID->1320543596]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[6726, 274, 227, 6, 23, "Input",
- CellID->2132385780],
-Cell[6956, 282, 172, 4, 22, "Output",
- CellID->1800703324]
+Cell[7425, 297, 229, 5, 23, "Input",
+ CellID->599014629],
+Cell[7657, 304, 432, 9, 38, "Output",
+ CellID->1600054190]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7177, 292, 100, 2, 53, "ExtendedExamplesSection",
+Cell[8138, 319, 100, 2, 53, "ExtendedExamplesSection",
  CellTags->"ExtendedExamples",
  CellID->1854448968],
-Cell[7280, 296, 125, 3, 31, "ExampleSection",
+Cell[8241, 323, 125, 3, 31, "ExampleSection",
  CellID->1293636265],
-Cell[7408, 301, 148, 3, 19, "ExampleSection",
+Cell[8369, 328, 148, 3, 19, "ExampleSection",
  CellID->1020263627],
 Cell[CellGroupData[{
-Cell[7581, 308, 127, 3, 19, "ExampleSection",
+Cell[8542, 335, 127, 3, 19, "ExampleSection",
  CellID->2061341341],
-Cell[7711, 313, 130, 3, 70, "ExampleSubsection",
+Cell[8672, 340, 130, 3, 21, "ExampleSubsection",
  CellID->1757724783],
-Cell[7844, 318, 130, 3, 70, "ExampleSubsection",
+Cell[8805, 345, 130, 3, 17, "ExampleSubsection",
  CellID->1295379749]
-}, Closed]],
-Cell[7989, 324, 131, 3, 19, "ExampleSection",
+}, Open  ]],
+Cell[8950, 351, 131, 3, 31, "ExampleSection",
  CellID->258228157],
-Cell[8123, 329, 142, 3, 19, "ExampleSection",
+Cell[9084, 356, 142, 3, 19, "ExampleSection",
  CellID->2123667759],
-Cell[8268, 334, 135, 3, 19, "ExampleSection",
+Cell[9229, 361, 135, 3, 19, "ExampleSection",
  CellID->1305812373],
-Cell[8406, 339, 140, 3, 19, "ExampleSection",
+Cell[9367, 366, 140, 3, 19, "ExampleSection",
  CellID->1653164318],
-Cell[8549, 344, 132, 3, 19, "ExampleSection",
+Cell[9510, 371, 132, 3, 19, "ExampleSection",
  CellID->589267740]
 }, Open  ]]
 }

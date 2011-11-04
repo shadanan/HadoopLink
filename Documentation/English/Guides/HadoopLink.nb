@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     14278,        508]
-NotebookOptionsPosition[     10141,        372]
-NotebookOutlinePosition[     10922,        397]
-CellTagsIndexPosition[     10879,        394]
+NotebookDataLength[     14249,        506]
+NotebookOptionsPosition[     10113,        370]
+NotebookOutlinePosition[     10894,        395]
+CellTagsIndexPosition[     10851,        392]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -164,20 +164,18 @@ Cell[TextData[{
 
 Cell[TextData[{
  Cell[BoxData[
-  ButtonBox[
-   ButtonBox["OpenHadoopLink",
-    BaseStyle->"Link",
-    ButtonData->"paclet:HadoopLink/ref/OpenHadoopLInk"],
+  ButtonBox["OpenHadoopLink",
    BaseStyle->"Link",
-   ButtonData->"paclet:OpenHadoopLink"]], "InlineGuideFunction"],
- " \[LongDash] create a link to a Hadoop cluster from a Hadoop installation \
+   ButtonData->"paclet:HadoopLink/ref/OpenHadoopLink"]], 
+  "InlineGuideFunction"],
+ "  \[LongDash] create a link to a Hadoop cluster from a Hadoop installation \
 path"
 }], "GuideText",
  CellChangeTimes->{{3.4981414405722427`*^9, 3.4981414617089863`*^9}, {
   3.5294254796820097`*^9, 3.529425479734779*^9}, {3.529425523963431*^9, 
   3.529425572392004*^9}, {3.529428164873094*^9, 3.529428203650649*^9}, {
   3.52942832165808*^9, 3.529428321719136*^9}, {3.529428378128463*^9, 
-  3.529428378217704*^9}},
+  3.529428378217704*^9}, {3.5294302836033697`*^9, 3.52943031545606*^9}},
  CellID->1463276848],
 
 Cell[CellGroupData[{
@@ -459,56 +457,56 @@ Cell[3087, 143, 54, 1, 69, "GuideFunctionsSection",
  CellID->1866139230],
 Cell[3144, 146, 586, 16, 21, "GuideText",
  CellID->203374175],
-Cell[3733, 164, 677, 16, 21, "GuideText",
+Cell[3733, 164, 649, 14, 21, "GuideText",
  CellID->1463276848],
 Cell[CellGroupData[{
-Cell[4435, 184, 48, 1, 26, "GuideDelimiter",
+Cell[4407, 182, 48, 1, 26, "GuideDelimiter",
  CellID->311258892],
-Cell[4486, 187, 147, 2, 20, "GuideMoreAbout",
+Cell[4458, 185, 147, 2, 20, "GuideMoreAbout",
  CellID->1149617032],
-Cell[4636, 191, 443, 12, 21, "GuideText",
+Cell[4608, 189, 443, 12, 21, "GuideText",
  CellID->703084765],
-Cell[5082, 205, 405, 10, 21, "GuideText",
+Cell[5054, 203, 405, 10, 21, "GuideText",
  CellID->1290619561],
-Cell[5490, 217, 408, 11, 21, "GuideText",
+Cell[5462, 215, 408, 11, 21, "GuideText",
  CellID->1858127027],
-Cell[5901, 230, 494, 13, 19, "InlineGuideFunctionListing",
+Cell[5873, 228, 494, 13, 19, "InlineGuideFunctionListing",
  CellID->1853233504],
-Cell[6398, 245, 130, 2, 20, "GuideMoreAboutSub",
+Cell[6370, 243, 130, 2, 20, "GuideMoreAboutSub",
  CellID->833748115],
-Cell[6531, 249, 842, 24, 19, "InlineGuideFunctionListing",
+Cell[6503, 247, 842, 24, 19, "InlineGuideFunctionListing",
  CellID->58033752],
-Cell[7376, 275, 132, 2, 20, "GuideMoreAboutSub",
+Cell[7348, 273, 132, 2, 20, "GuideMoreAboutSub",
  CellID->473772130],
-Cell[7511, 279, 659, 18, 19, "InlineGuideFunctionListing",
+Cell[7483, 277, 659, 18, 19, "InlineGuideFunctionListing",
  CellID->192685640],
-Cell[8173, 299, 138, 2, 20, "GuideMoreAboutSub",
+Cell[8145, 297, 138, 2, 20, "GuideMoreAboutSub",
  CellID->1966309481],
-Cell[8314, 303, 697, 19, 19, "InlineGuideFunctionListing",
+Cell[8286, 301, 697, 19, 19, "InlineGuideFunctionListing",
  CellID->1988899637],
-Cell[9014, 324, 132, 2, 20, "GuideMoreAboutSub",
+Cell[8986, 322, 132, 2, 20, "GuideMoreAboutSub",
  CellID->137603484],
-Cell[9149, 328, 482, 13, 19, "InlineGuideFunctionListing",
+Cell[9121, 326, 482, 13, 19, "InlineGuideFunctionListing",
  CellID->2009351416]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9680, 347, 62, 1, 71, "GuideTutorialsSection",
+Cell[9652, 345, 62, 1, 71, "GuideTutorialsSection",
  CellID->415694126],
-Cell[9745, 350, 49, 1, 20, "GuideTutorial",
+Cell[9717, 348, 49, 1, 20, "GuideTutorial",
  CellID->806871991],
-Cell[9797, 353, 50, 1, 20, "GuideTutorial",
+Cell[9769, 351, 50, 1, 20, "GuideTutorial",
  CellID->1885805579]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[9884, 359, 62, 1, 71, "GuideMoreAboutSection",
+Cell[9856, 357, 62, 1, 71, "GuideMoreAboutSection",
  CellID->23220180],
-Cell[9949, 362, 51, 1, 20, "GuideMoreAbout",
+Cell[9921, 360, 51, 1, 20, "GuideMoreAbout",
  CellID->1567025153],
-Cell[10003, 365, 50, 1, 20, "GuideMoreAbout",
+Cell[9975, 363, 50, 1, 20, "GuideMoreAbout",
  CellID->252299663]
 }, Open  ]],
-Cell[10068, 369, 69, 1, 71, "GuideRelatedLinksSection",
+Cell[10040, 367, 69, 1, 71, "GuideRelatedLinksSection",
  CellID->415694148]
 }
 ]

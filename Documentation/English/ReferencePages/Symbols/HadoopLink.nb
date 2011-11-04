@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     10740,        446]
-NotebookOptionsPosition[      6555,        297]
-NotebookOutlinePosition[      7170,        321]
-CellTagsIndexPosition[      7092,        316]
+NotebookDataLength[     11761,        477]
+NotebookOptionsPosition[      7434,        323]
+NotebookOutlinePosition[      8066,        348]
+CellTagsIndexPosition[      7988,        343]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -217,21 +217,47 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
+Cell["\<\
+Establish a connection to a Hadoop instance:\
+\>", "ExampleText",
+ CellChangeTimes->{{3.52943366176668*^9, 3.5294336717334948`*^9}},
+ CellID->720049107],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<HadoopLink`\>\"", "]"}]], "Input", "Deemphasis",
+ CellID->1950112403],
+
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"link", "=", 
-  RowBox[{"OpenHadoopLink", "[", "\"\</Library/Hadoop\>\"", "]"}]}]], "Input",\
-
- CellChangeTimes->{{3.497977422120407*^9, 3.49797743490979*^9}},
- CellLabel->"In[7]:=",
- CellID->689061655],
+  RowBox[{"OpenHadoopLink", "[", 
+   RowBox[{
+    RowBox[{
+    "\"\<fs.default.name\>\"", "\[Rule]", 
+     "\"\<hdfs://hadoopheadlx.wolfram.com:8020\>\""}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+    "\"\<mapred.job.tracker\>\"", "\[Rule]", 
+     "\"\<hadoopheadlx.wolfram.com:8021\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.4979690056856537`*^9, 3.497969013506153*^9}, {
+   3.529431484452963*^9, 3.529431485774289*^9}, 3.5294336762501707`*^9},
+ CellLabel->"In[28]:=",
+ CellID->1427633654],
 
 Cell[BoxData[
- RowBox[{"HadoopLink", "[", "\<\"/Library/Hadoop\"\>", "]"}]], "Output",
- CellChangeTimes->{3.497977438911582*^9},
- CellLabel->"Out[7]=",
- CellID->1827410961]
+ RowBox[{"HadoopLink", "[", 
+  RowBox[{"\<\"Configuration\"\>", "\[Rule]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"\<\"fs.default.name\"\>", 
+      "\[Rule]", "\<\"hdfs://hadoopheadlx.wolfram.com:8020\"\>"}], ",", 
+     RowBox[{"\<\"mapred.job.tracker\"\>", 
+      "\[Rule]", "\<\"hadoopheadlx.wolfram.com:8021\"\>"}]}], "}"}]}], 
+  "]"}]], "Output",
+ CellChangeTimes->{3.529433677416868*^9},
+ CellLabel->"Out[28]=",
+ CellID->794990504]
 }, Open  ]]
 }, Open  ]],
 
@@ -298,7 +324,8 @@ Cell[BoxData[
 WindowSize->{700, 770},
 WindowMargins->{{436, Automatic}, {Automatic, 20}},
 CellContext->"Global`",
-FrontEndVersion->"7.0 for Mac OS X x86 (32-bit) (February 18, 2009)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
@@ -308,14 +335,14 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[5035, 239, 100, 2, 53, "ExtendedExamplesSection",
+  Cell[5914, 265, 100, 2, 53, "ExtendedExamplesSection",
    CellTags->"ExtendedExamples",
    CellID->1854448968]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 6954, 309}
+ {"ExtendedExamples", 7850, 336}
  }
 *)
 (*NotebookFileOutline
@@ -414,38 +441,42 @@ Cell[4122, 200, 46, 1, 16, "MoreAbout",
 Cell[CellGroupData[{
 Cell[4205, 206, 356, 11, 69, "PrimaryExamplesSection",
  CellID->880084151],
+Cell[4564, 219, 162, 4, 20, "ExampleText",
+ CellID->720049107],
+Cell[4729, 225, 111, 2, 23, "Input",
+ CellID->1950112403],
 Cell[CellGroupData[{
-Cell[4586, 221, 225, 6, 23, "Input",
- CellID->689061655],
-Cell[4814, 229, 172, 4, 22, "Output",
- CellID->1827410961]
+Cell[4865, 231, 542, 14, 69, "Input",
+ CellID->1427633654],
+Cell[5410, 247, 455, 12, 53, "Output",
+ CellID->794990504]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5035, 239, 100, 2, 53, "ExtendedExamplesSection",
+Cell[5914, 265, 100, 2, 53, "ExtendedExamplesSection",
  CellTags->"ExtendedExamples",
  CellID->1854448968],
-Cell[5138, 243, 125, 3, 31, "ExampleSection",
+Cell[6017, 269, 125, 3, 31, "ExampleSection",
  CellID->1293636265],
-Cell[5266, 248, 148, 3, 19, "ExampleSection",
+Cell[6145, 274, 148, 3, 19, "ExampleSection",
  CellID->1020263627],
 Cell[CellGroupData[{
-Cell[5439, 255, 127, 3, 19, "ExampleSection",
+Cell[6318, 281, 127, 3, 19, "ExampleSection",
  CellID->2061341341],
-Cell[5569, 260, 130, 3, 70, "ExampleSubsection",
+Cell[6448, 286, 130, 3, 70, "ExampleSubsection",
  CellID->1757724783],
-Cell[5702, 265, 130, 3, 70, "ExampleSubsection",
+Cell[6581, 291, 130, 3, 70, "ExampleSubsection",
  CellID->1295379749]
 }, Closed]],
-Cell[5847, 271, 131, 3, 19, "ExampleSection",
+Cell[6726, 297, 131, 3, 19, "ExampleSection",
  CellID->258228157],
-Cell[5981, 276, 142, 3, 19, "ExampleSection",
+Cell[6860, 302, 142, 3, 19, "ExampleSection",
  CellID->2123667759],
-Cell[6126, 281, 135, 3, 19, "ExampleSection",
+Cell[7005, 307, 135, 3, 19, "ExampleSection",
  CellID->1305812373],
-Cell[6264, 286, 140, 3, 19, "ExampleSection",
+Cell[7143, 312, 140, 3, 19, "ExampleSection",
  CellID->1653164318],
-Cell[6407, 291, 132, 3, 19, "ExampleSection",
+Cell[7286, 317, 132, 3, 19, "ExampleSection",
  CellID->589267740]
 }, Open  ]]
 }

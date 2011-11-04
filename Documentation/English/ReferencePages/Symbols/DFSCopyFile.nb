@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     13110,        524]
-NotebookOptionsPosition[      8520,        359]
-NotebookOutlinePosition[      9127,        383]
-CellTagsIndexPosition[      9049,        378]
+NotebookDataLength[     13341,        527]
+NotebookOptionsPosition[      8775,        364]
+NotebookOutlinePosition[      9383,        388]
+CellTagsIndexPosition[      9305,        383]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -231,28 +231,32 @@ Cell[BoxData[
   $Line = 0; Null]], "PrimaryExamplesSection",
  CellID->880084151],
 
-Cell[BoxData[
- RowBox[{"<<", "HadoopLink`"}]], "Input",
- CellChangeTimes->{{3.498132404331996*^9, 3.498132407593144*^9}},
- CellLabel->"In[1]:=",
- CellID->199731376],
-
-Cell[CellGroupData[{
+Cell["\<\
+Create a file \"foo.txt\" on HDFS and copy to \"bar.txt\":\
+\>", "ExampleText",
+ CellChangeTimes->{{3.529431775806632*^9, 3.529431795554984*^9}},
+ CellID->2126173025],
 
 Cell[BoxData[
- RowBox[{"link", "=", 
-  RowBox[{"OpenHadoopLink", "[", "\"\</Library/Hadoop\>\"", "]"}]}]], "Input",\
+ RowBox[{"Needs", "[", "\"\<HadoopLink`\>\"", "]"}]], "Input", "Deemphasis",
+ CellID->1077921354],
 
- CellChangeTimes->{{3.498132408488398*^9, 3.4981324171727324`*^9}},
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"link", "=", 
+   RowBox[{"OpenHadoopLink", "[", 
+    RowBox[{
+     RowBox[{
+     "\"\<fs.default.name\>\"", "\[Rule]", 
+      "\"\<hdfs://hadoopheadlx.wolfram.com:8020\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "\"\<mapred.job.tracker\>\"", "\[Rule]", 
+      "\"\<hadoopheadlx.wolfram.com:8021\>\""}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.4979690056856537`*^9, 3.497969013506153*^9}, {
+  3.529431484452963*^9, 3.529431485774289*^9}},
  CellLabel->"In[2]:=",
- CellID->368296171],
-
-Cell[BoxData[
- RowBox[{"HadoopLink", "[", "\<\"/Library/Hadoop\"\>", "]"}]], "Output",
- CellChangeTimes->{3.4981324176728277`*^9, 3.498828354067144*^9},
- CellLabel->"Out[2]=",
- CellID->1869782876]
-}, Open  ]],
+ CellID->1427633654],
 
 Cell[CellGroupData[{
 
@@ -267,9 +271,10 @@ Cell[BoxData[
  CellID->1535316218],
 
 Cell[BoxData["\<\"foo.txt\"\>"], "Output",
- CellChangeTimes->{3.498132449462619*^9, 3.498828355736412*^9},
+ CellChangeTimes->{3.498132449462619*^9, 3.498828355736412*^9, 
+  3.529431761628203*^9},
  CellLabel->"Out[3]=",
- CellID->1312590381]
+ CellID->452150586]
 }, Open  ]],
 
 Cell[BoxData[
@@ -291,9 +296,9 @@ Cell[BoxData[
  CellID->893463229],
 
 Cell[BoxData["\<\"A bit of example text.\"\>"], "Output",
- CellChangeTimes->{3.498828380750198*^9},
+ CellChangeTimes->{3.498828380750198*^9, 3.529431766682434*^9},
  CellLabel->"Out[5]=",
- CellID->976537824]
+ CellID->1497755816]
 }, Open  ]]
 }, Open  ]],
 
@@ -359,8 +364,8 @@ Cell[BoxData[
 },
 WindowSize->{666, 1006},
 WindowMargins->{{Automatic, 283}, {Automatic, 0}},
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (November 6, \
-2010)",
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
 ]
@@ -370,14 +375,14 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[7000, 301, 100, 2, 53, "ExtendedExamplesSection",
+  Cell[7255, 306, 100, 2, 53, "ExtendedExamplesSection",
    CellTags->"ExtendedExamples",
    CellID->1854448968]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 8911, 371}
+ {"ExtendedExamples", 9167, 376}
  }
 *)
 (*NotebookFileOutline
@@ -393,7 +398,7 @@ Cell[1125, 46, 153, 3, 29, "Categorization",
  CellID->605800465],
 Cell[1281, 51, 146, 3, 29, "Categorization",
  CellID->468444828],
-Cell[1430, 56, 161, 3, 30, "Categorization"]
+Cell[1430, 56, 161, 3, 29, "Categorization"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[1628, 64, 55, 1, 27, "KeywordsSection",
@@ -476,54 +481,52 @@ Cell[4639, 213, 114, 2, 16, "MoreAbout",
 Cell[CellGroupData[{
 Cell[4790, 220, 356, 11, 69, "PrimaryExamplesSection",
  CellID->880084151],
-Cell[5149, 233, 164, 4, 23, "Input",
- CellID->199731376],
+Cell[5149, 233, 176, 4, 20, "ExampleText",
+ CellID->2126173025],
+Cell[5328, 239, 111, 2, 23, "Input",
+ CellID->1077921354],
+Cell[5442, 243, 543, 15, 54, "Input",
+ CellID->1427633654],
 Cell[CellGroupData[{
-Cell[5338, 241, 228, 6, 23, "Input",
- CellID->368296171],
-Cell[5569, 249, 196, 4, 22, "Output",
- CellID->1869782876]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[5802, 258, 306, 8, 23, "Input",
+Cell[6010, 262, 306, 8, 23, "Input",
  CellID->1535316218],
-Cell[6111, 268, 150, 3, 22, "Output",
- CellID->1312590381]
+Cell[6319, 272, 174, 4, 22, "Output",
+ CellID->452150586]
 }, Open  ]],
-Cell[6276, 274, 243, 6, 23, "Input",
+Cell[6508, 279, 243, 6, 23, "Input",
  CellID->1754511483],
 Cell[CellGroupData[{
-Cell[6544, 284, 262, 6, 23, "Input",
+Cell[6776, 289, 262, 6, 23, "Input",
  CellID->893463229],
-Cell[6809, 292, 142, 3, 22, "Output",
- CellID->976537824]
+Cell[7041, 297, 165, 3, 22, "Output",
+ CellID->1497755816]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7000, 301, 100, 2, 53, "ExtendedExamplesSection",
+Cell[7255, 306, 100, 2, 53, "ExtendedExamplesSection",
  CellTags->"ExtendedExamples",
  CellID->1854448968],
-Cell[7103, 305, 125, 3, 31, "ExampleSection",
+Cell[7358, 310, 125, 3, 31, "ExampleSection",
  CellID->1293636265],
-Cell[7231, 310, 148, 3, 19, "ExampleSection",
+Cell[7486, 315, 148, 3, 19, "ExampleSection",
  CellID->1020263627],
 Cell[CellGroupData[{
-Cell[7404, 317, 127, 3, 19, "ExampleSection",
+Cell[7659, 322, 127, 3, 19, "ExampleSection",
  CellID->2061341341],
-Cell[7534, 322, 130, 3, 70, "ExampleSubsection",
+Cell[7789, 327, 130, 3, 70, "ExampleSubsection",
  CellID->1757724783],
-Cell[7667, 327, 130, 3, 70, "ExampleSubsection",
+Cell[7922, 332, 130, 3, 70, "ExampleSubsection",
  CellID->1295379749]
 }, Closed]],
-Cell[7812, 333, 131, 3, 19, "ExampleSection",
+Cell[8067, 338, 131, 3, 19, "ExampleSection",
  CellID->258228157],
-Cell[7946, 338, 142, 3, 19, "ExampleSection",
+Cell[8201, 343, 142, 3, 19, "ExampleSection",
  CellID->2123667759],
-Cell[8091, 343, 135, 3, 19, "ExampleSection",
+Cell[8346, 348, 135, 3, 19, "ExampleSection",
  CellID->1305812373],
-Cell[8229, 348, 140, 3, 19, "ExampleSection",
+Cell[8484, 353, 140, 3, 19, "ExampleSection",
  CellID->1653164318],
-Cell[8372, 353, 132, 3, 19, "ExampleSection",
+Cell[8627, 358, 132, 3, 19, "ExampleSection",
  CellID->589267740]
 }, Open  ]]
 }
