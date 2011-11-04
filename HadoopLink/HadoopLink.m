@@ -58,7 +58,7 @@ copies a file from the distributed filesystem to the local filesystem."
 DFSCreateDirectory::usage = "DFSCreateDirectory[link, \"dir\"] creates a \
 directory on the distributed filesystem."
 
-MapReduceJob::usage = "MapReduceJob[link, \"jobname\", {\"input\"}, \"output\", \
+HadoopMapReduceJob::usage = "HadoopMapReduceJob[link, \"jobname\", {\"input\"}, \"output\", \
 mapfn, reducefn] submits a map-reduce job implemented in Mathematica."
 
 Yield::usage = "Yield[key, value] writes a key-value pair to the ouput of a \
@@ -75,7 +75,7 @@ Map[
 	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
 	{
 		"DFS.m",
-		"MapReduce.m"
+		"HadoopMapReduce.m"
 	}
 ];
 

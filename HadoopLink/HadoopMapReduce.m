@@ -65,10 +65,10 @@ reJar[jarFile_String, files0 : {__String}] /; FileExistsQ[jarFile] :=
 		newJarFile
 	]
 
-MapReduceJob[h_HadoopLink, name_String, inputPath_String, args__] :=
-	MapReduceJob[h, name, {inputPath}, args]
+HadoopMapReduceJob[h_HadoopLink, name_String, inputPath_String, args__] :=
+	HadoopMapReduceJob[h, name, {inputPath}, args]
 
-MapReduceJob[h_HadoopLink,
+HadoopMapReduceJob[h_HadoopLink,
 			 name_String,
 			 inputPaths : {__String},
 			 outputPath_String,
@@ -155,7 +155,7 @@ progressBar[expr_] =
 
 JobInProgress /: Format[JobInProgress[jobRef_]] :=
 	Module[
-		{url, jobId, mapPercent, reducePercent, complete},
+		{url, jobId, mapPercent, reducePercent},
 		url = jobRef@getTrackingURL[];
 		jobId = StringCases[url, "jobid="~~id__ :> id][[1]];
 		mapPercent = progressBar[jobRef@mapProgress[]];

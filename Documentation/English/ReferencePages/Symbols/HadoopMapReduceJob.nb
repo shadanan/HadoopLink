@@ -1,0 +1,866 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     24129,        857]
+NotebookOptionsPosition[     18557,        660]
+NotebookOutlinePosition[     19167,        684]
+CellTagsIndexPosition[     19088,        679]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "New in: ",
+ Cell["0.0", "HistoryData",
+  CellTags->"New"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete"],
+ " | Excised in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Excised"]
+}], "History",
+ CellChangeTimes->{{3.4981308531067543`*^9, 3.4981308535756197`*^9}},
+ CellID->341476719],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1122911449],
+
+Cell["Symbol", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->686433507],
+
+Cell["HadoopLink", "Categorization",
+ CellChangeTimes->{{3.49813086160387*^9, 3.49813086296733*^9}},
+ CellLabel->"Paclet Name",
+ CellID->605800465],
+
+Cell["HadoopLink`", "Categorization",
+ CellChangeTimes->{{3.498130864375597*^9, 3.49813086608745*^9}},
+ CellLabel->"Context",
+ CellID->468444828],
+
+Cell["\<\
+HadoopLink/ref/HadoopMapReduceJob\
+\>", "Categorization",
+ CellChangeTimes->{{3.498130867839487*^9, 3.498130873599923*^9}, 
+   3.4990836577568607`*^9, 3.529422099305861*^9},
+ CellLabel->"URI"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->477174294],
+
+Cell["XXXX", "Keywords",
+ CellID->1164421360]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Syntax Templates", "TemplatesSection",
+ CellID->1872225408],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Additional Function Template",
+ CellID->1562036412],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Arguments Pattern",
+ CellID->158391909],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Local Variables",
+ CellID->1360575930],
+
+Cell[BoxData[""], "Template",
+ CellLabel->"Color Equal Signs",
+ CellID->793782254]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Details", "DetailsSection",
+ CellID->307771771],
+
+Cell["XXXX", "Details",
+ CellLabel->"Lead",
+ CellID->49458704],
+
+Cell["XXXX", "Details",
+ CellLabel->"Developers",
+ CellID->350963985],
+
+Cell["XXXX", "Details",
+ CellLabel->"Authors",
+ CellID->422270209],
+
+Cell["XXXX", "Details",
+ CellLabel->"Feature Name",
+ CellID->545239557],
+
+Cell["XXXX", "Details",
+ CellLabel->"QA",
+ CellID->121292707],
+
+Cell["XXXX", "Details",
+ CellLabel->"DA",
+ CellID->29314406],
+
+Cell["XXXX", "Details",
+ CellLabel->"Docs",
+ CellID->96001539],
+
+Cell["XXXX", "Details",
+ CellLabel->"Features Page Notes",
+ CellID->123278822],
+
+Cell["XXXX", "Details",
+ CellLabel->"Comments",
+ CellID->240026365]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["HadoopMapReduceJob", "ObjectName",
+ CellChangeTimes->{{3.498130771280479*^9, 3.498130774121367*^9}, {
+  3.499083652365588*^9, 3.499083654536132*^9}, {3.5294220948439207`*^9, 
+  3.529422095655405*^9}},
+ CellID->1224892054],
+
+Cell[TextData[{
+ Cell["     ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"HadoopMapReduceJob", "[", 
+   RowBox[{
+    StyleBox["link", "TI"], ",", "\"\<\!\(\*
+StyleBox[\"jobname\", \"TI\"]\)\>\"", ",", "\"\<\!\(\*
+StyleBox[\"input\", \"TI\"]\)\>\"", ",", "\"\<\!\(\*
+StyleBox[\"output\", \"TI\"]\)\>\"", ",", 
+    StyleBox["mapf", "TI"], ",", 
+    StyleBox["reducef", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]submits a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " map-reduce job to the Hadoop cluster defined by ",
+ Cell[BoxData[
+  StyleBox["link", "TI"]], "InlineFormula"],
+ " using the functions ",
+ Cell[BoxData[
+  StyleBox["mapf", "TI"]], "InlineFormula"],
+ " and ",
+ Cell[BoxData[
+  StyleBox["reducef", "TI"]], "InlineFormula"],
+ " to implement the map and reduce operations respectively.\n",
+ Cell["      ", "ModInfo"],
+ Cell[BoxData[
+  RowBox[{"HadoopMapReduceJob", "[", 
+   RowBox[{
+    StyleBox["link", "TI"], ",", "\"\<\!\(\*
+StyleBox[\"jobname\", \"TI\"]\)\>\"", ",", 
+    RowBox[{"{", 
+     RowBox[{"\"\<\!\(\*SubscriptBox[
+StyleBox[\"input\", \"TI\"], \"1\"]\)\>\"", ",", "\"\<\!\(\*SubscriptBox[
+StyleBox[\"input\", \"TI\"], \"2\"]\)\>\"", ",", "\[Ellipsis]"}], "}"}], ",", 
+    "\"\<\!\(\*
+StyleBox[\"output\", \"TI\"]\)\>\"", ",", 
+    StyleBox["mapf", "TI"], ",", 
+    StyleBox["reducef", "TI"]}], "]"}]], "InlineFormula"],
+ "\[LineSeparator]submits a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " map-reduce job processing the ",
+ Cell[BoxData[
+  SubscriptBox[
+   StyleBox["input", "TI"], "i"]], "InlineFormula"],
+ " into the DFS path ",
+ Cell[BoxData[
+  StyleBox["output", "TI"]], "InlineFormula"],
+ "."
+}], "Usage",
+ CellChangeTimes->{{3.498130779329109*^9, 3.498130801090579*^9}, {
+  3.4981308368066874`*^9, 3.498130842383093*^9}, {3.499083663835709*^9, 
+  3.499083716131443*^9}, {3.4990838074020157`*^9, 3.499084002563685*^9}, {
+  3.529422103275387*^9, 3.529422105347172*^9}},
+ CellID->982511436],
+
+Cell[TextData[{
+ "For an explanation of Hadoop and the anatomy of a map-reduce job, please \
+visit the ",
+ ButtonBox["Hadoop home page",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://hadoop.apache.org/"], None},
+  ButtonNote->"http://hadoop.apache.org/"],
+ "."
+}], "Notes",
+ CellChangeTimes->{{3.499084903399328*^9, 3.499084944151112*^9}},
+ CellID->1647210553],
+
+Cell[TextData[{
+ "The ",
+ Cell[BoxData[
+  StyleBox["mapf", "TI"]], "InlineFormula"],
+ " and ",
+ Cell[BoxData[
+  StyleBox["reducef", "TI"]], "InlineFormula"],
+ " functions must make use of the ",
+ Cell[BoxData[
+  ButtonBox["Yield",
+   BaseStyle->"Link"]], "InlineFormula"],
+ " function to write output to the Hadoop framework."
+}], "Notes",
+ CellChangeTimes->{{3.499085166456204*^9, 3.4990852062514153`*^9}},
+ CellID->943062835],
+
+Cell[TextData[{
+ Cell[BoxData["HadoopMapReduceJob"], "InlineFormula"],
+ " has to use sequence files of typed bytes for both its input and output."
+}], "Notes",
+ CellChangeTimes->{{3.4990849641996717`*^9, 3.499085007277861*^9}, {
+  3.529422107513892*^9, 3.5294221075139923`*^9}},
+ CellID->1456070794],
+
+Cell["\<\
+The output path for your map-reduce job must not exist when the job is \
+submitted.\
+\>", "Notes",
+ CellChangeTimes->{
+  3.499084004921907*^9, {3.4990840431741943`*^9, 3.499084064779525*^9}},
+ CellID->1067943069],
+
+Cell["\<\
+The configuration properties \"wolfram.jlink.path\" and \"wolfram.math.args\" \
+must be defined in your Hadoop configuration files.\
+\>", "Notes",
+ CellChangeTimes->{{3.4990840695096083`*^9, 3.499084138069727*^9}},
+ CellID->805457623],
+
+Cell[TextData[{
+ "\"wolfram.jlink.path\" should be set to the path on your Hadoop tasktracker \
+nodes where the ",
+ StyleBox["J/Link",
+  FontSlant->"Italic"],
+ " jar can be found."
+}], "Notes",
+ CellChangeTimes->{{3.49908414023883*^9, 3.4990841676226673`*^9}},
+ CellID->1736842720],
+
+Cell[TextData[{
+ "\"wolfram.math.args\" should be set to the arguments need to start up a ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " kernel for use from Java on your tasktracker nodes."
+}], "Notes",
+ CellChangeTimes->{{3.499084171462031*^9, 3.499084310546764*^9}},
+ CellID->370381369]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tutorials", "TutorialsSection",
+ CellID->250839057],
+
+Cell["XXXX", "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Demonstrations", "RelatedDemonstrationsSection",
+ CellID->1268215905],
+
+Cell["XXXX", "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Links", "RelatedLinksSection",
+ CellID->1584193535],
+
+Cell["XXXX", "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["See Also", "SeeAlsoSection",
+ CellID->1255426704],
+
+Cell["XXXX", "SeeAlso",
+ CellID->929782353]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More About", "MoreAboutSection",
+ CellID->38303248],
+
+Cell["XXXX", "MoreAbout",
+ CellChangeTimes->{{3.498130888419359*^9, 3.498130889575962*^9}},
+ CellID->1665078683]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {
+     StyleBox["Examples", "PrimaryExamplesSection"], 
+     ButtonBox[
+      RowBox[{
+       RowBox[{"More", " ", "Examples"}], " ", "\[RightTriangle]"}],
+      BaseStyle->"ExtendedExamplesLink",
+      ButtonData:>"ExtendedExamples"]}
+   }],
+  $Line = 0; Null]], "PrimaryExamplesSection",
+ CellID->880084151],
+
+Cell[BoxData[
+ RowBox[{"<<", "HadoopLink`"}]], "Input",
+ CellChangeTimes->{{3.499084322494361*^9, 3.4990843326928062`*^9}},
+ CellLabel->"In[6]:=",
+ CellID->1592059777],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"link", "=", 
+   RowBox[{"OpenHadoopLink", "[", "\"\</Library/Hadoop\>\"", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.498130962001176*^9, 3.4981309684956417`*^9}, 
+   3.499084337530389*^9},
+ CellLabel->"In[4]:=",
+ CellID->1364490310],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSExport", "[", 
+  RowBox[{"link", ",", "\"\<input.seq\>\"", ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<a\>\"", ",", "10"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<b\>\"", ",", "7"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<c\>\"", ",", "15"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<d\>\"", ",", "11"}], "}"}]}], "}"}], ",", 
+   "\"\<SequenceFile\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.499084340945512*^9, 3.499084395752721*^9}},
+ CellLabel->"In[5]:=",
+ CellID->1618854241],
+
+Cell[BoxData["\<\"input.seq\"\>"], "Output",
+ CellChangeTimes->{3.4990843987381973`*^9},
+ CellLabel->"Out[5]=",
+ CellID->1612904644]
+}, Open  ]],
+
+Cell[TextData[{
+ "The mapper function receives regular ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " types for its key and value parameters."
+}], "ExampleText",
+ CellChangeTimes->{{3.499084885324247*^9, 3.499084898267085*^9}, {
+  3.499084949534404*^9, 3.499084958604391*^9}, {3.4990850288312683`*^9, 
+  3.4990850591910553`*^9}, {3.499085129866048*^9, 3.49908515276173*^9}},
+ CellID->1238603332],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mapper", "=", 
+   RowBox[{"Function", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"key", ",", "val"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Yield", "[", 
+      RowBox[{"\"\<count\>\"", ",", "val"}], "]"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.49908459428194*^9, 3.499084605030573*^9}, {
+  3.4990846772249527`*^9, 3.499084685008807*^9}},
+ CellLabel->"In[8]:=",
+ CellID->767942233],
+
+Cell[TextData[{
+ "The reducer function receives a regular ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " type for its first parameter and Java iterator of ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " types for its second parameter. The iterator should be processed by a ",
+ Cell[BoxData[
+  ButtonBox["While",
+   BaseStyle->"Link"]], "InlineFormula"],
+ " loop using the ",
+ Cell[BoxData[
+  StyleBox["hasNext", "TI"]], "InlineFormula"],
+ " and ",
+ Cell[BoxData[
+  StyleBox["next", "TI"]], "InlineFormula"],
+ " methods."
+}], "ExampleText",
+ CellChangeTimes->{{3.4990850485927963`*^9, 3.499085126337144*^9}, {
+  3.49908522920618*^9, 3.4990852554095497`*^9}},
+ CellID->1337074549],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"reducer", "=", 
+   RowBox[{"Function", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"key", ",", "vals"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Module", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"sum", "=", "0"}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"While", "[", 
+         RowBox[{
+          RowBox[{"vals", "@", 
+           RowBox[{"hasNext", "[", "]"}]}], ",", "\[IndentingNewLine]", 
+          RowBox[{"sum", "+=", 
+           RowBox[{"vals", "@", 
+            RowBox[{"next", "[", "]"}]}]}]}], "\[IndentingNewLine]", "]"}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{"Yield", "[", 
+         RowBox[{"key", ",", "sum"}], "]"}]}]}], "\[IndentingNewLine]", 
+      "]"}]}], "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.499084607365643*^9, 3.499084613620563*^9}, {
+  3.499084672103013*^9, 3.4990847393720713`*^9}},
+ CellLabel->"In[10]:=",
+ CellID->1611780983],
+
+Cell[TextData[{
+ "In jobs where the reducer will only receive a small number of values per \
+key, the values iterator can be converted into a ",
+ Cell[BoxData[
+  ButtonBox["List",
+   BaseStyle->"Link"]], "InlineFormula"],
+ " for convenience."
+}], "ExampleText",
+ CellChangeTimes->{{3.499085281014893*^9, 3.49908533535047*^9}},
+ CellID->850239762],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"reducer", "=", 
+   RowBox[{"Function", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"key", ",", "vals"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"Yield", "[", 
+      RowBox[{"key", ",", 
+       RowBox[{"Plus", "@@", 
+        RowBox[{"List", "[", "vals", "]"}]}]}], "]"}]}], 
+    "\[IndentingNewLine]", "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.499085336874305*^9, 3.499085352801414*^9}},
+ CellLabel->"In[14]:=",
+ CellID->623492796],
+
+Cell["\<\
+Map-reduce jobs are submitted asynchronously. Full details of the job's \
+progress will be found in the cluster's job tracker web interface.\
+\>", "ExampleText",
+ CellChangeTimes->{{3.4990853605853662`*^9, 3.4990853853440123`*^9}},
+ CellID->1470708659],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"HadoopMapReduceJob", "[", 
+  RowBox[{
+  "link", ",", "\"\<my map-reduce job\>\"", ",", "\"\<input.seq\>\"", ",", 
+   "\"\<output\>\"", ",", "mapper", ",", "reducer"}], "]"}]], "Input",
+ CellChangeTimes->{{3.4990845419853563`*^9, 3.4990845888353863`*^9}, {
+   3.499084743176811*^9, 3.499084746593793*^9}, 3.529422119100065*^9},
+ CellLabel->"In[11]:=",
+ CellID->402275627],
+
+Cell[BoxData[
+ PanelBox[
+  TagBox[GridBox[{
+     {
+      StyleBox["\<\"Job Details:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      TagBox[
+       ButtonBox[
+        PaneSelectorBox[{False->"\<\"job_201011180917_0003\"\>", True->
+         StyleBox["\<\"job_201011180917_0003\"\>", "HyperlinkActive"]}, 
+         Dynamic[
+          CurrentValue["MouseOver"]],
+         BaseStyle->{"Hyperlink"},
+         BaselinePosition->Baseline,
+         FrameMargins->0,
+         ImageSize->Automatic],
+        BaseStyle->"Hyperlink",
+        ButtonData->{
+          URL[
+          "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201011180917_0003"], None},
+        ButtonNote->
+         "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201011180917_0003"],
+       Annotation[#, 
+        "http://hadoopheadlx.wolfram.com:50030/jobdetails.jsp?jobid=job_\
+201011180917_0003", "Hyperlink"]& ]},
+     {
+      StyleBox["\<\"Map Progress:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      DynamicBox[ToBoxes[
+        Refresh[
+         ProgressIndicator[
+          JLink`Objects`vm4`JavaObject35780426559651841[
+           HadoopLink`Private`mapProgress[]], ImageSize -> {150, 15}], 
+         UpdateInterval -> 5], StandardForm],
+       ImageSizeCache->{350., {17., 10.}}]},
+     {
+      StyleBox["\<\"Reduce Progress:\"\>",
+       StripOnInput->False,
+       FontWeight->Bold], 
+      DynamicBox[ToBoxes[
+        Refresh[
+         ProgressIndicator[
+          JLink`Objects`vm4`JavaObject35780426559651841[
+           HadoopLink`Private`reduceProgress[]], ImageSize -> {150, 15}], 
+         UpdateInterval -> 5], StandardForm],
+       ImageSizeCache->{350., {17., 10.}}]}
+    },
+    AutoDelete->False,
+    GridBoxAlignment->{"Columns" -> {{Left}}},
+    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+   "Grid"]]], "Output",
+ CellChangeTimes->{3.499084761504075*^9},
+ CellLabel->"Out[11]=",
+ CellID->1020136832]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSFileNames", "[", 
+  RowBox[{"link", ",", "___", ",", "\"\<output\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.499084851656061*^9, 3.499084859515362*^9}},
+ CellLabel->"In[12]:=",
+ CellID->1040792494],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"/user/davidh/output/_SUCCESS\"\>", 
+   ",", "\<\"/user/davidh/output/_logs\"\>", 
+   ",", "\<\"/user/davidh/output/part-r-00000\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.4990848610598516`*^9},
+ CellLabel->"Out[12]=",
+ CellID->1345141843]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"DFSImport", "[", 
+  RowBox[{
+  "link", ",", "\"\<output/part-r-00000\>\"", ",", "\"\<SequenceFile\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.4990848280883427`*^9, 3.499084871827216*^9}, {
+  3.499085017192585*^9, 3.4990850192717047`*^9}},
+ CellLabel->"In[13]:=",
+ CellID->2077781423],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"\<\"count\"\>", ",", "43"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.4990850206701593`*^9},
+ CellLabel->"Out[13]=",
+ CellID->1605677193]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["More Examples", "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Scope", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1293636265],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Generalizations & Extensions", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1020263627],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell["Options", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2061341341],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1757724783],
+
+Cell[BoxData[
+ InterpretationBox[Cell["XXXX", "ExampleSubsection"],
+  $Line = 0; Null]], "ExampleSubsection",
+ CellID->1295379749]
+}, Open  ]],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Applications", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->258228157],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Properties & Relations", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->2123667759],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Possible Issues", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1305812373],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Interactive Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->1653164318],
+
+Cell[BoxData[
+ InterpretationBox[Cell["Neat Examples", "ExampleSection"],
+  $Line = 0; Null]], "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+},
+WindowSize->{666, 1006},
+WindowMargins->{{Automatic, 460}, {Automatic, 0}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+2011)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ExtendedExamples"->{
+  Cell[17037, 602, 100, 2, 53, "ExtendedExamplesSection",
+   CellTags->"ExtendedExamples",
+   CellID->1854448968]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ExtendedExamples", 18949, 672}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 394, 15, 23, "History",
+ CellID->341476719],
+Cell[CellGroupData[{
+Cell[976, 39, 68, 1, 27, "CategorizationSection",
+ CellID->1122911449],
+Cell[1047, 42, 79, 2, 29, "Categorization",
+ CellID->686433507],
+Cell[1129, 46, 147, 3, 29, "Categorization",
+ CellID->605800465],
+Cell[1279, 51, 145, 3, 29, "Categorization",
+ CellID->468444828],
+Cell[1427, 56, 202, 5, 30, "Categorization"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1666, 66, 55, 1, 27, "KeywordsSection",
+ CellID->477174294],
+Cell[1724, 69, 45, 1, 70, "Keywords",
+ CellID->1164421360]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[1806, 75, 65, 1, 17, "TemplatesSection",
+ CellID->1872225408],
+Cell[1874, 78, 94, 2, 70, "Template",
+ CellID->1562036412],
+Cell[1971, 82, 82, 2, 70, "Template",
+ CellID->158391909],
+Cell[2056, 86, 81, 2, 70, "Template",
+ CellID->1360575930],
+Cell[2140, 90, 82, 2, 70, "Template",
+ CellID->793782254]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2259, 97, 53, 1, 17, "DetailsSection",
+ CellID->307771771],
+Cell[2315, 100, 62, 2, 70, "Details",
+ CellID->49458704],
+Cell[2380, 104, 69, 2, 70, "Details",
+ CellID->350963985],
+Cell[2452, 108, 66, 2, 70, "Details",
+ CellID->422270209],
+Cell[2521, 112, 71, 2, 70, "Details",
+ CellID->545239557],
+Cell[2595, 116, 61, 2, 70, "Details",
+ CellID->121292707],
+Cell[2659, 120, 60, 2, 70, "Details",
+ CellID->29314406],
+Cell[2722, 124, 62, 2, 70, "Details",
+ CellID->96001539],
+Cell[2787, 128, 78, 2, 70, "Details",
+ CellID->123278822],
+Cell[2868, 132, 67, 2, 70, "Details",
+ CellID->240026365]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2972, 139, 227, 4, 62, "ObjectName",
+ CellID->1224892054],
+Cell[3202, 145, 1943, 54, 121, "Usage",
+ CellID->982511436],
+Cell[5148, 201, 372, 11, 23, "Notes",
+ CellID->1647210553],
+Cell[5523, 214, 427, 14, 38, "Notes",
+ CellID->943062835],
+Cell[5953, 230, 299, 6, 24, "Notes",
+ CellID->1456070794],
+Cell[6255, 238, 222, 6, 23, "Notes",
+ CellID->1067943069],
+Cell[6480, 246, 244, 5, 37, "Notes",
+ CellID->805457623],
+Cell[6727, 253, 281, 8, 37, "Notes",
+ CellID->1736842720],
+Cell[7011, 263, 296, 7, 37, "Notes",
+ CellID->370381369]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7344, 275, 57, 1, 43, "TutorialsSection",
+ CellID->250839057],
+Cell[7404, 278, 45, 1, 16, "Tutorials",
+ CellID->341631938]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7486, 284, 83, 1, 30, "RelatedDemonstrationsSection",
+ CellID->1268215905],
+Cell[7572, 287, 58, 1, 16, "RelatedDemonstrations",
+ CellID->1129518860]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7667, 293, 65, 1, 30, "RelatedLinksSection",
+ CellID->1584193535],
+Cell[7735, 296, 49, 1, 16, "RelatedLinks",
+ CellID->1038487239]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7821, 302, 55, 1, 30, "SeeAlsoSection",
+ CellID->1255426704],
+Cell[7879, 305, 43, 1, 16, "SeeAlso",
+ CellID->929782353]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7959, 311, 57, 1, 30, "MoreAboutSection",
+ CellID->38303248],
+Cell[8019, 314, 112, 2, 16, "MoreAbout",
+ CellID->1665078683]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8168, 321, 356, 11, 69, "PrimaryExamplesSection",
+ CellID->880084151],
+Cell[8527, 334, 167, 4, 23, "Input",
+ CellID->1592059777],
+Cell[8697, 340, 275, 8, 23, "Input",
+ CellID->1364490310],
+Cell[CellGroupData[{
+Cell[8997, 352, 573, 16, 39, "Input",
+ CellID->1618854241],
+Cell[9573, 370, 132, 3, 22, "Output",
+ CellID->1612904644]
+}, Open  ]],
+Cell[9720, 376, 403, 9, 20, "ExampleText",
+ CellID->1238603332],
+Cell[10126, 387, 476, 13, 54, "Input",
+ CellID->767942233],
+Cell[10605, 402, 693, 21, 48, "ExampleText",
+ CellID->1337074549],
+Cell[11301, 425, 1044, 26, 159, "Input",
+ CellID->1611780983],
+Cell[12348, 453, 346, 9, 34, "ExampleText",
+ CellID->850239762],
+Cell[12697, 464, 512, 14, 69, "Input",
+ CellID->623492796],
+Cell[13212, 480, 262, 5, 33, "ExampleText",
+ CellID->1470708659],
+Cell[CellGroupData[{
+Cell[13499, 489, 394, 8, 39, "Input",
+ CellID->402275627],
+Cell[13896, 499, 1987, 57, 106, "Output",
+ CellID->1020136832]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15920, 561, 227, 5, 23, "Input",
+ CellID->1040792494],
+Cell[16150, 568, 286, 7, 38, "Output",
+ CellID->1345141843]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16473, 580, 313, 8, 23, "Input",
+ CellID->2077781423],
+Cell[16789, 590, 199, 6, 22, "Output",
+ CellID->1605677193]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17037, 602, 100, 2, 53, "ExtendedExamplesSection",
+ CellTags->"ExtendedExamples",
+ CellID->1854448968],
+Cell[17140, 606, 125, 3, 31, "ExampleSection",
+ CellID->1293636265],
+Cell[17268, 611, 148, 3, 19, "ExampleSection",
+ CellID->1020263627],
+Cell[CellGroupData[{
+Cell[17441, 618, 127, 3, 19, "ExampleSection",
+ CellID->2061341341],
+Cell[17571, 623, 130, 3, 21, "ExampleSubsection",
+ CellID->1757724783],
+Cell[17704, 628, 130, 3, 17, "ExampleSubsection",
+ CellID->1295379749]
+}, Open  ]],
+Cell[17849, 634, 131, 3, 31, "ExampleSection",
+ CellID->258228157],
+Cell[17983, 639, 142, 3, 19, "ExampleSection",
+ CellID->2123667759],
+Cell[18128, 644, 135, 3, 19, "ExampleSection",
+ CellID->1305812373],
+Cell[18266, 649, 140, 3, 19, "ExampleSection",
+ CellID->1653164318],
+Cell[18409, 654, 132, 3, 19, "ExampleSection",
+ CellID->589267740]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

@@ -8,7 +8,7 @@
   <property name="src.dir" location="src" />
   <property name="src.java.dir" location="${src.dir}/java"/>
   <property name="src.test.dir" location="${src.dir}/test"/>
-  <property name="doc.src.dir" location="docs"/>
+  <property name="doc.src.dir" location="${basedir}/Documentation"/>
   <property name="classes.dir" location="${build.dir}/classes"/>
   <property name="log.dir" location="${basedir}/log"/>
 	<property name="lib.dir" location="${basedir}/Java"/>

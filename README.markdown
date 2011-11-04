@@ -37,9 +37,6 @@ The following properties affect the HadoopLink ant tasks:
 <dd>The path to your local <em>Mathematica</em> installation. Can be found by evaluating the
  <code>$InstallationDirectory</code> symbol in <em>Mathematica</em>.</dd>
 
-<dt><code>hadoop.home</code></dt>
-<dd>The path to your local Hadoop installation.</dd>
-
 <dt><code>workbench.dir</code></dt>
 <dd><em>Optional</em>. The path to your Wolfram Workbench installation. If omitted, <code>skip.docbuild</code>
  will be set.</dd>
@@ -51,7 +48,7 @@ The following properties affect the HadoopLink ant tasks:
 
 Build the HadoopLink distribution by running:
 
-	ant -Dmathematica.dir=$MATHEMATICA_PATH -Dhadoop.home=$HADOOP_PATH -Dworkbench.dir=$WORKBENCH_PATH build
+	ant -Dmathematica.dir=$MATHEMATICA_PATH -Dworkbench.dir=$WORKBENCH_PATH build
 
 using appropriate values for your system.
 
