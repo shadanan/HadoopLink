@@ -86,25 +86,6 @@ MapReduceJob[h_HadoopLink,
 
 		conf = getConf[h];
 
-		(* Test for Mathematica configuration on cluster machines in Hadoop
-		 * conf.
-		 *
-		 * wolfram.jlink.path:
-		 * Location of the JLink jar file in the cluster's Mathematica
-		 * installation. Typically SystemFiles/Links/JLink in the Mathematica
-		 * directory.
-		 *
-		 * wolfram.math.args:
-		 * Arguments passed in the start up of a Mathematica kernel on the
-		 * cluster.
-		 *)
-(*		Map[
-			If[ conf@get[#] == Null,
-				die["Please define `` in your Hadoop configuration", #]
-			]&,
-			{"wolfram.jlink.path", "wolfram.math.args"}
-		];
-*)
 		(* Find the definitions of any dependencies of the map and reduce
 		 * functions, write them out to temporary files, and repackage the
 		 * HadoopLink jar with the dependencies included. *)
