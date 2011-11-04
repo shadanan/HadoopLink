@@ -10,7 +10,10 @@ Paclet[
     Creator -> "David Howell, Shad Sharma",
     Extensions -> 
         {
-            {"Documentation", Language -> "English", MainPage -> "Guides/HadoopLink"}
+            {"Application", Root -> "HadoopLink", Context -> "HadoopLink`"}, 
+            {"Documentation", Resources -> 
+                {"Guides/HadoopLink"}
+            , Language -> "English", MainPage -> "Guides/HadoopLink"}
         }
 ]
 

@@ -3,8 +3,8 @@
 .project
 .MathematicaResources
 *.class
+compile
 build
 javadoc
-dist
 bin
 log
