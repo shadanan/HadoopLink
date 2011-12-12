@@ -415,7 +415,7 @@ to site-policy@w3.org.
 
 
 Joseph Reagle <mailto:site-policy@w3.org 
-Last revised by Reagle $Date: 2005-07-19 12:33:09 -0400 (Tue, 19 Jul 2005) $
+Last revised by Reagle $Date: 2011/11/14 16:26:10 $
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -485,7 +485,7 @@ questions about this notice can be directed to site-policy@w3.org.
  
 
 Joseph Reagle <mailto:site-policy@w3.org 
-Last revised by Reagle $Date: 2005-07-19 12:33:09 -0400 (Tue, 19 Jul 2005) $
+Last revised by Reagle $Date: 2011/11/14 16:26:10 $
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 

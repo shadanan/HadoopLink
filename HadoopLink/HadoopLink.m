@@ -38,7 +38,7 @@ DFSDeleteFile::usage = "DFSDeleteFile[link, \"file\"] deletes a file."
 DFSDeleteDirectory::usage = "DFSDeleteDirectory[link, \"dir\"] deletes the \
 specified directory and all of its contents."
 
-DFSRenameFile::usage = "DFSRenameFile[link \"old\", \"name\"] renames the \
+DFSRenameFile::usage = "DFSRenameFile[link, \"old\", \"name\"] renames the \
 file \"old\" to \"new\"."
 
 DFSRenameDirectory::usage = "DFSRenameDirectory[link \"old\", \"name\"] \
@@ -75,7 +75,8 @@ Map[
 	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
 	{
 		"DFS.m",
-		"HadoopMapReduce.m"
+		"HadoopMapReduce.m",
+		"HBase.m"
 	}
 ];
 

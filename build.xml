@@ -160,7 +160,7 @@
       target="main"/>
   </target>
 
-  <target name="build" depends="jar,docbuild" description="assemble all the components of the application">
+  <target name="build" depends="jar" description="assemble all the components of the application">
     <mkdir dir="${build.dir}"/>
     <copy todir="${build.dir}">
       <fileset dir="${basedir}/${app.name}">

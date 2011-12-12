@@ -3,8 +3,10 @@
 .project
 .MathematicaResources
 *.class
+.cvsignore
 compile
 build
 javadoc
 bin
 log
+CVS
