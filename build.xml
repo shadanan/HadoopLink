@@ -159,8 +159,8 @@
       antfile="${appPath}/DocumentationBuild/SystemFiles/ant/Build/notebook.xml"
       target="main"/>
   </target>
-
-  <target name="build" depends="jar" description="assemble all the components of the application">
+	
+	<target name="srcbuild" depends="jar" description="assemble .java and .m files">
     <mkdir dir="${build.dir}"/>
     <copy todir="${build.dir}">
       <fileset dir="${basedir}/${app.name}">
@@ -169,14 +169,16 @@
     </copy>
     <copy todir="${build.dir}/Java"
       file="${compile.dir}/${app.name}-core-${version}.jar"/>
-  	<copy todir="${build.dir}/Java">
+    <copy todir="${build.dir}/Java">
       <fileset dir="${lib.dir}">
         <include name="*.jar" />
       </fileset>
-  	</copy>
+    </copy>
     <copy todir="${build.dir}/Data"
       file="${compile.dir}/${app.name}-mapreduce-${version}.jar"/>
-  </target>
+	</target>
+
+  <target name="build" depends="srcbuild,docbuild" description="assemble all the components of the application"/>
 	
   <target name="dist" depends="build">
     <zip destfile="${basedir}/${build.name}/${app.name}-${version}.zip" basedir="${basedir}/${build.name}"/>

@@ -21,6 +21,9 @@ full absolute version of the name for a file on the distributed filesystem."
 DFSFileExistsQ::usage = "DFSFileExistsQ[link, \"name\"] gives True if the file \
 with the specified name exists and gives False otherwise."
 
+DFSFileQ::usage = "DFSFileQ[link, \"name\"] gives True if the file with the \
+specified name exists, and gives False otherwise."
+
 DFSDirectoryQ::usage = "DFSDirectoryQ[link, \"name\"] gives True if the \
 directory with the specified name exists, and gives False otherwise."
 
@@ -66,6 +69,10 @@ map or reduce task as part of a call to MapReduceJob."
 
 IncrementCounter::usage = "IncrementCounter[\"name\", n] increments a named \
 Hadoop counter by n when used as part of a call to MapReduceJob."
+
+HadoopLink::filex = "Cannot overwrite existing file '`1`' while performing `2`"
+HadoopLink::nffil = "File '`1`' not found while performing `2`"
+HadoopLink::nfmregex = "No files matched `1` while performing `2`"
 
 Begin["`Private`"]
 

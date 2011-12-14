@@ -1,8 +1,7 @@
 (* Functions for interacting with distributed file systems. *)
 
 getDefaultDFS[h_HadoopLink] :=
-	JavaBlock@Module[
-		{fs, conf},
+	JavaBlock@Module[{fs, conf},
 		LoadJavaClass["org.apache.hadoop.fs.FileSystem", StaticsVisible -> True];
 		conf = getConf[h];
 		fs = FileSystem`get[conf];
@@ -42,6 +41,8 @@ Protect[$Configuration];
 Protect[$DFS];
 Protect[$path];
 
+DFSGlobStatus[h_HadoopLink, pattern_String] :=
+    dfsModule[h, {}, $DFS@globStatus[JavaNew[$path, pattern]]]
 
 (* DFSFileNames: operates like FileNames, but on the distributed file system
  * referenced by HadoopLink. *)
@@ -109,7 +110,7 @@ DFSImport[h_HadoopLink, file_String, "SequenceFile"] :=
 	dfsModule[h,
 		{recordsPerFetch, reader, path, results, chunk},
         If[!DFSFileExistsQ[h, file],
-            Message[DFSImport::nffil, "DFSImport"];
+            Message[HadoopLink::nffil, file, "DFSImport"];
             Return[$Failed]];
             
 		recordsPerFetch = 10000;
@@ -129,7 +130,7 @@ DFSImport[h_HadoopLink, file_String, "SequenceFile"] :=
 DFSImport[h_HadoopLink, file_String, args___] :=
 	dfsModule[h, {tempDir, filename},
 	    If[!DFSFileExistsQ[h, file],
-	        Message[DFSImport::nffil, "DFSImport"];
+	        Message[HadoopLink::nffil, file, "DFSImport"];
             Return[$Failed]];
             
 		(* Generate a temporary working directory *)
@@ -148,8 +149,11 @@ DFSImport[h_HadoopLink, file_String, args___] :=
 	]
 
 DFSExport[h_HadoopLink, file_String, expr_, "SequenceFile"] :=
-	dfsModule[h,
-		{recordsPerWrite, writer, path},
+	dfsModule[h, {recordsPerWrite, writer, path},
+	    If[DFSFileExistsQ[h, file],
+	        Message[HadoopLink::filex, file, "DFSExport"];
+	        Return[$Failed]];
+	  
 		recordsPerWrite = 10000;
 		(* Check that expr has dimensions appropriate to a list of key-value pairs. *)
 		If[ !MatchQ[Dimensions[expr], {_,2,___}],
@@ -168,6 +172,10 @@ DFSExport[h_HadoopLink, file_String, expr_, "SequenceFile"] :=
 DFSExport[h_HadoopLink, file_String, args___] :=
 	dfsModule[h,
 		{tempDir, filename, tempFile},
+		
+        If[DFSFileExistsQ[h, file],
+            Message[HadoopLink::filex, file, "DFSExport"];
+            Return[$Failed]];
 
 		(* Export the file locally *)
 		tempDir = CreateDirectory[];
@@ -193,7 +201,7 @@ DFSAbsoluteFileName[h_HadoopLink, file_String] :=
 	dfsModule[h,
 		{path, status},
         If[!DFSFileExistsQ[h, file],
-            Message[DFSAbsoluteFileName::nffil, "DFSAbsoluteFileName"];
+            Message[HadoopLink::nffil, file, "DFSAbsoluteFileName"];
             Return[$Failed]];
             
 		path = JavaNew[$path, file];
@@ -202,14 +210,12 @@ DFSAbsoluteFileName[h_HadoopLink, file_String] :=
 	]
 
 DFSFileExistsQ[h_HadoopLink, file_String] :=
-	dfsModule[h,
-		{},
+	dfsModule[h, {},
 		$DFS@exists[JavaNew[$path, file]]
 	]
 
 DFSDirectoryQ[h_HadoopLink, file_String] :=
-	dfsModule[h,
-		{status, path},
+	dfsModule[h, {status, path},
 		path = JavaNew[$path, file];
 		If[ $DFS@exists[path],
 			status = $DFS@getFileStatus[path];
@@ -218,9 +224,11 @@ DFSDirectoryQ[h_HadoopLink, file_String] :=
 		]
 	]
 
+DFSFileQ[h_HadoopLink, file_String] :=
+    DFSFileType[h, file] === File;
+
 DFSFileType[h_HadoopLink, file_String] :=
-	dfsModule[h,
-		{status, path},
+	dfsModule[h, {status, path},
 		path = JavaNew[$path, file];
 		Which[
 			!$DFS@exists[path],
@@ -239,7 +247,7 @@ DFSFileByteCount[h_HadoopLink, file_String] :=
 	dfsModule[h,
 		{status, path},
         If[!DFSFileExistsQ[h, file],
-            Message[DFSFileByteCount::nffil, "DFSFileByteCount"];
+            Message[HadoopLink::nffil, file, "DFSFileByteCount"];
             Return[$Failed]];
             
 		path = JavaNew[$path, file];
@@ -254,7 +262,7 @@ DFSFileDate[h_HadoopLink, file_String] :=
 	dfsModule[h,
 		{status, path, t},
         If[!DFSFileExistsQ[h, file],
-            Message[DFSFileDate::nffil, "DFSFileDate"];
+            Message[HadoopLink::nffil, file, "DFSFileDate"];
             Return[$Failed]];
             
 		path = JavaNew[$path, file];
@@ -268,38 +276,36 @@ DFSDeleteFile[h_HadoopLink, file_String] :=
 
 DFSDeleteFile[h_HadoopLink, files : {__String}] :=
 	dfsModule[h, {},
+        If[Plus @@ (Length[DFSGlobStatus[h, #]] & /@ files) == 0,
+            Message[HadoopLink::nfglob, files, "DFSDeleteFile"];
+            Return[$Failed]];
+
 	    Check[
-			Map[
-			    If[DFSFileExistsQ[h, #],
-			        $DFS@delete[JavaNew[$path, #], False],
-			        Message[DFSDeleteFile::nffil, "DFSDeleteFile"]] &,
-				files
-			];,
+			Map[$DFS@delete[JavaNew[$path, #], False] &, files];,
 			$Failed
 	    ]
 	]
 
 DFSDeleteDirectory[h_HadoopLink, directory_String] :=
 	dfsModule[h, {},
-	    If[!DFSFileExistsQ[h, directory],
-	        Message[DFSDeleteDirectory::nffil, "DFSDeleteDirectory"];
-	        Return[$Failed]];
-	        
+	    If[Length[DFSGlobStatus[h, directory]] == 0,
+            Message[HadoopLink::nfglob, directory, "DFSDeleteDirectory"];
+            Return[$Failed]];
+            
 		Quiet@Check[
 			$DFS@delete[JavaNew[$path, directory], True];,
 			$Failed
 		]
 	]
 
-DFSRenameFile::filex = "Cannot overwrite existing file `1`";
 DFSRenameFile[h_HadoopLink, old_String, new_String] :=
 	dfsModule[h, {oldPath, newPath},
         If[!DFSFileExistsQ[h, old],
-            Message[DFSRenameFile::nffil, "DFSRenameFile"];
+            Message[HadoopLink::nffil, old, "DFSRenameFile"];
             Return[$Failed]];
             
         If[DFSFileExistsQ[h, new],
-            Message[DFSRenameFile::filex, new];
+            Message[HadoopLink::filex, new, "DFSRenameFile"];
             Return[$Failed]];
             
 		oldPath = JavaNew[$path, old];
@@ -312,15 +318,14 @@ DFSRenameFile[h_HadoopLink, old_String, new_String] :=
 
 DFSRenameDirectory = DFSRenameFile;
 
-DFSCopyFile::filex = "Cannot overwrite existing file `1`";
 DFSCopyFile[h_HadoopLink, file1_String, file2_String] :=
 	dfsModule[h, {path1, path2},
         If[!DFSFileExistsQ[h, file1],
-            Message[DFSCopyFile::nffil, "DFSCopyFile"];
+            Message[HadoopLink::nffil, file1, "DFSCopyFile"];
             Return[$Failed]];
             
-        If[DFSFileExistsQ[h, file2],
-            Message[DFSCopyFile::filex, file2];
+        If[DFSFileQ[h, file2],
+            Message[HadoopLink::filex, file2, "DFSCopyFile"];
             Return[$Failed]];
             
 		path1 = JavaNew[$path, file1];
@@ -340,44 +345,38 @@ DFSCopyFile[h_HadoopLink, file1_String, file2_String] :=
 	]
 
 DFSCopyDirectory = DFSCopyFile;
-
-DFSCopyFromLocal::filex = "Cannot overwrite existing file `1`";
 DFSCopyFromLocal[h_HadoopLink, localName0_String, dfsName_String] :=
 	dfsModule[h, {localName, path1, path2},
 		localName = StringReplace[localName0, "~" -> $HomeDirectory];
 		
 		If[!FileExistsQ[localName],
-		    Message[DFSCopyFromLocal::nffil, "DFSCopyFromLocal"];
+		    Message[HadoopLink::nffil, localName, "DFSCopyFromLocal"];
 		    Return[$Failed]];
 		
-        If[DFSFileExistsQ[h, dfsName],
-            Message[DFSCopyFromLocal::filex, dfsName];
+        If[DFSFileQ[h, dfsName],
+            Message[HadoopLink::filex, dfsName, "DFSCopyFromLocal"];
             Return[$Failed]];
-            
+		
 		path1 = JavaNew[$path, localName];
 		path2 = JavaNew[$path, dfsName];
-		If[ !FileExistsQ[localName],
-			Return[$Failed]
-		];
 		Quiet@Check[
 			$DFS@copyFromLocalFile[path1, path2];,
 			$Failed
 		]
 	]
 
-DFSCopyToLocal::filex = "Cannot overwrite existing file `1`";
 DFSCopyToLocal[h_HadoopLink, dfsName_String, localName0_String] :=
 	dfsModule[h, {localName, path1, path2},
 		localName = StringReplace[localName0, "~" -> $HomeDirectory];
 		
-        If[!DFSFileExistsQ[h, dfsName],
-            Message[DFSCopyToLocal::nffil, "DFSCopyToLocal"];
-            Return[$Failed]];
-            
-        If[FileExistsQ[localName],
-            Message[DFSCopyToLocal::filex, localName];
-            Return[$Failed]];
-        
+		If[!DFSFileExistsQ[h, dfsName],
+		    Message[HadoopLink::nffil, dfsName, "DFSCopyToLocal"];
+		    Return[$Failed]];
+		
+		If[FileExistsQ[localName],
+		    Message[HadoopLink::filex, localName, "DFSCopyToLocal"];
+		    Return[$Failed]];
+		
 		path1 = JavaNew[$path, dfsName];
 		path2 = JavaNew[$path, localName];
 		If[ !$DFS@exists[path1],
@@ -389,11 +388,10 @@ DFSCopyToLocal[h_HadoopLink, dfsName_String, localName0_String] :=
 		]
 	]
 
-DFSCreateDirectory::filex = "Cannot overwrite existing folder `1`";
 DFSCreateDirectory[h_HadoopLink, dir_String] :=
 	dfsModule[h, {path},
         If[DFSFileExistsQ[h, dir],
-            Message[DFSCreateDirectory::filex, dir];
+            Message[HadoopLink::filex, dir, "DFSCreateDirectory"];
             Return[$Failed]];
             
 		path = JavaNew[$path, dir];

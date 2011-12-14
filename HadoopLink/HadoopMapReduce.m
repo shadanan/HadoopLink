@@ -77,7 +77,11 @@ HadoopMapReduceJob[h_HadoopLink,
 			 ] :=
 	JavaBlock@Module[
 		{conf, jar, mapperPkg, reducerPkg, $job, job, jobRef},
-
+        
+        If[Plus @@ (Length[DFSGlobStatus[h, #]] & /@ inputPaths) == 0,
+            Message[HadoopLink::nfglob, inputPaths, "HadoopMapReduceJob"];
+            Return[$Failed]];
+        
 		(* Ensure that Java and the Hadoop classes are properly initialized.
 		 * UninstallJava must be called here to ensure that previous job jars
 		 * are no longer on the classpath. *)

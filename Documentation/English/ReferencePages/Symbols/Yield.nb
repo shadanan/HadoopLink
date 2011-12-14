@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     11069,        440]
-NotebookOptionsPosition[      7077,        299]
-NotebookOutlinePosition[      7686,        323]
-CellTagsIndexPosition[      7608,        318]
+NotebookDataLength[     11589,        456]
+NotebookOptionsPosition[      7598,        315]
+NotebookOutlinePosition[      8205,        339]
+CellTagsIndexPosition[      8127,        334]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -167,13 +167,17 @@ Cell[TextData[{
  " is not meaningful outside of the context of a ",
  Cell[BoxData[
   ButtonBox["HadoopMapReduceJob",
-   BaseStyle->"Link"]], "InlineFormula"],
+   BaseStyle->"Link",
+   ButtonData->"paclet:HadoopLink/ref/HadoopMapReduceJob"]], 
+  "InlineFormula"],
  "."
 }], "Notes",
  CellFrameLabels->{{None, None}, {None, None}},
  CellChangeTimes->{{3.499086455159198*^9, 3.4990864790721807`*^9}, {
   3.499086717857235*^9, 3.499086721294511*^9}, {3.529422199922368*^9, 
-  3.5294222009487953`*^9}, {3.529422252957704*^9, 3.5294222529578457`*^9}},
+  3.5294222009487953`*^9}, {3.529422252957704*^9, 3.5294222529578457`*^9}, {
+  3.532706724461549*^9, 3.532706724533454*^9}, {3.5327067700645313`*^9, 
+  3.5327067776243067`*^9}},
  CellID->1067943069]
 }, Open  ]],
 
@@ -209,8 +213,20 @@ Cell[CellGroupData[{
 Cell["See Also", "SeeAlsoSection",
  CellID->1255426704],
 
-Cell["MapReduceJob", "SeeAlso",
- CellChangeTimes->{{3.499086498781179*^9, 3.499086500463944*^9}},
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox[
+   ButtonBox["HadoopMapReduceJob",
+    BaseStyle->"Link",
+    ButtonData->"paclet:HadoopLink/ref/HadoopMapReduceJob"],
+   BaseStyle->"Link",
+   ButtonData->"paclet:HadoopLink/guide/HadoopMapReduceJob"]], 
+  "InlineFormula"],
+ " "
+}], "SeeAlso",
+ CellChangeTimes->{{3.499086498781179*^9, 3.499086500463944*^9}, {
+  3.532706368980763*^9, 3.5327063781707172`*^9}, {3.532706644684465*^9, 
+  3.532706677105145*^9}},
  CellID->929782353]
 }, Open  ]],
 
@@ -299,7 +315,7 @@ Cell[BoxData[
 },
 WindowSize->{666, 1006},
 WindowMargins->{{Automatic, 491}, {Automatic, 47}},
-FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (February 23, \
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 2, \
 2011)",
 StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb", 
   CharacterEncoding -> "UTF-8"]
@@ -310,14 +326,14 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[5557, 241, 100, 2, 53, "ExtendedExamplesSection",
+  Cell[6078, 257, 100, 2, 53, "ExtendedExamplesSection",
    CellTags->"ExtendedExamples",
    CellID->1854448968]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 7470, 311}
+ {"ExtendedExamples", 7989, 327}
  }
 *)
 (*NotebookFileOutline
@@ -380,66 +396,66 @@ Cell[2954, 137, 142, 3, 62, "ObjectName",
  CellID->1224892054],
 Cell[3099, 142, 640, 19, 83, "Usage",
  CellID->982511436],
-Cell[3742, 163, 521, 13, 24, "Notes",
+Cell[3742, 163, 685, 17, 24, "Notes",
  CellID->1067943069]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4300, 181, 57, 1, 43, "TutorialsSection",
+Cell[4464, 185, 57, 1, 43, "TutorialsSection",
  CellID->250839057],
-Cell[4360, 184, 45, 1, 16, "Tutorials",
+Cell[4524, 188, 45, 1, 16, "Tutorials",
  CellID->341631938]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4442, 190, 83, 1, 30, "RelatedDemonstrationsSection",
+Cell[4606, 194, 83, 1, 30, "RelatedDemonstrationsSection",
  CellID->1268215905],
-Cell[4528, 193, 58, 1, 16, "RelatedDemonstrations",
+Cell[4692, 197, 58, 1, 16, "RelatedDemonstrations",
  CellID->1129518860]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4623, 199, 65, 1, 30, "RelatedLinksSection",
+Cell[4787, 203, 65, 1, 30, "RelatedLinksSection",
  CellID->1584193535],
-Cell[4691, 202, 49, 1, 16, "RelatedLinks",
+Cell[4855, 206, 49, 1, 16, "RelatedLinks",
  CellID->1038487239]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4777, 208, 55, 1, 30, "SeeAlsoSection",
+Cell[4941, 212, 55, 1, 30, "SeeAlsoSection",
  CellID->1255426704],
-Cell[4835, 211, 117, 2, 16, "SeeAlso",
+Cell[4999, 215, 474, 14, 16, "SeeAlso",
  CellID->929782353]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4989, 218, 57, 1, 30, "MoreAboutSection",
+Cell[5510, 234, 57, 1, 30, "MoreAboutSection",
  CellID->38303248],
-Cell[5049, 221, 112, 2, 16, "MoreAbout",
+Cell[5570, 237, 112, 2, 16, "MoreAbout",
  CellID->1665078683]
 }, Open  ]],
-Cell[5176, 226, 356, 11, 69, "PrimaryExamplesSection",
+Cell[5697, 242, 356, 11, 69, "PrimaryExamplesSection",
  CellID->880084151],
 Cell[CellGroupData[{
-Cell[5557, 241, 100, 2, 53, "ExtendedExamplesSection",
+Cell[6078, 257, 100, 2, 53, "ExtendedExamplesSection",
  CellTags->"ExtendedExamples",
  CellID->1854448968],
-Cell[5660, 245, 125, 3, 31, "ExampleSection",
+Cell[6181, 261, 125, 3, 31, "ExampleSection",
  CellID->1293636265],
-Cell[5788, 250, 148, 3, 19, "ExampleSection",
+Cell[6309, 266, 148, 3, 19, "ExampleSection",
  CellID->1020263627],
 Cell[CellGroupData[{
-Cell[5961, 257, 127, 3, 19, "ExampleSection",
+Cell[6482, 273, 127, 3, 19, "ExampleSection",
  CellID->2061341341],
-Cell[6091, 262, 130, 3, 70, "ExampleSubsection",
+Cell[6612, 278, 130, 3, 70, "ExampleSubsection",
  CellID->1757724783],
-Cell[6224, 267, 130, 3, 70, "ExampleSubsection",
+Cell[6745, 283, 130, 3, 70, "ExampleSubsection",
  CellID->1295379749]
 }, Closed]],
-Cell[6369, 273, 131, 3, 19, "ExampleSection",
+Cell[6890, 289, 131, 3, 19, "ExampleSection",
  CellID->258228157],
-Cell[6503, 278, 142, 3, 19, "ExampleSection",
+Cell[7024, 294, 142, 3, 19, "ExampleSection",
  CellID->2123667759],
-Cell[6648, 283, 135, 3, 19, "ExampleSection",
+Cell[7169, 299, 135, 3, 19, "ExampleSection",
  CellID->1305812373],
-Cell[6786, 288, 140, 3, 19, "ExampleSection",
+Cell[7307, 304, 140, 3, 19, "ExampleSection",
  CellID->1653164318],
-Cell[6929, 293, 132, 3, 19, "ExampleSection",
+Cell[7450, 309, 132, 3, 19, "ExampleSection",
  CellID->589267740]
 }, Open  ]]
 }
