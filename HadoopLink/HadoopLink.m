@@ -72,7 +72,7 @@ Hadoop counter by n when used as part of a call to MapReduceJob."
 
 HadoopLink::filex = "Cannot overwrite existing file '`1`' while performing `2`"
 HadoopLink::nffil = "File '`1`' not found while performing `2`"
-HadoopLink::nfmregex = "No files matched `1` while performing `2`"
+HadoopLink::nfglob = "No files matched `1` while performing `2`"
 
 Begin["`Private`"]
 
