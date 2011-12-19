@@ -99,7 +99,7 @@
 
     <path id="classpath">
       <fileset dir="${lib.dir}">
-        <include name="*.jar"/>
+        <include name="**/*.jar"/>
       </fileset>
       <pathelement location="${jlink.jar}"/>
     </path>
@@ -167,13 +167,11 @@
         <include name="**/*.m"/>
       </fileset>
     </copy>
+    <copy todir="${build.dir}/Java">
+      <fileset dir="${lib.dir}"/>
+    </copy>
     <copy todir="${build.dir}/Java"
       file="${compile.dir}/${app.name}-core-${version}.jar"/>
-    <copy todir="${build.dir}/Java">
-      <fileset dir="${lib.dir}">
-        <include name="*.jar" />
-      </fileset>
-    </copy>
     <copy todir="${build.dir}/Data"
       file="${compile.dir}/${app.name}-mapreduce-${version}.jar"/>
 	</target>

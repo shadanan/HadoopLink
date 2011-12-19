@@ -76,7 +76,7 @@ HadoopLink::nfglob = "No files matched `1` while performing `2`"
 
 Begin["`Private`"]
 
-$HadoopLinkPath = DirectoryName[System`Private`FindFile[$Input]];
+$HadoopLinkPath = DirectoryName[$InputFileName];
 
 Map[
 	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
@@ -94,6 +94,10 @@ die[message_String, args__] := die[ToString@StringForm[message, args]]
 
 property[HadoopLink[rls__Rule], name_String] :=
 	name /. {rls} /. name -> Null
+
+get[{rls___Rule}, key_String, default_:Null] := With[
+  {match = Select[{rls}, #[[1]] === key &, 1]}, 
+    If[match === {}, default, match[[1, 2]]]]
 
 (* Set up a JVM and create a HadoopLink object to encapsulate
  * distributed file system access. *)
@@ -119,28 +123,52 @@ jLinkInitializedForHadoopQ[] :=
 
 initializeJLinkForHadoop[h_HadoopLink] :=
 	Module[
-		{javaVersion},
+		{javaVersion, config, hadoopVersion, hadoopHome, hbaseHome},
 		InstallJava[];
 		LoadJavaClass["java.lang.System", StaticsVisible -> True];
+		
 		(* Check Java version *)
 		javaVersion = System`getProperty["java.version"];
-		If[ ToExpression@StringTake[javaVersion, 3] < 1.6,
-			die["HadoopLink` requires Java 6 or higher"];
-		];
+		If[ToExpression@StringTake[javaVersion, 3] < 1.6,
+			die["HadoopLink` requires Java 6 or higher"]];
+		
+		(* Add Hadoop + HBase jar files to the path *)
+		config = property[h, "Configuration"];
+		
+		(* Check if HADOOP_HOME and HBASE_HOME exist *)
+		hadoopHome = get[config, "HadoopHome", Environment["HADOOP_HOME"]]; 
+        hbaseHome = get[config, "HBaseHome", Environment["HBASE_HOME"]];
+        hadoopVersion = get[config, "HadoopVersion", $Failed];
+        
+        AddToClassPath[Sequence @@ Which[
+          hadoopVersion =!= $Failed,
+          FileNames["*.jar", FileNameJoin[
+            {$HadoopLinkPath, "Java", "dist", ToLowerCase[hadoopVersion]}]],
+          
+          hadoopHome =!= $Failed && hbaseHome =!= $Failed,
+          Select[FileNames["*.jar", {
+            hadoopHome,
+            hbaseHome,
+            FileNameJoin[{hadoopHome, "lib"}],
+            FileNameJoin[{hbaseHome, "lib"}],
+            FileNameJoin[{hadoopHome, "contrib", "streaming"}]
+          }], StringMatchQ[
+          Last@FileNameSplit[#], {"hadoop-*.jar", "hbase-*.jar", "zookeeper-*.jar"}] &],
+          
+          True,
+          FileNames["*.jar", FileNameJoin[
+            {$HadoopLinkPath, "Java", "dist", "cdh3u2"}]]]];
+		
 		(* Set up XML implementation for Hadoop *)
         System`setProperty[
 			"javax.xml.parsers.DocumentBuilderFactory",
-            "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
-		];
+            "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"];
 		System`setProperty[
 			"javax.xml.transform.TransformerFactory",
-			"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"
-		];
+			"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"];
+			
 		(* Mark the JVM as initialized for HadoopLink` *)
-		System`setProperty[
-			$hadoopLinkInitializedProperty,
-			"True"
-		];
+		System`setProperty[$hadoopLinkInitializedProperty,"True"];
 	]
 
 getConf[h_HadoopLink] :=
