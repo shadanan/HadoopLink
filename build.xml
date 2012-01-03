@@ -120,6 +120,7 @@
       <fileset dir="${classes.dir}">
         <include name="**/ExprUtil.class"/>
         <include name="com/wolfram/hadoop/dfs/*.class"/>
+        <include name="com/wolfram/hbase/*.class"/>
       </fileset>
     </jar>
 

@@ -6,38 +6,51 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Test;
 
 public class PackedBinaryTest {
-  public static String toString(Object[] parts) {
+  public static String toString(Object obj) {
     StringBuffer sb = new StringBuffer();
-    sb.append("[");
-    for (int i = 0; i < parts.length; i++) {
-      if (i > 0) {
-        sb.append(", ");
+    
+    if (obj.getClass() == Object[].class) {
+      Object[] parts = (Object[])obj;
+      sb.append("[");
+      for (int i = 0; i < parts.length; i++) {
+        if (i > 0) {
+          sb.append(", ");
+        }
+        
+        if (parts[i].getClass().equals(String.class)) {
+          sb.append("\"");
+          sb.append(Bytes.toStringBinary(
+              Bytes.toBytesBinary((String)parts[i])));
+          sb.append("\"");
+        } else {
+          sb.append(parts[i].toString());
+        }
       }
-      
-      if (parts[i].getClass().equals(String.class)) {
+      sb.append("]");
+    } else {
+      if (obj.getClass().equals(String.class)) {
         sb.append("\"");
         sb.append(Bytes.toStringBinary(
-            Bytes.toBytesBinary((String)parts[i])));
+            Bytes.toBytesBinary((String)obj)));
         sb.append("\"");
       } else {
-        sb.append(parts[i].toString());
+        sb.append(obj.toString());
       }
     }
     
-    sb.append("]");
     return sb.toString();
   }
 
   @Test
   public void test1() {
-    String expected = "[\"hello\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\"]";
+    String expected = "\"hello\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\"";
     String actual = toString(PackedBinary.decode("a40", Bytes.toBytesBinary("hello")));
     assertEquals(expected, actual);
   }
   
   @Test
   public void test2() {
-    String expected = "[\"hello\"]";
+    String expected = "\"hello\"";
     String actual = toString(PackedBinary.decode("A*", Bytes.toBytesBinary("hello")));
     assertEquals(expected, actual);
   }
@@ -65,7 +78,7 @@ public class PackedBinaryTest {
   
   @Test
   public void test6() {
-    String expected = "[\"hello world\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x18\"]";
+    String expected = "\"hello world\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x18\"";
     String actual = toString(PackedBinary.decode("A*", Bytes.toBytesBinary("hello world\000\000\000\000\000\000\000\030")));
     assertEquals(expected, actual);
   }
@@ -79,7 +92,7 @@ public class PackedBinaryTest {
   
   @Test
   public void test8() {
-    String expected = "[\"hello world\"]";
+    String expected = "\"hello world\"";
     String actual = toString(PackedBinary.decode("A*", Bytes.toBytesBinary("hello world\000\000\000\000\000\000\000\000")));
     assertEquals(expected, actual);
   }

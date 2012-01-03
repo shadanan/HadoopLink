@@ -70,9 +70,15 @@ map or reduce task as part of a call to MapReduceJob."
 IncrementCounter::usage = "IncrementCounter[\"name\", n] increments a named \
 Hadoop counter by n when used as part of a call to MapReduceJob."
 
+HBaseSetSchema::usage = "HBaseSetSchema[link, \"table\", key -> {\"Decoder\", ...} ...] \
+sets the decoding scheme for an HBase table."
+
+HBaseGet::usage = "HBaseGet[link, \"table\", \"key\"]"
+
 HadoopLink::filex = "Cannot overwrite existing file '`1`' while performing `2`"
 HadoopLink::nffil = "File '`1`' not found while performing `2`"
 HadoopLink::nfglob = "No files matched `1` while performing `2`"
+HadoopLink::ischema = "Schema key must be of the form \"key\", {<family>, <qualifier>} or {<family>, <qualifier>, <start>, <stop>}"
 
 Begin["`Private`"]
 
@@ -95,6 +101,32 @@ die[message_String, args__] := die[ToString@StringForm[message, args]]
 property[HadoopLink[rls__Rule], name_String] :=
 	name /. {rls} /. name -> Null
 
+getObjectCache[h_, key_String] := 
+    key /. property[h, "ObjectCache"] /. key -> Null
+
+SetAttributes[deleteObjectCache, HoldFirst]
+deleteObjectCache[h_, key_String] := Module[{oldJavaObjects},
+    oldJavaObjects = Cases["ObjectCache" /. List @@ h, 
+      (x_ -> y_JavaObject) /; x === key];
+    h = h /. ("ObjectCache" -> _) -> ("ObjectCache" -> 
+      DeleteCases["ObjectCache" /. List @@ h, (x_ -> y_) /; x === key]);
+    ReleaseJavaObject /@ oldJavaObjects;
+  ]
+
+SetAttributes[clearObjectCache, HoldFirst]
+clearObjectCache[h_] := Module[{oldJavaObjects},
+    oldJavaObjects = Select["ObjectCache" /. List @@ h, JavaObjectQ[#[[2]]] &][[All, 2]];
+    h = h /. ("ObjectCache" -> _) -> ("ObjectCache" -> {});
+    ReleaseJavaObject /@ oldJavaObjects;
+  ]
+
+SetAttributes[putObjectCache, HoldFirst]
+putObjectCache[h_, key_String, value_] := Module[{},
+    deleteObjectCache[h, key];
+    h = h /. ("ObjectCache" -> _) -> ("ObjectCache" ->
+      Append["ObjectCache" /. List @@ h, key -> value]);
+  ]
+
 get[{rls___Rule}, key_String, default_:Null] := With[
   {match = Select[{rls}, #[[1]] === key &, 1]}, 
     If[match === {}, default, match[[1, 2]]]]
@@ -105,7 +137,7 @@ OpenHadoopLink[opts___Rule] :=
 	Module[
 		{hadoopLink, properties},
 		properties = Cases[{opts}, HoldPattern[_String -> _String]];
-		hadoopLink = HadoopLink["Configuration" -> properties];
+		hadoopLink = HadoopLink["Configuration" -> properties, "ObjectCache" -> {}];
 		initializeJLinkForHadoop[hadoopLink];
 		hadoopLink
 	]

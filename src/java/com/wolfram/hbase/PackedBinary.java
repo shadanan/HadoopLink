@@ -105,7 +105,7 @@ public class PackedBinary implements Decoder {
   }
   
   @Override
-  public Object[] decode(byte[] data) {
+  public Object decode(byte[] data) {
     ArrayList<Object> result = new ArrayList<Object>();
     
     int pos = 0;
@@ -281,10 +281,16 @@ public class PackedBinary implements Decoder {
       throw new RuntimeException("Unrecognized / unimplemented directive: " + format.directive);
     }
     
-    return result.toArray();
+    if (result.size() == 1) {
+      return result.get(0);
+    } else if (result.size() == 0) {
+      return null;
+    } else {
+      return result.toArray();
+    }
   }
   
-  public static Object[] decode(String decodeString, byte[] data) {
+  public static Object decode(String decodeString, byte[] data) {
     PackedBinary p = new PackedBinary(decodeString);
     return p.decode(data);
   }
