@@ -4,7 +4,7 @@
 
 Paclet[
     Name -> "HadoopLink",
-    Version -> "0.5.0",
+    Version -> "0.5.1",
     MathematicaVersion -> "7+",
     Description -> "Utilities for interacting with a Hadoop distributed filesystem, running Hadoop map-reduce jobs and querying HBase.",
     Creator -> "David Howell, Shad Sharma",

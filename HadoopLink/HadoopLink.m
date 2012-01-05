@@ -176,7 +176,7 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 		(* Check if HADOOP_HOME and HBASE_HOME exist *)
 		hadoopHome = get[config, "HadoopHome", Environment["HADOOP_HOME"]]; 
         hbaseHome = get[config, "HBaseHome", Environment["HBASE_HOME"]];
-        hadoopVersion = get[config, "HadoopVersion", $Failed];
+        hadoopVersion = get[config, "ClouderaVersion", $Failed];
         
         AddToClassPath[Sequence @@ Which[
           hadoopVersion =!= $Failed,
