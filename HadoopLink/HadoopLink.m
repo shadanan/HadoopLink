@@ -75,6 +75,12 @@ sets the decoding scheme for an HBase table."
 
 HBaseGet::usage = "HBaseGet[link, \"table\", \"key\"]"
 
+HBaseCount::usage = "HBaseCount[link, \"table\"]"
+
+HBaseListColumns::usage = "HBaseListColumns[link, \"table\"]"
+
+HBaseScan::usage = "HBaseScan[link, \"table\"]"
+
 HadoopLink::filex = "Cannot overwrite existing file '`1`' while performing `2`"
 HadoopLink::nffil = "File '`1`' not found while performing `2`"
 HadoopLink::nfglob = "No files matched `1` while performing `2`"
