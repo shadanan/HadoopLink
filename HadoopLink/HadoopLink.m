@@ -70,17 +70,6 @@ map or reduce task as part of a call to MapReduceJob."
 IncrementCounter::usage = "IncrementCounter[\"name\", n] increments a named \
 Hadoop counter by n when used as part of a call to MapReduceJob."
 
-HBaseSetSchema::usage = "HBaseSetSchema[link, \"table\", key -> {\"Decoder\", ...} ...] \
-sets the decoding scheme for an HBase table."
-
-HBaseGet::usage = "HBaseGet[link, \"table\", \"key\"]"
-
-HBaseCount::usage = "HBaseCount[link, \"table\"]"
-
-HBaseListColumns::usage = "HBaseListColumns[link, \"table\"]"
-
-HBaseScan::usage = "HBaseScan[link, \"table\"]"
-
 HadoopLink::filex = "Cannot overwrite existing file '`1`' while performing `2`"
 HadoopLink::nffil = "File '`1`' not found while performing `2`"
 HadoopLink::nfglob = "No files matched `1` while performing `2`"
@@ -94,8 +83,7 @@ Map[
 	Import[FileNameJoin[{$HadoopLinkPath, #}]]&,
 	{
 		"DFS.m",
-		"HadoopMapReduce.m",
-		"HBase.m"
+		"HadoopMapReduce.m"
 	}
 ];
 
@@ -143,7 +131,7 @@ OpenHadoopLink[opts___Rule] :=
 	Module[
 		{hadoopLink, properties},
 		properties = Cases[{opts}, HoldPattern[_String -> _String]];
-		hadoopLink = HadoopLink["Configuration" -> properties, "ObjectCache" -> {}];
+		hadoopLink = HadoopLink["Configuration" -> properties];
 		initializeJLinkForHadoop[hadoopLink];
 		hadoopLink
 	]
@@ -170,12 +158,11 @@ initializeJLinkForHadoop[h_HadoopLink] :=
 		If[ToExpression@StringTake[javaVersion, 3] < 1.6,
 			die["HadoopLink` requires Java 6 or higher"]];
 		
-		(* Add Hadoop + HBase jar files to the path *)
+		(* Add Hadoop jar files to the path *)
 		config = property[h, "Configuration"];
 		
-		(* Check if HADOOP_HOME and HBASE_HOME exist *)
+		(* Check if HADOOP_HOME exist *)
 		hadoopHome = get[config, "HadoopHome", Environment["HADOOP_HOME"]]; 
-        hbaseHome = get[config, "HBaseHome", Environment["HBASE_HOME"]];
         hadoopVersion = get[config, "ClouderaVersion", $Failed];
         
         AddToClassPath[Sequence @@ Which[
@@ -186,12 +173,10 @@ initializeJLinkForHadoop[h_HadoopLink] :=
           hadoopHome =!= $Failed && hbaseHome =!= $Failed,
           Select[FileNames["*.jar", {
             hadoopHome,
-            hbaseHome,
             FileNameJoin[{hadoopHome, "lib"}],
-            FileNameJoin[{hbaseHome, "lib"}],
             FileNameJoin[{hadoopHome, "contrib", "streaming"}]
           }], StringMatchQ[
-          Last@FileNameSplit[#], {"hadoop-*.jar", "hbase-*.jar", "zookeeper-*.jar"}] &],
+          Last@FileNameSplit[#], {"hadoop-*.jar"}] &],
           
           True,
           FileNames["*.jar", FileNameJoin[

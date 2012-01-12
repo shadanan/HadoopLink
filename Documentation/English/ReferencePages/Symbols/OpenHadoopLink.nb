@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       145,          7]
-NotebookDataLength[     21233,        738]
-NotebookOptionsPosition[     15646,        542]
-NotebookOutlinePosition[     16275,        567]
-CellTagsIndexPosition[     16196,        562]
+NotebookDataLength[     19435,        692]
+NotebookOptionsPosition[     13982,        500]
+NotebookOutlinePosition[     14615,        525]
+CellTagsIndexPosition[     14536,        520]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -191,73 +191,49 @@ submitted to the cluster on this link.\
    3.534786972221024*^9},
  CellID->1623870243],
 
-Cell["\<\
-HBase functionality can be used if two more configuration options are \
-provided:\
-\>", "Notes",
- CellChangeTimes->{{3.534786977619425*^9, 3.5347870040601587`*^9}},
- CellID->1945939267],
-
-Cell[BoxData[GridBox[{
-   {Cell["      ", "ModInfo"], "\"\<hbase.zookeeper.quorum\>\"", 
-    "\"\<hadoop1lx.wolfram.com,hadoop2lx.wolfram.com,hadoop3lx.wolfram.com,\
-hadoop4lx.wolfram.com,hadoop5lx.wolfram.com\>\"", Cell["\<\
-Specifies the HBase zookeeper quorum peers.\
-\>", "TableText"]},
-   {Cell["      ", "ModInfo"], "\"\<hbase.zookeeper.property.clientPort\>\"", 
-    "\"\<2181\>\"", Cell["\<\
-Specifies the port on which to communicate with the zookeeper peers.\
-\>", "TableText"]}
-  }]], "3ColumnTableMod",
- CellChangeTimes->{{3.5347870241925583`*^9, 3.534787090117784*^9}},
- CellID->1372800306],
-
 Cell[TextData[{
- "By default, HadoopLink will attempt to load a user installed Hadoop and \
-HBase client that are located at the environment variables ",
+ "By default, HadoopLink will attempt to load a user installed Hadoop client \
+that is located at the environment variable ",
  Cell[BoxData["HADOOP_HOME"], "InlineFormula"],
- " and ",
- Cell[BoxData["HBASE_HOME"], "InlineFormula"],
  ". The client libraries can be explicitly chosen by providing the following \
-two configuration options:"
+configuration option:"
 }], "Notes",
- CellChangeTimes->{{3.53478710693534*^9, 3.534787300582062*^9}},
+ CellChangeTimes->{{3.53478710693534*^9, 3.534787300582062*^9}, {
+  3.535386698836423*^9, 3.5353867215761147`*^9}},
  CellID->90439574],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "ModInfo"], "\"\<HadoopHome\>\"", "\"\<path/to/hadoop\>\"",
-     Cell["\<\
-Specifies the local installation of the Hadoop client.\
-\>", "TableText"]},
-   {Cell["      ", "ModInfo"], "\"\<HBaseHome\>\"", "\"\<path/to/hbase\>\"", 
-    Cell["\<\
-Specifies the local installation of the HBase client.\
-\>", "TableText"]}
+     Cell["Specifies the local installation of the Hadoop client.", 
+     "TableText"]}
   }]], "3ColumnTableMod",
- CellChangeTimes->{{3.53478731387991*^9, 3.5347873546051283`*^9}},
+ CellChangeTimes->{{3.53478731387991*^9, 3.5347873546051283`*^9}, 
+   3.535386727380447*^9},
  CellID->1746981789],
 
 Cell[TextData[{
  "If no client library can be found, HadoopLink will load the latest Hadoop \
-and HBase client packaged with it. Currently, HadoopLink ships with Cloudera \
-client libraries and by default will load ",
+client packaged with it. Currently, HadoopLink ships with Cloudera client \
+libraries and by default will load ",
  Cell[BoxData[
   StyleBox["cdh3u2", "TI"]], "InlineFormula"],
  ". Three other versions of Cloudera's client libraries are available and can \
 be chosen with the following configuration option:"
 }], "Notes",
- CellChangeTimes->{{3.53478736533267*^9, 3.5347875081511374`*^9}},
+ CellChangeTimes->{{3.53478736533267*^9, 3.5347875081511374`*^9}, 
+   3.53538673411194*^9},
  CellID->1126505939],
 
 Cell[BoxData[GridBox[{
-   {Cell["      ", "ModInfo"], "\"\<ClouderaVersion\>\"", "\"\<cdh3u1\>\"", 
+   {Cell["      ", "ModInfo"], "\"\<ClouderaVersion\>\"", "\"\<cdh3u2\>\"", 
     Cell["\<\
 Specifies which client libraries to load from the set shipped with \
 HadoopLink. Valid options are: {\"cdh3b4\", \"cdh3u0\", \"cdh3u1\", \
 \"cdh3u2\"}\
 \>", "TableText"]}
   }]], "3ColumnTableMod",
- CellChangeTimes->{{3.534787526057868*^9, 3.5347875847463818`*^9}},
+ CellChangeTimes->{{3.534787526057868*^9, 3.5347875847463818`*^9}, 
+   3.535386750832704*^9},
  CellID->969484821]
 }, Open  ]],
 
@@ -413,20 +389,12 @@ Cell[BoxData[
     RowBox[{
     "\"\<mapred.job.tracker\>\"", "\[Rule]", 
      "\"\<hadoopheadlx.wolfram.com:8021\>\""}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-    "\"\<hbase.zookeeper.quorum\>\"", "\[Rule]", 
-     "\"\<hadoop1lx.wolfram.com,hadoop2lx.wolfram.com,hadoop3lx.wolfram.com,\
-hadoop4lx.wolfram.com,hadoop5lx.wolfram.com\>\""}], ",", 
-    "\[IndentingNewLine]", 
-    RowBox[{
-    "\"\<hbase.zookeeper.property.clientPort\>\"", "\[Rule]", 
-     "\"\<2181\>\""}], ",", "\[IndentingNewLine]", 
     RowBox[{"\"\<ClouderaVersion\>\"", "\[Rule]", "\"\<cdh3u1\>\""}]}], 
    "]"}]}]], "Input",
  CellChangeTimes->{{3.532890596202401*^9, 3.532890643230919*^9}, {
    3.5328909222534847`*^9, 3.532890923019503*^9}, {3.532983006887985*^9, 
    3.532983031277199*^9}, {3.533385053463132*^9, 3.533385053549736*^9}, 
-   3.534786759190324*^9},
+   3.534786759190324*^9, {3.535386762475662*^9, 3.5353867630161057`*^9}},
  CellID->1148687103]
 }, Open  ]],
 
@@ -459,23 +427,13 @@ Cell[BoxData[
     "\"\<mapred.job.tracker\>\"", "\[Rule]", 
      "\"\<hadoopheadlx.wolfram.com:8021\>\""}], ",", "\[IndentingNewLine]", 
     RowBox[{
-    "\"\<hbase.zookeeper.quorum\>\"", "\[Rule]", 
-     "\"\<hadoop1lx.wolfram.com,hadoop2lx.wolfram.com,hadoop3lx.wolfram.com,\
-hadoop4lx.wolfram.com,hadoop5lx.wolfram.com\>\""}], ",", 
-    "\[IndentingNewLine]", 
-    RowBox[{
-    "\"\<hbase.zookeeper.property.clientPort\>\"", "\[Rule]", 
-     "\"\<2181\>\""}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-    "\"\<HadoopHome\>\"", "\[Rule]", "\"\</Users/shads/Library/Hadoop\>\""}], 
-    ",", "\[IndentingNewLine]", 
-    RowBox[{
-    "\"\<HBaseHome\>\"", "\[Rule]", "\"\</Users/shads/Library/HBase\>\""}]}], 
-   "]"}]}]], "Input",
+    "\"\<HadoopHome\>\"", "\[Rule]", 
+     "\"\</Users/shads/Library/Hadoop\>\""}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.532890596202401*^9, 3.532890643230919*^9}, {
   3.5328909222534847`*^9, 3.532890923019503*^9}, {3.532983006887985*^9, 
   3.532983031277199*^9}, {3.533385057784313*^9, 3.533385058527063*^9}, {
-  3.5333851514270573`*^9, 3.533385179720415*^9}},
+  3.5333851514270573`*^9, 3.533385179720415*^9}, {3.535386767945084*^9, 
+  3.53538677521539*^9}},
  CellID->2036640266]
 }, Open  ]]
 }, Open  ]],
@@ -541,7 +499,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{807, 777},
-WindowMargins->{{4, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, 503}, {Automatic, 111}},
 CellContext->"Global`",
 FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 2, \
 2011)",
@@ -554,14 +512,14 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "FunctionPageStyles.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ExtendedExamples"->{
-  Cell[14126, 484, 100, 2, 53, "ExtendedExamplesSection",
+  Cell[12462, 442, 100, 2, 53, "ExtendedExamplesSection",
    CellTags->"ExtendedExamples",
    CellID->1854448968]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ExtendedExamples", 16057, 555}
+ {"ExtendedExamples", 14397, 513}
  }
 *)
 (*NotebookFileOutline
@@ -630,114 +588,110 @@ Cell[4070, 169, 200, 5, 23, "Notes",
  CellID->538676797],
 Cell[4273, 176, 778, 15, 105, "3ColumnTableMod",
  CellID->1623870243],
-Cell[5054, 193, 195, 5, 24, "Notes",
- CellID->1945939267],
-Cell[5252, 200, 603, 12, 135, "3ColumnTableMod",
- CellID->1372800306],
-Cell[5858, 214, 462, 10, 53, "Notes",
+Cell[5054, 193, 439, 9, 53, "Notes",
  CellID->90439574],
-Cell[6323, 226, 472, 11, 49, "3ColumnTableMod",
+Cell[5496, 204, 329, 7, 33, "3ColumnTableMod",
  CellID->1746981789],
-Cell[6798, 239, 512, 10, 67, "Notes",
+Cell[5828, 213, 527, 11, 66, "Notes",
  CellID->1126505939],
-Cell[7313, 251, 398, 9, 47, "3ColumnTableMod",
+Cell[6358, 226, 424, 10, 47, "3ColumnTableMod",
  CellID->969484821]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7748, 265, 57, 1, 43, "TutorialsSection",
+Cell[6819, 241, 57, 1, 43, "TutorialsSection",
  CellID->250839057],
-Cell[7808, 268, 45, 1, 16, "Tutorials",
+Cell[6879, 244, 45, 1, 16, "Tutorials",
  CellID->341631938]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7890, 274, 83, 1, 30, "RelatedDemonstrationsSection",
+Cell[6961, 250, 83, 1, 30, "RelatedDemonstrationsSection",
  CellID->1268215905],
-Cell[7976, 277, 58, 1, 16, "RelatedDemonstrations",
+Cell[7047, 253, 58, 1, 16, "RelatedDemonstrations",
  CellID->1129518860]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8071, 283, 65, 1, 30, "RelatedLinksSection",
+Cell[7142, 259, 65, 1, 30, "RelatedLinksSection",
  CellID->1584193535],
-Cell[8139, 286, 49, 1, 16, "RelatedLinks",
+Cell[7210, 262, 49, 1, 16, "RelatedLinks",
  CellID->1038487239]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8225, 292, 55, 1, 30, "SeeAlsoSection",
+Cell[7296, 268, 55, 1, 30, "SeeAlsoSection",
  CellID->1255426704],
-Cell[8283, 295, 43, 1, 16, "SeeAlso",
+Cell[7354, 271, 43, 1, 16, "SeeAlso",
  CellID->929782353]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8363, 301, 57, 1, 30, "MoreAboutSection",
+Cell[7434, 277, 57, 1, 30, "MoreAboutSection",
  CellID->38303248],
-Cell[8423, 304, 46, 1, 16, "MoreAbout",
+Cell[7494, 280, 46, 1, 16, "MoreAbout",
  CellID->1665078683]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[8506, 310, 356, 11, 69, "PrimaryExamplesSection",
+Cell[7577, 286, 356, 11, 69, "PrimaryExamplesSection",
  CellID->880084151],
-Cell[8865, 323, 190, 4, 20, "ExampleText",
+Cell[7936, 299, 190, 4, 20, "ExampleText",
  CellID->17504378],
-Cell[9058, 329, 111, 2, 23, "Input",
+Cell[8129, 305, 111, 2, 23, "Input",
  CellID->2138305054],
 Cell[CellGroupData[{
-Cell[9194, 335, 495, 14, 69, "Input",
+Cell[8265, 311, 495, 14, 69, "Input",
  CellID->354210033],
-Cell[9692, 351, 456, 12, 53, "Output",
+Cell[8763, 327, 456, 12, 53, "Output",
  CellID->1320543596]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10185, 368, 229, 5, 23, "Input",
+Cell[9256, 344, 229, 5, 23, "Input",
  CellID->599014629],
-Cell[10417, 375, 432, 9, 38, "Output",
+Cell[9488, 351, 432, 9, 38, "Output",
  CellID->1600054190]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[10886, 389, 125, 3, 15, "ExampleDelimiter",
+Cell[9957, 365, 125, 3, 15, "ExampleDelimiter",
  CellID->708057097],
-Cell[11014, 394, 166, 4, 21, "ExampleText",
+Cell[10085, 370, 166, 4, 20, "ExampleText",
  CellID->1172956758],
-Cell[11183, 400, 111, 2, 23, "Input",
+Cell[10254, 376, 111, 2, 23, "Input",
  CellID->2131835893],
-Cell[11297, 404, 1074, 25, 144, "Input",
+Cell[10368, 380, 767, 17, 84, "Input",
  CellID->1148687103]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12408, 434, 126, 3, 15, "ExampleDelimiter",
+Cell[11172, 402, 126, 3, 15, "ExampleDelimiter",
  CellID->1108741252],
-Cell[12537, 439, 182, 4, 20, "ExampleText",
+Cell[11301, 407, 182, 4, 20, "ExampleText",
  CellID->898617345],
-Cell[12722, 445, 111, 2, 23, "Input",
+Cell[11486, 413, 111, 2, 23, "Input",
  CellID->1956711711],
-Cell[12836, 449, 1241, 29, 159, "Input",
+Cell[11600, 417, 813, 19, 84, "Input",
  CellID->2036640266]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[14126, 484, 100, 2, 53, "ExtendedExamplesSection",
+Cell[12462, 442, 100, 2, 53, "ExtendedExamplesSection",
  CellTags->"ExtendedExamples",
  CellID->1854448968],
-Cell[14229, 488, 125, 3, 31, "ExampleSection",
+Cell[12565, 446, 125, 3, 31, "ExampleSection",
  CellID->1293636265],
-Cell[14357, 493, 148, 3, 19, "ExampleSection",
+Cell[12693, 451, 148, 3, 19, "ExampleSection",
  CellID->1020263627],
 Cell[CellGroupData[{
-Cell[14530, 500, 127, 3, 19, "ExampleSection",
+Cell[12866, 458, 127, 3, 19, "ExampleSection",
  CellID->2061341341],
-Cell[14660, 505, 130, 3, 21, "ExampleSubsection",
+Cell[12996, 463, 130, 3, 21, "ExampleSubsection",
  CellID->1757724783],
-Cell[14793, 510, 130, 3, 17, "ExampleSubsection",
+Cell[13129, 468, 130, 3, 17, "ExampleSubsection",
  CellID->1295379749]
 }, Open  ]],
-Cell[14938, 516, 131, 3, 31, "ExampleSection",
+Cell[13274, 474, 131, 3, 31, "ExampleSection",
  CellID->258228157],
-Cell[15072, 521, 142, 3, 19, "ExampleSection",
+Cell[13408, 479, 142, 3, 19, "ExampleSection",
  CellID->2123667759],
-Cell[15217, 526, 135, 3, 19, "ExampleSection",
+Cell[13553, 484, 135, 3, 19, "ExampleSection",
  CellID->1305812373],
-Cell[15355, 531, 140, 3, 19, "ExampleSection",
+Cell[13691, 489, 140, 3, 19, "ExampleSection",
  CellID->1653164318],
-Cell[15498, 536, 132, 3, 19, "ExampleSection",
+Cell[13834, 494, 132, 3, 19, "ExampleSection",
  CellID->589267740]
 }, Open  ]]
 }
